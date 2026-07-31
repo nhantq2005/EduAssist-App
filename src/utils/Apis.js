@@ -1,13 +1,15 @@
 import axios from "axios";
 
-const BASE_URL = 'http://192.168.113.105:8080/eLibrary_war/api';
+const BASE_URL = 'http://192.168.1.177:8000/api/';
 
 export const endpoints = {
-
+    login: 'users/login',
+    register: 'users/register',
+    saveSubject: 'subjects',
 };
 
 
-export const authApis = (token: string) => {
+export const authApis = (token) => {
     return axios.create({
         baseURL: BASE_URL,
         headers: {
