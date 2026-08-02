@@ -60,11 +60,14 @@ const Login = () => {
         if (res.status === 200) {
           // Lưu token vào AsyncStorage hoặc Context để sử dụng sau này
           // Ví dụ: await AsyncStorage.setItem('token', token);
-          const token = res.data.access_token; 
+          const token = res.data.access_token;
           console.log("Token:", token); // In ra token để kiểm tra
 
           setLoading(false);
-          nav.navigate("Home"); // Chuyển hướng đến màn hình chính sau khi đăng nhập thành công
+          nav.reset({
+            index: 0,
+            routes: [{ name: "TabNavigation" }],
+          });
         }
       } catch (error) {
         alert('Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
