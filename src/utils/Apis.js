@@ -1,11 +1,18 @@
 import axios from "axios";
 
-const BASE_URL = 'http://192.168.1.177:8000/api/';
+const BASE_URL = 'http://192.168.113.106:8000/api';
 
 export const endpoints = {
-    login: 'users/login',
-    register: 'users/register',
-    saveSubject: 'subjects',
+    // AUTH
+    login: '/users/login',
+    register: '/users/register',
+    // SUBJECT
+    saveSubject: '/subjects',
+    getSubjects: '/subjects',
+    // QUIZ
+    saveQuiz: '/quizzes',
+    // QUESTION
+    saveQuestion: '/questions',
 };
 
 
