@@ -1,20 +1,11 @@
 import { CircleUserRound, SquareAsterisk, Mail } from "lucide-react-native";
 import { useState } from "react";
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
-  Dimensions,
-} from "react-native";
+import { Text, TouchableOpacity, View, KeyboardAvoidingView, Platform} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import Apis, { endpoints } from "../../utils/Apis";
-
-const { width } = Dimensions.get("window");
+import { styles } from "../../styles/LoginStyle";
 
 const Login = () => {
   const nav = useNavigation();
@@ -58,11 +49,7 @@ const Login = () => {
           password: info[1].value
         });
         if (res.status === 200) {
-          // Lưu token vào AsyncStorage hoặc Context để sử dụng sau này
-          // Ví dụ: await AsyncStorage.setItem('token', token);
           const token = res.data.access_token;
-          console.log("Token:", token); // In ra token để kiểm tra
-
           setLoading(false);
           nav.reset({
             index: 0,
@@ -146,130 +133,5 @@ const Login = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#F9FAFB",
-  },
-  keyboardView: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 24,
-  },
-  header: {
-    alignItems: "center",
-    marginBottom: 40,
-  },
-  appName: {
-    fontSize: 28,
-    fontWeight: "800",
-    color: "#4F46E5",
-    letterSpacing: 0.5,
-  },
-  formContainer: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 24,
-    padding: 15,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 12,
-    elevation: 3,
-  },
-  welcomeSection: {
-    marginBottom: 32,
-  },
-  welcomeTitle: {
-    fontSize: 24,
-    fontWeight: "700",
-    color: "#111827",
-    marginBottom: 8,
-  },
-  welcomeSubtitle: {
-    fontSize: 15,
-    color: "#6B7280",
-  },
-  inputSection: {
-    gap: 16,
-  },
-  input: {
-    backgroundColor: "#FAFAFA",
-    fontSize: 15,
-  },
-  forgotPassword: {
-    alignSelf: "flex-end",
-    marginTop: 12,
-    marginBottom: 24,
-  },
-  forgotPasswordText: {
-    color: "#4F46E5",
-    fontSize: 14,
-    fontWeight: "600",
-  },
-  loginButton: {
-    backgroundColor: "#4F46E5",
-    borderRadius: 12,
-    paddingVertical: 16,
-    alignItems: "center",
-    shadowColor: "#4F46E5",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  loginButtonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  dividerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 24,
-  },
-  divider: {
-    flex: 1,
-    height: 1,
-    backgroundColor: "#E5E7EB",
-  },
-  dividerText: {
-    marginHorizontal: 12,
-    color: "#6B7280",
-    fontSize: 14,
-  },
-  googleButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FFFFFF",
-    borderWidth: 1,
-    borderColor: "#E5E7EB",
-    borderRadius: 12,
-    paddingVertical: 14,
-  },
-  googleIcon: {
-    marginRight: 10,
-  },
-  googleButtonText: {
-    color: "#374151",
-    fontSize: 15,
-    fontWeight: "600",
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 32,
-  },
-  footerText: {
-    color: "#6B7280",
-    fontSize: 15,
-  },
-  registerText: {
-    color: "#4F46E5",
-    fontSize: 15,
-    fontWeight: "700",
-  },
-});
 
 export default Login;
