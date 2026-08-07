@@ -1,12 +1,13 @@
 import { Mail, RectangleEllipsis, Users, UserRound, ArrowLeft } from "lucide-react-native";
 import { useState } from "react";
-import { StyleSheet, TouchableOpacity, View, KeyboardAvoidingView, Platform, ScrollView, Dimensions } from "react-native";
+import { TouchableOpacity, View, KeyboardAvoidingView, Platform, ScrollView, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Text, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import Apis, { endpoints } from "../../utils/Apis";
+import { styles } from "../../styles/RegisterStyle";
+import FormDropdown from "../../components/FormDropdown";
 
-const { width } = Dimensions.get("window");
 
 const Register = () => {
     const navigation = useNavigation();
@@ -21,8 +22,20 @@ const Register = () => {
         {
             field: "gender",
             placeholder: "Giới tính",
-            secure: false,
-            icon: Users
+            type: "dropdown",
+            options: [
+                { label: "Nam", value: "MALE" },
+                { label: "Nữ", value: "FEMALE" }
+            ]
+        },
+        {
+            field: "role",
+            placeholder: "Vai trò",
+            type: "dropdown",
+            options: [
+                { label: "Sinh viên", value: "STUDENT" },
+                { label: "Giảng viên", value: "TEACHER" }
+            ]
         },
         {
             field: "email",
@@ -70,29 +83,22 @@ const Register = () => {
 
     const register = async () => {
         if (validate()) {
-            // Handle registration logic here
             try {
-                setLoading(true);
-                // 1. Tạo một bản sao của state user để chuẩn bị gửi lên API                                   
-                const payload = { ...user };
-
-                // 2. Xóa trường confirmPassword vì Backend không cần thiết                                    
+                setLoading(true);                                
+                const payload = { ...user };                                  
                 delete payload.confirmPassword;
-
-                // 3. Mặc định role là STUDENT                                                                 
-                payload.role = "STUDENT";
-
-                // 4. Chuẩn hóa giới tính thành "MALE" hoặc "FEMALE" theo yêu cầu Backend                      
+                                                          
+                payload.role = payload.role || "STUDENT";
+                   
                 const genderStr = payload.gender?.toLowerCase() || "";
                 if (genderStr === "nam" || genderStr === "male") {
                     payload.gender = "MALE";
                 } else if (genderStr === "nữ" || genderStr === "female") {
                     payload.gender = "FEMALE";
                 } else {
-                    payload.gender = "MALE"; // Mặc định
+                    payload.gender = "MALE";
                 }
 
-                // 5. Gọi API
                 const res = await Apis.post(endpoints["register"], payload);
 
                 if (res.status === 201) {
@@ -131,11 +137,22 @@ const Register = () => {
 
                         <View style={styles.inputSection}>
                             {infos.map((info, index) => (
+                                info.type === "dropdown" ? (
+                                    <FormDropdown
+                                        key={index}
+                                        placeholder={info.placeholder}
+                                        initialItems={info.options}
+                                        value={user[info.field] || null}
+                                        onChangeValue={(val) => setUser({ ...user, [info.field]: val })}
+                                        zIndex={1000 - index}
+                                        icon={info.icon}
+                                    />
+                                ) : (
                                 <TextInput
                                     key={index}
                                     placeholder={info.placeholder}
                                     secureTextEntry={info.secure}
-                                    value={info.value}
+                                    value={user[info.field] || ""}
                                     mode="outlined"
                                     outlineColor="#E5E7EB"
                                     activeOutlineColor="#4F46E5"
@@ -146,6 +163,7 @@ const Register = () => {
                                     }}
                                     left={<TextInput.Icon icon={() => <info.icon size={20} color="#6B7280" />} />}
                                 />
+                                )
                             ))}
                         </View>
 
@@ -173,89 +191,3 @@ const Register = () => {
 
 export default Register;
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F9FAFB',
-    },
-    keyboardView: {
-        flex: 1,
-    },
-    scrollContent: {
-        flexGrow: 1,
-        justifyContent: 'center',
-        padding: 24,
-    },
-    header: {
-        alignItems: "center",
-        marginBottom: 32,
-    },
-    appName: {
-        fontSize: 28,
-        fontWeight: "800",
-        color: "#4F46E5",
-        letterSpacing: 0.5,
-    },
-    formContainer: {
-        backgroundColor: '#FFFFFF',
-        borderRadius: 24,
-        padding: 24,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.05,
-        shadowRadius: 12,
-        elevation: 3,
-    },
-    welcomeSection: {
-        marginBottom: 24,
-    },
-    welcomeTitle: {
-        fontSize: 24,
-        fontWeight: '700',
-        color: '#111827',
-        marginBottom: 8,
-    },
-    welcomeSubtitle: {
-        fontSize: 15,
-        color: '#6B7280',
-    },
-    inputSection: {
-        gap: 16,
-        marginBottom: 24,
-    },
-    input: {
-        backgroundColor: '#FAFAFA',
-        fontSize: 15,
-    },
-    button: {
-        backgroundColor: '#4F46E5',
-        paddingVertical: 16,
-        borderRadius: 12,
-        alignItems: 'center',
-        shadowColor: '#4F46E5',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 8,
-        elevation: 4,
-        marginBottom: 8,
-    },
-    buttonText: {
-        color: '#FFFFFF',
-        fontSize: 16,
-        fontWeight: '700',
-    },
-    footer: {
-        flexDirection: "row",
-        justifyContent: "center",
-        marginTop: 24,
-    },
-    footerText: {
-        color: "#6B7280",
-        fontSize: 15,
-    },
-    loginText: {
-        color: "#4F46E5",
-        fontSize: 15,
-        fontWeight: "700",
-    }
-});
