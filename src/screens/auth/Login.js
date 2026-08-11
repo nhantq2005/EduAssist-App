@@ -44,8 +44,8 @@ const Login = () => {
       setLoading(true);
       try {
         const res = await Apis.post(endpoints["login"], {
-          username: info[0].value,
-          password: info[1].value
+          username: info.username,
+          password: info.password
         });
         if (res.status === 200) {
           const token = res.data.access_token;
@@ -83,7 +83,7 @@ const Login = () => {
           </View>
 
           <View style={styles.inputSection}>
-            {info.map((item, index) => (
+            {infos.map((item, index) => (
               <TextInput
                 key={index}
                 placeholder={item.placeholder}
