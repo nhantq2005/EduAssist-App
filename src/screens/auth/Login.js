@@ -4,6 +4,7 @@ import { Text, TouchableOpacity, View, KeyboardAvoidingView, Platform} from "rea
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import * as SecureStore from 'expo-secure-store';
 import Apis, { endpoints } from "../../utils/Apis";
 import { styles } from "../../styles/LoginStyle";
 
@@ -26,13 +27,11 @@ const Login = () => {
     },
   ];
 
-  const [info, setInfo] = useState(
-    infos.map((item) => ({ ...item, value: "" }))
-  );
+  const [info, setInfo] = useState({});
 
   const validate = () => {
-    for (const item of info) {
-      if (!item.value.trim()) {
+    for (const item of infos) {
+      if (!info[item.field]?.trim()) {
         alert(`Vui lòng nhập ${item.field}`);
         return false;
       }
@@ -50,6 +49,7 @@ const Login = () => {
         });
         if (res.status === 200) {
           const token = res.data.access_token;
+          await SecureStore.setItemAsync('access_token', token);
           setLoading(false);
           nav.reset({
             index: 0,
@@ -93,11 +93,7 @@ const Login = () => {
                 activeOutlineColor="#4F46E5"
                 style={styles.input}
                 theme={{ roundness: 12 }}
-                onChangeText={(text) => {
-                  const newInfo = [...info];
-                  newInfo[index] = { ...newInfo[index], value: text };
-                  setInfo(newInfo);
-                }}
+                onChangeText={(text) => {setInfo({ ...info, [item.field]: text })}}
                 left={<TextInput.Icon icon={() => <item.icon size={20} color="#6B7280" />} />}
               />
             ))}
