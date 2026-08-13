@@ -17,8 +17,9 @@ const Home = () => {
       setLoading(true);
       const res = await Apis.get(endpoints['getSubjects']);
       setSubjects(res.data);
+      console.log('Danh sách môn học:', res.data);
     } catch (error) {
-      console.error('Loi load du lieu:', error);
+      console.error('Lỗi khi tải danh sách môn học:', error);
     } finally {
       setLoading(false);
     }
