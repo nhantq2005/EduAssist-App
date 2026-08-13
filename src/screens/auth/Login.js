@@ -1,16 +1,18 @@
 import { CircleUserRound, SquareAsterisk, Mail } from "lucide-react-native";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Text, TouchableOpacity, View, KeyboardAvoidingView, Platform} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import * as SecureStore from 'expo-secure-store';
-import Apis, { endpoints } from "../../utils/Apis";
+import Apis, { authApis, endpoints } from "../../utils/Apis";
 import { styles } from "../../styles/LoginStyle";
+import { MyUserContext } from "../../utils/MyContexts";
 
 const Login = () => {
   const nav = useNavigation();
   const [loading, setLoading] = useState(false);
+  const [, dispatch] = useContext(MyUserContext);
 
   const infos = [
     {
@@ -50,7 +52,8 @@ const Login = () => {
         if (res.status === 200) {
           const token = res.data.access_token;
           await SecureStore.setItemAsync('access_token', token);
-          setLoading(false);
+          const userRes = await authApis(token).get(endpoints['getCurrentUser']);
+          dispatch({ type: 'login', payload: userRes.data });
           nav.reset({
             index: 0,
             routes: [{ name: "TabNavigation" }],
