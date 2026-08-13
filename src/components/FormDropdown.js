@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View } from "react-native";
+import { View, Platform } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { styles } from "../styles/RegisterStyle";
 
