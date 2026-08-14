@@ -1,13 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
-import { Home as HomeIcon, User, LibraryBig, MessageCircleMore, SquareMenu } from 'lucide-react-native';
+import { Home as HomeIcon, User, SquareMenu, Astroid } from 'lucide-react-native';
 import { useTheme } from 'react-native-paper';
 import Home from '../screens/subject/Home';
 import Chat from '../screens/chat/Chat';
 import Quiz from '../screens/quiz/Quiz';
 import Account from '../screens/auth/Account';
-import Subject from '../screens/subject/Subject';
-
 
 const Tab = createBottomTabNavigator();
 const TabIcon = ({ IconComponent, focused, color, size }) => {
@@ -58,7 +56,7 @@ const TabNavigation = () => {
         >
             <Tab.Screen
                 name="HomeMain"
-                component={Subject}
+                component={Home}
                 options={{
                     title: 'Trang chủ',
                     tabBarIcon: (props) => <TabIcon IconComponent={HomeIcon} {...props} />,
@@ -70,7 +68,7 @@ const TabNavigation = () => {
                 component={Chat}
                 options={{
                     title: 'Hỏi đáp',
-                    tabBarIcon: (props) => <TabIcon IconComponent={MessageCircleMore} {...props} />,
+                    tabBarIcon: (props) => <TabIcon IconComponent={Astroid} {...props} />,
                 }}
             />
 
