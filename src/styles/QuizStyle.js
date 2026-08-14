@@ -21,9 +21,9 @@ export const styles = StyleSheet.create({
         minHeight: 48,
     },
     backBtn: {
-        width: 44,
-        height: 44,
-        borderRadius: 22,
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        borderRadius: 24,
         backgroundColor: '#ffffff',
         justifyContent: 'center',
         alignItems: 'center',
@@ -32,6 +32,11 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.05,
         shadowRadius: 8,
         elevation: 2,
+    },
+    backBtnText: {
+        color: '#1f2937',
+        fontSize: 14,
+        fontWeight: '600',
     },
     headerRight: {
         flexDirection: 'row',
@@ -90,7 +95,7 @@ export const styles = StyleSheet.create({
     },
     fab: {
         position: 'absolute',
-        bottom: 24,
+        bottom: 85,
         right: 24,
         width: 60,
         height: 60,
