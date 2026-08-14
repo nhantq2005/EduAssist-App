@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Apis, { endpoints } from "../../utils/Apis";
 import DocumentItem from "../../components/DocumentItem";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Astroid } from "lucide-react-native";
+import { FilePlusCorner } from "lucide-react-native";
 import { styles } from "../../styles/SubjectStyle";
 import { MyUserContext } from "../../utils/MyContexts";
 
@@ -99,7 +99,7 @@ console.log("User context:", user);
 
             {subject && user.role == 'LECTURER' && (
                 <TouchableOpacity style={styles.fab} activeOpacity={0.8} onPress={() => nav.navigate('EditDocument', { subjectId: subject.id })}>
-                    <Astroid size={28} color="#ffffff" />
+                    <FilePlusCorner size={28} color="#ffffff" />
                 </TouchableOpacity>
             )}
         </SafeAreaView>
