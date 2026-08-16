@@ -10,6 +10,7 @@ import TabNavigation from './TabNavigation';
 import Subject from '../screens/subject/Subject';
 import Chat from '../screens/chat/Chat';
 import TakeQuiz from '../screens/quiz/TakeQuiz';
+import QuizResult from '../screens/quiz/QuizResult';
 import Question from '../screens/question/Question';
 import EditDocument from '../screens/document/EditDocument';
 import DocumentView from '../screens/document/DocumentView';
@@ -24,6 +25,7 @@ const AppNavigator = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="TabNavigation" component={TabNavigation} />
         <Stack.Screen name="TakeQuiz" component={TakeQuiz} />
+        <Stack.Screen name="QuizResult" component={QuizResult} />
         <Stack.Screen name="EditQuiz" component={EditQuiz} />
         <Stack.Screen name="EditSubject" component={EditSubject} />
         <Stack.Screen name="Login" component={Login} />
