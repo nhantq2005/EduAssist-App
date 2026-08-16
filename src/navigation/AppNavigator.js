@@ -12,6 +12,8 @@ import Chat from '../screens/chat/Chat';
 import TakeQuiz from '../screens/quiz/TakeQuiz';
 import Question from '../screens/question/Question';
 import EditDocument from '../screens/document/EditDocument';
+import DocumentView from '../screens/document/DocumentView';
+import EditQuestion from '../screens/question/EditQuestion';
 
 
 const Stack = createNativeStackNavigator();
@@ -31,6 +33,8 @@ const AppNavigator = () => {
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="Question" component={Question} />
         <Stack.Screen name="EditDocument" component={EditDocument} />
+        <Stack.Screen name="DocumentView" component={DocumentView} />
+        <Stack.Screen name="EditQuestion" component={EditQuestion} />
       </Stack.Navigator>
     </NavigationContainer>
   );
