@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 const SubjectItem = ({ subject, iconName, color, onPress }) => {
-  // const color = '#6366f1'; // You can customize the color based on your needs
+  // const color = '#4F46E5'; // You can customize the color based on your needs
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.8} onPress={onPress}>
       <View style={styles.headerRow}>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     padding: 18,
     borderRadius: 20,
     marginVertical: 10,
-    shadowColor: '#6366f1',
+    shadowColor: '#4F46E5',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.1,
     shadowRadius: 16,

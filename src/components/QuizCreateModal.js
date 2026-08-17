@@ -235,10 +235,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: 10,
     },
-    groupButtonSelected: {
-        backgroundColor: '#eff6ff',
-        borderColor: '#3b82f6',
-    },
     footer: {
         flexDirection: 'row',
         paddingHorizontal: 24,
