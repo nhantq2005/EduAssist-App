@@ -8,14 +8,14 @@ import { MyUserContext } from "../../utils/MyContexts";
 
 const Account = () => {
   const [user, dispatch] = useContext(MyUserContext);
-  const navigation = useNavigation();
+  const nav = useNavigation();
 
   const menuItems = [
     {
       title: "Cài đặt tài khoản",
       items: [
         { icon: User, label: "Thông tin cá nhân", route: "Profile" },
-        { icon: FolderClock, label: "Lịch sử trắc nghiệm", route: "LearningHistory" },
+        { icon: FolderClock, label: "Lịch sử trắc nghiệm", route: "QuizAttempt" },
         { icon: Settings, label: "Đổi mật khẩu", route: "ChangePassword" },
         { icon: Bell, label: "Thông báo", route: "Notifications" },
 
@@ -31,7 +31,7 @@ const Account = () => {
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
-    navigation.navigate("Login");
+    nav.navigate("Login");
   };
 
   return (
@@ -68,7 +68,7 @@ const Account = () => {
                     index !== section.items.length - 1 && styles.borderBottom,
                   ]}
                   onPress={() => {
-                    console.log(`Navigate to ${item.route}`);
+                    nav.navigate(item.route);
                   }}
                 >
                   <View style={styles.menuItemLeft}>
