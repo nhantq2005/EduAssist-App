@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet, Platform } from "react-native";
 
 const { width } = Dimensions.get('window');
 export const styles = StyleSheet.create({
@@ -76,14 +76,6 @@ export const styles = StyleSheet.create({
         fontWeight: '800',
         color: '#0f172a',
     },
-    headerSubtitle: {
-        fontSize: 13,
-        color: '#10b981',
-        fontWeight: '500',
-    },
-    moreButton: {
-        padding: 8,
-    },
     keyboardView: {
         flex: 1,
     },
@@ -105,7 +97,6 @@ export const styles = StyleSheet.create({
     },
     botContentContainer: {
         flex: 1,
-        paddingRight: 16,
     },
     botAvatar: {
         width: 36,
@@ -138,26 +129,12 @@ export const styles = StyleSheet.create({
         shadowRadius: 8,
         elevation: 4,
     },
-    botBubble: {
-        backgroundColor: '#ffffff',
-        borderBottomLeftRadius: 4,
-        borderWidth: 1,
-        borderColor: '#f1f5f9',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 6,
-        elevation: 2,
-    },
     messageText: {
         fontSize: 15,
         lineHeight: 22,
     },
     userMessageText: {
         color: '#ffffff',
-    },
-    botMessageText: {
-        color: '#334155',
     },
     timestamp: {
         fontSize: 11,
@@ -217,3 +194,61 @@ export const styles = StyleSheet.create({
         backgroundColor: '#f1f5f9',
     },
 });
+
+export const markdownStyles = {
+    body: {
+        fontSize: 15,
+        lineHeight: 22,
+        color: '#334155',
+    },
+    heading1: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#0f172a',
+        marginTop: 16,
+        marginBottom: 8,
+    },
+    heading2: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#0f172a',
+        marginTop: 14,
+        marginBottom: 6,
+    },
+    heading3: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#0f172a',
+        marginTop: 12,
+        marginBottom: 6,
+    },
+    code_inline: {
+        backgroundColor: '#f1f5f9',
+        padding: 4,
+        borderRadius: 4,
+        fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
+    },
+    code_block: {
+        backgroundColor: '#1e293b',
+        color: '#F9FAFB',
+        padding: 10,
+        borderRadius: 8,
+        fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
+        marginVertical: 8,
+    },
+    fence: {
+        backgroundColor: '#1e293b',
+        color: '#F9FAFB',
+        padding: 10,
+        borderRadius: 8,
+        fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
+        marginVertical: 8,
+    },
+    paragraph: {
+        marginTop: 0,
+        marginBottom: 8,
+    },
+    list_item: {
+        marginBottom: 4,
+    }
+};
