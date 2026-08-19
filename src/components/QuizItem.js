@@ -1,0 +1,183 @@
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
+const QuizItem = ({ 
+  title, 
+  description, 
+  timeLimit, 
+  difficultyLevel: rawDifficulty, 
+  sourceType, 
+  score, 
+  onPress 
+}) => {
+  const isCompleted = score !== undefined && score !== null;
+  const difficultyMapping = {
+    EASY: { color: '#10b981', text: 'Dễ' },
+    MEDIUM: { color: '#f59e0b', text: 'Trung bình' },
+    HARD: { color: '#ef4444', text: 'Khó' },
+  };
+
+  const difficultyLevel = rawDifficulty?.toUpperCase();
+  const currentDiff = difficultyMapping[difficultyLevel] || { color: '#3b82f6', text: difficultyLevel || 'Quiz' };
+
+  return (
+    <TouchableOpacity style={styles.container} activeOpacity={0.8} onPress={onPress}>
+      <View style={styles.header}>
+        <View style={styles.badgesContainer}>
+          <View style={[styles.difficultyBadge, { backgroundColor: `${currentDiff.color}15` }]}>
+            <View style={[styles.dot, { backgroundColor: currentDiff.color }]} />
+            <Text style={[styles.difficultyText, { color: currentDiff.color }]}>
+              {currentDiff.text}
+            </Text>
+          </View>
+          
+          {sourceType === 'AI_GENERATED' && (
+            <View style={styles.aiBadge}>
+              <Ionicons name="sparkles" size={12} color="#8b5cf6" style={styles.aiIcon} />
+              <Text style={styles.aiText}>AI Sinh</Text>
+            </View>
+          )}
+        </View>
+
+        {isCompleted && (
+          <View style={styles.scoreContainer}>
+            <Text style={styles.scoreText}>{score} đ</Text>
+          </View>
+        )}
+      </View>
+      
+      <Text style={styles.title} numberOfLines={2}>{title}</Text>
+      
+      {description ? (
+        <Text style={styles.description} numberOfLines={2}>{description}</Text>
+      ) : null}
+      
+      <View style={styles.footer}>        
+        <View style={styles.metaInfo}>
+          <View style={styles.iconBox}>
+            <Ionicons name="help-circle-outline" size={16} color="#10b981" />
+          </View>
+          <Text style={styles.metaText}>Trắc nghiệm</Text>
+        </View>
+        
+        <Ionicons name="chevron-forward" size={20} color="#cbd5e1" style={{ marginLeft: 'auto' }} />
+      </View>
+    </TouchableOpacity>
+  );
+}
+
+export default QuizItem;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    padding: 18,
+    marginVertical: 8,
+    borderWidth: 1,
+    borderColor: '#f1f5f9',
+    shadowColor: '#4F46E5',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.08,
+    shadowRadius: 16,
+    elevation: 4,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  badgesContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  difficultyBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
+  },
+  dot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    marginRight: 6,
+  },
+  difficultyText: {
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  aiBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f5f3ff',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ede9fe',
+    marginLeft: 8,
+  },
+  aiIcon: {
+    marginRight: 4,
+  },
+  aiText: {
+    color: '#8b5cf6',
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  scoreContainer: {
+    backgroundColor: '#ecfdf5',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  scoreText: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: '#059669',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#0f172a',
+    marginBottom: 6,
+    lineHeight: 24,
+  },
+  description: {
+    fontSize: 14,
+    color: '#64748b',
+    marginBottom: 16,
+    lineHeight: 20,
+  },
+  footer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: '#f1f5f9',
+    paddingTop: 16,
+    marginTop: 4,
+  },
+  metaInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 20,
+  },
+  iconBox: {
+    width: 28,
+    height: 28,
+    borderRadius: 8,
+    backgroundColor: '#F9FAFB',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 8,
+  },
+  metaText: {
+    fontSize: 14,
+    color: '#475569',
+    fontWeight: '500',
+  },
+});

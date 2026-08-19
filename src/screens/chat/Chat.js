@@ -92,65 +92,144 @@ const Chat = () => {
         loadChatSessions();
     }, [isDrawerOpen]);
 
-    const handleSend = async () => {
-        if (inputText.trim() === '') return;
+    // const handleSend = async () => {
+    //     if (inputText.trim() === '') return;
 
-        const userText = inputText;
-        const userMsgId = Date.now().toString();
-        const botMsgId = (Date.now() + 1).toString();
+    //     const userText = inputText;
+    //     const userMsgId = Date.now().toString();
+    //     const botMsgId = (Date.now() + 1).toString();
 
-        setMessages(prev => [...prev, {
-            id: userMsgId,
-            text: userText,
-            sender: 'user',
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        }]);
+    //     setMessages(prev => [...prev, {
+    //         id: userMsgId,
+    //         text: userText,
+    //         sender: 'user',
+    //         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    //     }]);
 
-        setMessages(prev => [...prev, {
-            id: botMsgId,
-            text: '',
-            sender: 'bot',
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        }]);
+    //     setMessages(prev => [...prev, {
+    //         id: botMsgId,
+    //         text: '',
+    //         sender: 'bot',
+    //         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    //     }]);
 
-        setInputText('');
-        setLoading(true);
+    //     setInputText('');
+    //     setLoading(true);
 
-        const token = await SecureStore.getItemAsync('access_token');
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', `${Apis.defaults.baseURL}${endpoints['ragChat']}`, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        if (token) {
-            xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-        }
+    //     const token = await SecureStore.getItemAsync('access_token');
+    //     const xhr = new XMLHttpRequest();
+    //     xhr.open('POST', `${Apis.defaults.baseURL}${endpoints['ragChat']}`, true);
+    //     xhr.setRequestHeader('Content-Type', 'application/json');
+    //     if (token) {
+    //         xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+    //     }
 
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 3) {
-                let responseText = xhr.responseText;
-                let cleanText = responseText
-                    .split('data: ')
-                    .map(chunk => chunk.replace(/(?:\r?\n){2}$/, ''))
-                    .join('');
+    //     xhr.onreadystatechange = () => {
+    //         if (xhr.readyState === 3) {
+    //             let responseText = xhr.responseText;
+    //             let cleanText = responseText
+    //                 .split('data: ')
+    //                 .map(chunk => chunk.replace(/(?:\r?\n){2}$/, ''))
+    //                 .join('');
 
-                setMessages(prevMessages =>
-                    prevMessages.map(msg =>
-                        msg.id === botMsgId
-                            ? { ...msg, text: cleanText }
-                            : msg
-                    )
-                );
-            }
+    //             setMessages(prevMessages =>
+    //                 prevMessages.map(msg =>
+    //                     msg.id === botMsgId
+    //                         ? { ...msg, text: cleanText }
+    //                         : msg
+    //                 )
+    //             );
+    //         }
 
-            if (xhr.readyState === 4) {
-                setLoading(false);
-            }
-        };
+    //         if (xhr.readyState === 4) {
+    //             setLoading(false);
+    //         }
+    //     };
 
-        xhr.send(JSON.stringify({
-            question: userText,
-            chat_session_id: activeMenuItem
-        }));
-    };
+    //     xhr.send(JSON.stringify({
+    //         question: userText,
+    //         chat_session_id: activeMenuItem
+    //     }));
+    // };
+
+    const handleSend = async () => {                                                                                                                                                                                             
+        if (inputText.trim() === '') return;                                                                                                                                                                                     
+                                                                                                                                                                                                                                 
+        // 1. Kiểm tra xem đã có phiên chat hợp lệ (số) chưa                                                                                                                                                                     
+        let currentSessionId = activeMenuItem;                                                                                                                                                                                   
+        if (currentSessionId === 'history' || !currentSessionId) {                                                                                                                                                               
+            // Tự động tạo phiên chat mới nếu chưa có                                                                                                                                                                            
+            try {                                                                                                                                                                                                                
+                const token = await SecureStore.getItemAsync('access_token');                                                                                                                                                    
+                const res = await authApis(token).post(endpoints['createChatSession'], { title: 'Đoạn chat mới' });                                                                                                              
+                currentSessionId = res.data.id;                                                                                                                                                                                  
+                setActiveMenuItem(currentSessionId);                                                                                                                                                                             
+                loadChatSessions(); // Cập nhật lại list menu                                                                                                                                                                    
+            } catch (error) {                                                                                                                                                                                                    
+                console.error("Lỗi khi tạo phiên chat mới:", error);                                                                                                                                                             
+                return; // Dừng lại nếu tạo lỗi                                                                                                                                                                                  
+            }                                                                                                                                                                                                                    
+        }                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                 
+        const userText = inputText;                                                                                                                                                                                              
+        const userMsgId = Date.now().toString();                                                                                                                                                                                 
+        const botMsgId = (Date.now() + 1).toString();                                                                                                                                                                            
+                                                                                                                                                                                                                                 
+        // ... (Giữ nguyên đoạn setMessages của bạn)                                                                                                                                                                             
+        setMessages(prev => [...prev, {                                                                                                                                                                                          
+            id: userMsgId,                                                                                                                                                                                                       
+            text: userText,                                                                                                                                                                                                      
+            sender: 'user',                                                                                                                                                                                                      
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })                                                                                                                                 
+        }]);                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                 
+        setMessages(prev => [...prev, {                                                                                                                                                                                          
+            id: botMsgId,                                                                                                                                                                                                        
+            text: '',                                                                                                                                                                                                            
+            sender: 'bot',                                                                                                                                                                                                       
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })                                                                                                                                 
+        }]);                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                 
+        setInputText('');                                                                                                                                                                                                        
+        setLoading(true);                                                                                                                                                                                                        
+                                                                                                                                                                                                                                 
+        const token = await SecureStore.getItemAsync('access_token');                                                                                                                                                            
+        const xhr = new XMLHttpRequest();                                                                                                                                                                                        
+        xhr.open('POST', `${Apis.defaults.baseURL}${endpoints['ragChat']}`, true);                                                                                                                                               
+        xhr.setRequestHeader('Content-Type', 'application/json');                                                                                                                                                                
+        if (token) {                                                                                                                                                                                                             
+            xhr.setRequestHeader('Authorization', `Bearer ${token}`);                                                                                                                                                            
+        }                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                 
+        // ... (Giữ nguyên đoạn onreadystatechange)                                                                                                                                                                              
+        xhr.onreadystatechange = () => {                                                                                                                                                                                         
+            if (xhr.readyState === 3) {                                                                                                                                                                                          
+                let responseText = xhr.responseText;                                                                                                                                                                             
+                let cleanText = responseText                                                                                                                                                                                     
+                    .split('data: ')                                                                                                                                                                                             
+                    .map(chunk => chunk.replace(/(?:\r?\n){2}$/, ''))                                                                                                                                                            
+                    .join('');                                                                                                                                                                                                   
+                                                                                                                                                                                                                                 
+                setMessages(prevMessages =>                                                                                                                                                                                      
+                    prevMessages.map(msg =>                                                                                                                                                                                      
+                        msg.id === botMsgId                                                                                                                                                                                      
+                            ? { ...msg, text: cleanText }                                                                                                                                                                        
+                            : msg                                                                                                                                                                                                
+                    )                                                                                                                                                                                                            
+                );                                                                                                                                                                                                               
+            }                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                 
+            if (xhr.readyState === 4) {                                                                                                                                                                                          
+                setLoading(false);                                                                                                                                                                                               
+            }                                                                                                                                                                                                                    
+        };                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                 
+        // 2. Gửi request với currentSessionId (chắc chắn là SỐ INT)                                                                                                                                                             
+        xhr.send(JSON.stringify({                                                                                                                                                                                                
+            question: userText,                                                                                                                                                                                                  
+            chat_session_id: currentSessionId                                                                                                                                                                                    
+        }));                                                                                                                                                                                                                     
+    };       
 
     const renderMessage = ({ item }) => {
         const isUser = item.sender === 'user' || item.key;
