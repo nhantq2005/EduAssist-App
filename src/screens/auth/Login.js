@@ -1,6 +1,6 @@
 import { CircleUserRound, SquareAsterisk, Mail } from "lucide-react-native";
 import { useContext, useState } from "react";
-import { Text, TouchableOpacity, View, KeyboardAvoidingView, Platform} from "react-native";
+import { Text, TouchableOpacity, View, KeyboardAvoidingView, Platform, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
@@ -73,11 +73,11 @@ const Login = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.keyboardView}
       >
-        <View style={styles.header}>
-          <Text style={styles.appName}>Trợ giảng AI</Text>
-        </View>
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <View style={styles.header}>
+            <Text style={styles.appName}>EduAssist</Text>
+          </View>
 
-        <View style={styles.formContainer}>
           <View style={styles.welcomeSection}>
             <Text style={styles.welcomeTitle}>Chào mừng trở lại</Text>
             <Text style={styles.welcomeSubtitle}>
@@ -96,7 +96,7 @@ const Login = () => {
                 activeOutlineColor="#4F46E5"
                 style={styles.input}
                 theme={{ roundness: 12 }}
-                onChangeText={(text) => {setInfo({ ...info, [item.field]: text })}}
+                onChangeText={(text) => { setInfo({ ...info, [item.field]: text }) }}
                 left={<TextInput.Icon icon={() => <item.icon size={20} color="#6B7280" />} />}
               />
             ))}
@@ -117,7 +117,7 @@ const Login = () => {
           </View>
 
           <TouchableOpacity style={styles.googleButton}>
-            <Mail size={20} color="#4B5563" style={styles.googleIcon} />
+            <Image source={require("../../../assets/google.png")} style={styles.googleIcon} />
             <Text style={styles.googleButtonText}>Đăng nhập với Google</Text>
           </TouchableOpacity>
         </View>
