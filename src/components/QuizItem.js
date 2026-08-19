@@ -2,15 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const QuizItem = ({ 
-  title, 
-  description, 
-  timeLimit, 
-  difficultyLevel: rawDifficulty, 
-  sourceType, 
-  score, 
-  onPress 
-}) => {
+const QuizItem = ({ title, description, difficultyLevel: rawDifficulty, sourceType, score, onPress }) => {
   const isCompleted = score !== undefined && score !== null;
   const difficultyMapping = {
     EASY: { color: '#10b981', text: 'Dễ' },
