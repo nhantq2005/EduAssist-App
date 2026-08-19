@@ -84,12 +84,12 @@ const Register = () => {
     const register = async () => {
         if (validate()) {
             try {
-                setLoading(true);                                
-                const payload = { ...user };                                  
+                setLoading(true);
+                const payload = { ...user };
                 delete payload.confirmPassword;
-                                                          
+
                 payload.role = payload.role || "STUDENT";
-                   
+
                 const genderStr = payload.gender?.toLowerCase() || "";
                 if (genderStr === "nam" || genderStr === "male") {
                     payload.gender = "MALE";
@@ -114,7 +114,7 @@ const Register = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView edges={['top']} style={styles.container}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.keyboardView}
@@ -124,10 +124,10 @@ const Register = () => {
                     contentContainerStyle={styles.scrollContent}
                 >
                     <View style={styles.header}>
-                        <Text style={styles.appName}>Trợ giảng AI</Text>
+                        <Text style={styles.appName}>EduAssist</Text>
                     </View>
 
-                    <View style={styles.formContainer}>
+                    <View >
                         <View style={styles.welcomeSection}>
                             <Text style={styles.welcomeTitle}>Tạo tài khoản</Text>
                             <Text style={styles.welcomeSubtitle}>
@@ -148,21 +148,21 @@ const Register = () => {
                                         icon={info.icon}
                                     />
                                 ) : (
-                                <TextInput
-                                    key={index}
-                                    placeholder={info.placeholder}
-                                    secureTextEntry={info.secure}
-                                    value={user[info.field] || ""}
-                                    mode="outlined"
-                                    outlineColor="#E5E7EB"
-                                    activeOutlineColor="#4F46E5"
-                                    style={styles.input}
-                                    theme={{ roundness: 12 }}
-                                    onChangeText={(text) => {
-                                        setUser({ ...user, [info.field]: text });
-                                    }}
-                                    left={<TextInput.Icon icon={() => <info.icon size={20} color="#6B7280" />} />}
-                                />
+                                    <TextInput
+                                        key={index}
+                                        placeholder={info.placeholder}
+                                        secureTextEntry={info.secure}
+                                        value={user[info.field] || ""}
+                                        mode="outlined"
+                                        outlineColor="#E5E7EB"
+                                        activeOutlineColor="#4F46E5"
+                                        style={styles.input}
+                                        theme={{ roundness: 12 }}
+                                        onChangeText={(text) => {
+                                            setUser({ ...user, [info.field]: text });
+                                        }}
+                                        left={<TextInput.Icon icon={() => <info.icon size={20} color="#6B7280" />} />}
+                                    />
                                 )
                             ))}
                         </View>

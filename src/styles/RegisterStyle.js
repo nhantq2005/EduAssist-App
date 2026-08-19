@@ -14,7 +14,6 @@ export const styles = StyleSheet.create({
         padding: 24,
     },
     header: {
-        alignItems: "center",
         marginBottom: 32,
     },
     appName: {
@@ -22,16 +21,6 @@ export const styles = StyleSheet.create({
         fontWeight: "800",
         color: "#4F46E5",
         letterSpacing: 0.5,
-    },
-    formContainer: {
-        backgroundColor: '#FFFFFF',
-        borderRadius: 24,
-        padding: 24,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.05,
-        shadowRadius: 12,
-        elevation: 3,
     },
     welcomeSection: {
         marginBottom: 24,
