@@ -11,6 +11,7 @@ const Home = () => {
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const nav = useNavigation();
+  const COLOR = ['#4F46E5', '#10b981', '#f59e0b', '#ec4899'];
 
   const loadSubjects = async () => {
     try {
@@ -32,7 +33,7 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <StatusBar barStyle="dark-content" backgroundColor="#F9FAFB" />
-      {/* HEADER */}
+      
       <View style={styles.headerContainer}>
         <View style={styles.headerTextContainer}>
           <Text style={styles.greeting}>Xin chào,</Text>
@@ -48,8 +49,6 @@ const Home = () => {
           <ActivityIndicator size="large" color="#4F46E5" />
         </View>
       ) : (
-
-        // HIEN THI DSACH MON HOC
         < FlatList
           data={subjects}
           keyExtractor={(item) => item.id.toString()}
@@ -59,7 +58,7 @@ const Home = () => {
             <SubjectItem
               subject={item}
               iconName="book"
-              color={['#4F46E5', '#10b981', '#f59e0b', '#ec4899'][index % 4]}
+              color={COLOR[index % 4]}
               onPress={() => nav.navigate('Subject', { subjectId: item.id })}
             />
           )}
