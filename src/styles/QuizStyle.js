@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     },
     listContent: {
         paddingHorizontal: 20,
-        paddingBottom: 100, // padding to avoid FAB
+        paddingBottom: 100,
     },
     headerContainer: {
         paddingTop: 12,

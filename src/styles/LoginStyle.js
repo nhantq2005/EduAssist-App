@@ -11,7 +11,6 @@ export const styles = StyleSheet.create({
     padding: 24,
   },
   header: {
-    alignItems: "center",
     marginBottom: 40,
   },
   appName: {
@@ -19,16 +18,6 @@ export const styles = StyleSheet.create({
     fontWeight: "800",
     color: "#4F46E5",
     letterSpacing: 0.5,
-  },
-  formContainer: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 24,
-    padding: 15,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 12,
-    elevation: 3,
   },
   welcomeSection: {
     marginBottom: 32,
@@ -96,13 +85,18 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#FFFFFF",
-    borderWidth: 1,
-    borderColor: "#E5E7EB",
     borderRadius: 12,
+    shadowColor: "#acacac",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
     paddingVertical: 14,
   },
   googleIcon: {
     marginRight: 10,
+    width: 20,
+    height: 20,
   },
   googleButtonText: {
     color: "#374151",
