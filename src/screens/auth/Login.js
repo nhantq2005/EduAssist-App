@@ -110,23 +110,22 @@ const Login = () => {
             <Text style={styles.loginButtonText}>Đăng nhập</Text>
           </TouchableOpacity>
 
-          <View style={styles.dividerContainer}>
+          {/* <View style={styles.dividerContainer}>
             <View style={styles.divider} />
             <Text style={styles.dividerText}>Hoặc tiếp tục với</Text>
             <View style={styles.divider} />
-          </View>
+          </View> */}
 
-          <TouchableOpacity style={styles.googleButton}>
+          {/* <TouchableOpacity style={styles.googleButton}>
             <Image source={require("../../../assets/google.png")} style={styles.googleIcon} />
             <Text style={styles.googleButtonText}>Đăng nhập với Google</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>Bạn chưa có tài khoản? </Text>
-          <TouchableOpacity onPress={() => nav.navigate("Register")}>
-            <Text style={styles.registerText}>Đăng ký</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <View style={styles.footer}>
+            <Text style={styles.footerText}>Bạn chưa có tài khoản? </Text>
+            <TouchableOpacity onPress={() => nav.navigate("Register")}>
+              <Text style={styles.registerText}>Đăng ký</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
