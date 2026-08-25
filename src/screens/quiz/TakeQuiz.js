@@ -9,6 +9,7 @@ import { authApis, endpoints } from '../../utils/Apis';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 const TakeQuiz = () => {
+    const [isLoading, setIsLoading] = useState(true);
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedOption, setSelectedOption] = useState(null);
@@ -75,12 +76,15 @@ const TakeQuiz = () => {
 
     const loadQuestions = async () => {
         try {
+            setIsLoading(true);
             await AsyncStorage.removeItem(`quiz_answers_${quizId}`);
             const token = await SecureStore.getItemAsync('access_token');
             const res = await authApis(token).get(endpoints['getQuestionsByQuizId'](quizId));
             setQuestions(res.data);
         } catch (error) {
             console.error("Lỗi khi tải câu hỏi:", error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -95,13 +99,17 @@ const TakeQuiz = () => {
         <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
             <StatusBar barStyle="dark-content" backgroundColor="#F9FAFB" />
 
-            {questions.length === 0 ? (
+            {isLoading ? (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Text>Đang tải dữ liệu...</Text>
                 </View>
+            ) : questions.length === 0 ? (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>Không có câu hỏi nào.</Text>
+                </View>
             ) : (
                 <>
-                    {/* Header */}
+                    {/* HEADER */}
                     <View style={styles.header}>
                         <TouchableOpacity style={styles.backButton} onPress={() => navigation?.goBack?.()}>
                             <ArrowLeft color="#334155" size={24} />
@@ -110,7 +118,7 @@ const TakeQuiz = () => {
                         <View style={{ width: 24 }} />
                     </View>
 
-                    {/* Progress Bar */}
+                    {/* THANH TIEN DO */}
                     <View style={styles.progressContainer}>
                         <View style={styles.progressTextContainer}>
                             <Text style={styles.progressText}>Câu hỏi {currentQuestionIndex + 1} <Text style={styles.progressTotal}>/ {questions.length}</Text></Text>
@@ -125,12 +133,12 @@ const TakeQuiz = () => {
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={styles.scrollContent}
                     >
-                        {/* Question */}
+                        {/* CAU HOI */}
                         <View style={styles.questionContainer}>
                             <Text style={styles.questionText}>{currentQuestion.question}</Text>
                         </View>
 
-                        {/* Options */}
+                        {/* OPTS */}
                         <View style={styles.optionsContainer}>
                             {currentQuestion.options.map((option, index) => {
                                 let optionStyle = styles.optionCard;
@@ -202,7 +210,6 @@ const TakeQuiz = () => {
                         )}
                     </ScrollView>
 
-                    {/* Bottom Actions */}
                     {isAnswered && (
                         <View style={styles.bottomContainer}>
                             <TouchableOpacity
