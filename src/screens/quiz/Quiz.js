@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import Apis, { authApis, endpoints } from "../../utils/Apis";
@@ -23,6 +23,7 @@ const Quiz = () => {
             setLoading(true);
             const token = await SecureStore.getItemAsync('access_token');
             const res = await authApis(token).get(endpoints['getQuizzes']);
+            console.log("Danh sách bài trắc nghiệm:", res.data);
             setQuizList(res.data);
         } catch (error) {
             console.error("Lỗi khi tải bài trắc nghiệm:", error);
@@ -30,6 +31,36 @@ const Quiz = () => {
             setLoading(false);
         }
     };
+
+    const deleteQuiz = async (quizId) => {
+        Alert.alert(
+            "Xác nhận xóa",
+            "Bạn có chắc chắn muốn xóa bài trắc nghiệm này không?",
+            [
+                { text: "Hủy", style: "cancel" },
+                {
+                    text: "Xóa",
+                    style: "destructive",
+                    onPress: async () => {
+                        try {
+                            setLoading(true);
+                            const token = await SecureStore.getItemAsync('access_token');
+                            const res = await authApis(token).delete(endpoints['deleteQuiz'](quizId));
+                            if (res.status === 204) {
+                                alert("Xóa bài trắc nghiệm thành công!");
+                            }
+                            await loadQuiz();
+                        } catch (error) {
+                            alert("Xóa bài trắc nghiệm thất bại. Vui lòng thử lại.");
+                            console.error("Lỗi khi xóa bài trắc nghiệm:", error);
+                        } finally {
+                            setLoading(false);
+                        }
+                    }
+                }
+            ]
+        );
+    }
 
 
     useEffect(() => {
@@ -50,7 +81,7 @@ const Quiz = () => {
                 ListHeaderComponent={
                     <View style={styles.headerContainer}>
                         <View style={styles.topBar}>
-                            <TouchableOpacity onPress={() => {setIsModalVisible(true); setTypeQuiz("TEACHER_CREATED");}} style={styles.backBtn}>
+                            <TouchableOpacity onPress={() => { setIsModalVisible(true); setTypeQuiz("TEACHER_CREATED"); }} style={styles.backBtn}>
                                 {/* <Ionicons name="arrow-back" size={24} color="#1f2937" /> */}
                                 <Text style={styles.backBtnText}>Tạo trắc nghiệm</Text>
                             </TouchableOpacity>
@@ -69,14 +100,13 @@ const Quiz = () => {
                 }
                 renderItem={({ item }) => (
                     <QuizItem
-                        title={item.title}
-                        description={item.description}
-                        timeLimit={item.time_limit}
-                        difficultyLevel={item.difficulty_level}
-                        sourceType={item.source_type}
-                        score={item.score}
+                        item={item}
                         onPress={() => {
                             nav.navigate("TakeQuiz", { quizId: item.id });
+                        }}
+                        onDelete={() => {deleteQuiz(item.id)}}
+                        onEdit={() => {
+                            // Handle edit logic here
                         }}
                     />
                 )}
@@ -94,7 +124,7 @@ const Quiz = () => {
                     )
                 }
             />
-            <TouchableOpacity style={styles.fab} onPress={() => {setIsModalVisible(true); setTypeQuiz("AI_GENERATED");}}>
+            <TouchableOpacity style={styles.fab} onPress={() => { setIsModalVisible(true); setTypeQuiz("AI_GENERATED"); }}>
                 <Astroid size={28} color="#fff" />
             </TouchableOpacity>
         </SafeAreaView>
