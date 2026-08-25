@@ -25,6 +25,9 @@ const DocumentView = () => {
                     <ArrowLeft size={24} color="#0f172a" />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle} numberOfLines={1}>{documentTitle}</Text>
+                <TouchableOpacity style={styles.createFlashcardButton}>
+                    <Text style={styles.createFlashcardText}>Tạo flashcards</Text>
+                </TouchableOpacity>
             </View>
             
             <View style={styles.webViewContainer}>
