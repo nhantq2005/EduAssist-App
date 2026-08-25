@@ -45,5 +45,16 @@ export const styles = StyleSheet.create({
         marginTop: 12,
         color: '#64748b',
         fontWeight: '500',
+    },
+    createFlashcardButton: {
+        backgroundColor: '#0284c7',
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        borderRadius: 8,
+    },
+    createFlashcardText: {
+        color: '#ffffff',
+        fontSize: 14,
+        fontWeight: 'bold',
     }
 });
