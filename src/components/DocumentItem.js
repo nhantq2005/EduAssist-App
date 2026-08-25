@@ -1,34 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Trash } from 'lucide-react-native';
+import { MyUserContext } from '../utils/MyContexts';
 
-export default function DocumentItem({ title, size, date, fileType = 'pdf', onPress }) {
-  const getIconColor = () => {
-    switch (fileType.toLowerCase()) {
-      case 'pdf': return '#ef4444';
-      case 'doc':
-      case 'docx': return '#3b82f6';
-      case 'ppt':
-      case 'pptx': return '#f59e0b';
-      default: return '#8b5cf6';
-    }
-  };
-
-  const getIconName = () => {
-    switch (fileType.toLowerCase()) {
-      case 'pdf': return 'document-text';
-      case 'doc':
-      case 'docx': return 'document';
-      case 'ppt':
-      case 'pptx': return 'easel';
-      default: return 'document-attach';
-    }
-  };
+const DocumentItem = ({ title, size, date, fileType = 'pdf', onPress, onDelete }) => {
+  const [user,] = useContext(MyUserContext);
+  const iconColor = {'pdf': '#ef4444', 'doc': '#3b82f6', 'docx': '#3b82f6', 'ppt': '#f59e0b', 'pptx': '#f59e0b'}[fileType.toLowerCase()] || '#8b5cf6';
+  const iconName = {'pdf': 'document-text', 'doc': 'document', 'docx': 'document', 'ppt': 'easel', 'pptx': 'easel'}[fileType.toLowerCase()] || 'document-attach';
 
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.7} onPress={onPress}>
-      <View style={[styles.iconWrapper, { backgroundColor: `${getIconColor()}15` }]}>
-        <Ionicons name={getIconName()} size={28} color={getIconColor()} />
+      <View style={[styles.iconWrapper, { backgroundColor: `${iconColor}15` }]}>
+        <Ionicons name={iconName} size={28} color={iconColor} />
       </View>
       <View style={styles.content}>
         <Text style={styles.title} numberOfLines={1}>{title}</Text>
@@ -38,12 +22,16 @@ export default function DocumentItem({ title, size, date, fileType = 'pdf', onPr
           <Text style={styles.metaText}>{date}</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.actionBtn}>
-        <Ionicons name="download-outline" size={22} color="#6b7280" />
-      </TouchableOpacity>
+      {user.role === 'LECTURER' && (
+        <TouchableOpacity style={styles.actionBtn} onPress={onDelete}>
+          <Trash size={20} color="#ef4444" />
+        </TouchableOpacity>
+      )}
     </TouchableOpacity>
   );
 }
+
+export default DocumentItem;
 
 const styles = StyleSheet.create({
   container: {
