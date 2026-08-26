@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { MyUserContext } from '../utils/MyContexts';
 
-const QuizItem = ({ title, description, difficultyLevel: rawDifficulty, sourceType, score, onPress }) => {
-  const isCompleted = score !== undefined && score !== null;
+const QuizItem = ({ item, onPress, onDelete, onEdit }) => {
+  const [user,] = useContext(MyUserContext);
+  const isCompleted = item.score !== undefined && item.score !== null;
   const difficultyMapping = {
     EASY: { color: '#10b981', text: 'Dễ' },
     MEDIUM: { color: '#f59e0b', text: 'Trung bình' },
     HARD: { color: '#ef4444', text: 'Khó' },
   };
 
-  const difficultyLevel = rawDifficulty?.toUpperCase();
+  const difficultyLevel = item.difficulty_level?.toUpperCase();
   const currentDiff = difficultyMapping[difficultyLevel] || { color: '#3b82f6', text: difficultyLevel || 'Quiz' };
 
   return (
@@ -23,8 +25,8 @@ const QuizItem = ({ title, description, difficultyLevel: rawDifficulty, sourceTy
               {currentDiff.text}
             </Text>
           </View>
-          
-          {sourceType === 'AI_GENERATED' && (
+
+          {item.source_type === 'AI_GENERATED' && (
             <View style={styles.aiBadge}>
               <Ionicons name="sparkles" size={12} color="#8b5cf6" style={styles.aiIcon} />
               <Text style={styles.aiText}>AI Sinh</Text>
@@ -32,27 +34,39 @@ const QuizItem = ({ title, description, difficultyLevel: rawDifficulty, sourceTy
           )}
         </View>
 
-        {isCompleted && (
-          <View style={styles.scoreContainer}>
-            <Text style={styles.scoreText}>{score} đ</Text>
-          </View>
-        )}
+        <View style={styles.headerRight}>
+          {isCompleted && (
+            <View style={styles.scoreContainer}>
+              <Text style={styles.scoreText}>{item.score} đ</Text>
+            </View>
+          )}
+          {user.id === item.created_by && (
+            <>
+                <TouchableOpacity onPress={onEdit} style={styles.actionButton} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+                  <Ionicons name="pencil-outline" size={20} color="#3b82f6" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={onDelete} style={styles.actionButton} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+                  <Ionicons name="trash-outline" size={20} color="#ef4444" />
+                </TouchableOpacity>
+            </>
+           )} 
+        </View>
       </View>
-      
-      <Text style={styles.title} numberOfLines={2}>{title}</Text>
-      
-      {description ? (
-        <Text style={styles.description} numberOfLines={2}>{description}</Text>
+
+      <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
+
+      {item.description ? (
+        <Text style={styles.description} numberOfLines={2}>{item.description}</Text>
       ) : null}
-      
-      <View style={styles.footer}>        
+
+      <View style={styles.footer}>
         <View style={styles.metaInfo}>
           <View style={styles.iconBox}>
             <Ionicons name="help-circle-outline" size={16} color="#10b981" />
           </View>
           <Text style={styles.metaText}>Trắc nghiệm</Text>
         </View>
-        
+
         <Ionicons name="chevron-forward" size={20} color="#cbd5e1" style={{ marginLeft: 'auto' }} />
       </View>
     </TouchableOpacity>
@@ -131,6 +145,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '800',
     color: '#059669',
+  },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  actionButton: {
+    padding: 4,
+    marginLeft: 8,
   },
   title: {
     fontSize: 18,

@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as DocumentPicker from 'expo-document-picker';
 import { FileUp, File as FileIcon, X, ArrowLeft } from 'lucide-react-native';
-import * as SecureStore from 'expo-secure-store';
+
 import { endpoints, authApis } from '../../utils/Apis';
 
 const EditDocument = () => {
