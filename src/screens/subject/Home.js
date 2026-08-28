@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, FlatList, ActivityIndicator, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -6,8 +6,10 @@ import Apis, { endpoints } from '../../utils/Apis';
 import SubjectItem from '../../components/SubjectItem';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from '../../styles/HomeStyle';
+import { MyUserContext } from '../../utils/MyContexts';
 
 const Home = () => {
+  const [user,] = useContext(MyUserContext);
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const nav = useNavigation();
@@ -36,7 +38,7 @@ const Home = () => {
       
       <View style={styles.headerContainer}>
         <View style={styles.headerTextContainer}>
-          <Text style={styles.greeting}>Xin chào,</Text>
+          <Text style={styles.greeting}>Xin chào, {user.name}</Text>
           <Text style={styles.title}>Khóa học của bạn</Text>
         </View>
         <View style={styles.avatarContainer}>
@@ -77,5 +79,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
