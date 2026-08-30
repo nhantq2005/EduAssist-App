@@ -12,7 +12,7 @@ const QuizAttempt = () => {
     const [quizAttempts, setQuizAttempts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
-    const navigation = useNavigation();
+    const nav = useNavigation();
     
     const loadQuizAttempts = async () => {
         try {
@@ -53,18 +53,16 @@ const QuizAttempt = () => {
     return (
         <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
             <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
-            
-            {/* Header */}
             <View style={styles.header}>
                 <TouchableOpacity 
                     style={styles.backButton} 
-                    onPress={() => navigation.goBack()}
+                    onPress={() => nav.goBack()}
                     activeOpacity={0.7}
                 >
                     <ArrowLeft size={24} color="#334155" />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>Lịch sử làm bài</Text>
-                <View style={{ width: 40 }} /> {/* Placeholder for balance */}
+                <View style={{ width: 40 }} />
             </View>
 
             {loading && !refreshing ? (
@@ -77,7 +75,7 @@ const QuizAttempt = () => {
                     renderItem={({ item }) => (
                         <QuizAttemptItem 
                             quizAttempt={item} 
-                            onPress={() => { /* Handle item press */ }} 
+                            onPress={() => nav.navigate("Question", { attemptId: item.id })} 
                         />
                     )}
                     keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
