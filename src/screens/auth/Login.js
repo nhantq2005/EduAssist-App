@@ -50,9 +50,11 @@ const Login = () => {
           password: info.password
         });
         if (res.status === 200) {
-          const token = res.data.access_token;
-          await SecureStore.setItemAsync('access_token', token);
-          const userRes = await authApis(token).get(endpoints['getCurrentUser']);
+          const accessToken = res.data.access_token;
+          const refreshToken = res.data.refresh_token;
+          await SecureStore.setItemAsync('access_token', accessToken);
+          await SecureStore.setItemAsync('refresh_token', refreshToken);
+          const userRes = await authApis(accessToken).get(endpoints['getCurrentUser']);
           dispatch({ type: 'login', payload: userRes.data });
           nav.reset({
             index: 0,
