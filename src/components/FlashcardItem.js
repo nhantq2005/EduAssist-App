@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { COLORS } from "../styles/theme";
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
-import { ChevronRight, Layers, Calendar } from "lucide-react-native";
+import { ChevronRight, Layers, Calendar, Trash2 } from "lucide-react-native";
+import { MyUserContext } from '../utils/MyContexts';
+import { authApis, endpoints } from '../utils/Apis';
+import * as SecureStore from 'expo-secure-store';
 
-const FlashcardItem = ({ flashcard, onPress }) => {
+const FlashcardItem = ({ flashcard, onPress, onDelete }) => {
+    const [user,] = useContext(MyUserContext);
+
+ 
 
     return (
         <TouchableOpacity style={styles.cardContainer} onPress={onPress} activeOpacity={0.8}>
@@ -17,12 +23,23 @@ const FlashcardItem = ({ flashcard, onPress }) => {
                     
                     <View style={styles.dateContainer}>
                         <Calendar size={14} color="#888" style={{ marginRight: 4 }} />
-                        <Text style={styles.dateText}>{flashcard.created_date}</Text>
+                        <Text style={styles.dateText}>{new Date(flashcard.created_date).toLocaleDateString('vi-VN')}</Text>
                     </View>
                 </View>
                 
                 <View style={styles.rightIconContainer}>
-                    <ChevronRight size={20} color="#ccc" />
+                    {flashcard.user_id === user?.id ? (
+                        <TouchableOpacity 
+                            style={{ marginRight: 8, padding: 4 }} 
+                            onPress={onDelete} 
+                            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                        >
+                            <Trash2 size={20} color="#e53e3e" />
+                        </TouchableOpacity>
+                    ):(
+                        <ChevronRight size={20} color="#ccc" />
+                    )}
+                    
                 </View>
             </View>
         </TouchableOpacity>

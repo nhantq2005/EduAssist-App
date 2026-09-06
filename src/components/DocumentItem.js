@@ -23,7 +23,7 @@ const DocumentItem = ({ title, size, date, fileType = 'pdf', onPress, onDelete }
           <Text style={styles.metaText}>{date}</Text>
         </View>
       </View>
-      {user.role === 'LECTURER' && (
+      {user?.role === 'LECTURER' && (
         <TouchableOpacity style={styles.actionBtn} onPress={onDelete}>
           <Trash size={20} color={COLORS.error} />
         </TouchableOpacity>

@@ -62,16 +62,7 @@ const TabNavigation = () => {
                     tabBarIcon: (props) => <TabIcon IconComponent={HomeIcon} {...props} />,
                 }}
             />
-            {user.role==='LECTURER' && (
-                <Tab.Screen
-                    name="Questions"
-                    component={Questions}
-                    options={{
-                        title: 'Câu hỏi',
-                        tabBarIcon: (props) => <TabIcon IconComponent={SquareMenu} {...props} />,
-                    }}
-                />
-            )}
+
             
             <Tab.Screen
                 name="Chat"

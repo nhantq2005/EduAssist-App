@@ -63,7 +63,6 @@ export const GlobalStyles = StyleSheet.create({
     backgroundColor: COLORS.inputBg,
     fontSize: SIZES.body2,
     borderRadius: 12,
-    padding: 16,
     borderWidth: 1,
     borderColor: COLORS.border,
   },

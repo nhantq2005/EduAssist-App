@@ -21,8 +21,8 @@ const Home = () => {
   const loadSubjects = async () => {
     try {
       setLoading(true);
-      if (user.role === 'LECTURER') {
-        let url = endpoints['getSubjects'] + `?limit=100&offset=${offset}`;
+      if (user?.role === 'LECTURER') {
+        let url = endpoints['getSubjectByLecturerId'](user.id) + `?limit=100&offset=${offset}`;
         if (name) {
           url += `&name=${encodeURIComponent(name)}`;
         }

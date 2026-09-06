@@ -41,7 +41,7 @@ const QuizItem = ({ item, onPress, onDelete, onEdit }) => {
               <Text style={styles.scoreText}>{item.score} đ</Text>
             </View>
           )}
-          {user.id === item.created_by && (
+          {user?.id === item.created_by && (
             <>
                 <TouchableOpacity onPress={onEdit} style={styles.actionButton} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
                   <Ionicons name="pencil-outline" size={20} color="#3b82f6" />

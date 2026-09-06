@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { Alert, FlatList, Text, View } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FlashcardItem from "../../components/FlashcardItem";
@@ -27,6 +27,38 @@ const ListFlashcard = () => {
         }
     };
 
+       const deleteFlashcard = async (flashcardId) => {
+        try {
+            Alert.alert(
+                "Xác nhận xóa",
+                "Bạn có chắc chắn muốn xóa bộ flashcard này không?",
+                [
+                    {
+                        text: "Hủy",
+                        style: "cancel"
+                    },
+                    {
+                        text: "Xóa",
+                        style: "destructive",
+                        onPress: async () => {
+                            try {
+                                const token = await SecureStore.getItemAsync('access_token');
+                                const res = await authApis(token).delete(endpoints['deleteFlashcardSet'](flashcardId));
+                                if (res.status === 204) {
+                                    loadFlashcards();
+                                }
+                            } catch (error) {
+                                console.error('Lỗi khi xóa flashcard:', error);
+                            }
+                        }
+                    }
+                ]
+            );
+        } catch (error) {
+            console.error('Lỗi khi xóa flashcard:', error);
+        }
+    }
+
     useEffect(() => {
         loadFlashcards();
     }, []);
@@ -48,7 +80,7 @@ const ListFlashcard = () => {
                     contentContainerStyle={styles.listContainer}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => ( 
-                        <FlashcardItem flashcard={item} onPress={() => {nav.navigate('Flashcard', { flashcardSetId: item.id }); console.log("Navigating to Flashcard with ID:", item.id);}} />
+                        <FlashcardItem flashcard={item} onPress={() => {nav.navigate('Flashcard', { flashcardSetId: item.id });}} onDelete={() => deleteFlashcard(item.id)} />
                     )}
                     ListEmptyComponent={
                         <View style={styles.emptyContainer}>

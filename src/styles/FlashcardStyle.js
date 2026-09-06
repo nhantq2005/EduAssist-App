@@ -18,7 +18,6 @@ export const styles = StyleSheet.create({
         shadowColor: COLORS.shadow,
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        backgroundColor: COLORS.white,
     },
     backButton: {
         padding: 8,

@@ -1,8 +1,8 @@
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
 
-const BASE_URL = 'http://192.168.113.107:8000/api';
-export const WS_URL = 'ws://192.168.113.107:8000/ws/notifications';
+const BASE_URL = 'http://192.168.113.108:8000/api';
+export const WS_URL = 'ws://192.168.113.108:8000/ws/notifications';
 
 export const endpoints = {
     // AUTH

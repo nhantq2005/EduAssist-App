@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { COLORS } from "../../styles/theme";
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -30,6 +30,10 @@ const Account = () => {
     },
   ];
 
+  useEffect(() => {
+    console.log('User data in Account screen:', user);
+  }, [user]);
+
   const logout = () => {
     dispatch({ type: "LOGOUT" });
     nav.navigate("Login");
@@ -47,8 +51,8 @@ const Account = () => {
             <Text style={styles.avatarText}>A</Text>
           </View>
           <View style={styles.profileInfo}>
-            <Text style={styles.name}>{user.name}</Text>
-            <Text style={styles.email}>{user.email}</Text>
+            <Text style={styles.name}>{user?.name}</Text>
+            <Text style={styles.email}>{user?.email}</Text>
           </View>
         </View>
 

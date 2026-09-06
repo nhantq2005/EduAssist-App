@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { COLORS } from "../../styles/theme";
 import { View, StyleSheet, ActivityIndicator, Platform, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-paper';
@@ -16,6 +16,7 @@ const DocumentView = () => {
     const [loading, setLoading] = useState(true);
     const nav = useNavigation();
     const fileUrl = route.params?.fileUrl;
+    const documentId = route.params?.documentId;
     const documentTitle = route.params?.title || "Xem tài liệu";
     const pdfUrl = Platform.OS === 'android' 
         ? `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(fileUrl)}` 
@@ -25,8 +26,8 @@ const DocumentView = () => {
         try {
             const token = await SecureStore.getItemAsync('access_token');
             const res = await authApis(token).post(endpoints['generateFlashcardSet'], {
-                documentUrl: fileUrl,
-                title: `Flashcards from ${documentTitle} - ${new Date().toLocaleDateString()}`
+                document_id: documentId,
+                title: `Flashcards của ${documentTitle} - ${new Date().toLocaleDateString()}`
             });
             if (res.status === 201) {
                 nav.goBack();
@@ -36,6 +37,10 @@ const DocumentView = () => {
             console.error('Error generating flashcard set:', error);
         }
     };
+
+    useEffect(() => {
+        console.log('DocumentView params:', route.params.documentId);
+    }, [route.params]);
 
     return (
         <SafeAreaView style={styles.container}>

@@ -118,7 +118,7 @@ const Subject = () => {
                         size="PDF"
                         date={new Date(item.updated_date).toLocaleDateString('vi-VN')}
                         fileType={item.file_type === 'application/pdf' ? 'pdf' : 'doc'}
-                        onPress={() => nav.navigate('DocumentView', { fileUrl: item.file_url })}
+                        onPress={() => nav.navigate('DocumentView', { documentId: item.id, fileUrl: item.file_url})}
                         onDelete={() => deleteDocument(item.id)}
                     />
                 )}
@@ -130,7 +130,7 @@ const Subject = () => {
                 }
             />
 
-            {subject && user.role == 'LECTURER' && (
+            {subject && user?.role == 'LECTURER' && (
                 <TouchableOpacity style={styles.fab} activeOpacity={0.8} onPress={() => nav.navigate('EditDocument', { subjectId: subject.id })}>
                     <FilePlusCorner size={28} color={COLORS.white} />
                 </TouchableOpacity>
