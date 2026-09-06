@@ -1,9 +1,10 @@
+import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F9FAFB",
+    backgroundColor: COLORS.background,
   },
   header: {
     paddingHorizontal: 24,
@@ -13,16 +14,16 @@ export const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 28,
     fontWeight: "800",
-    color: "#111827",
+    color: COLORS.title,
   },
   profileCard: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.white,
     marginHorizontal: 24,
     padding: 20,
     borderRadius: 24,
-    shadowColor: "#000",
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 12,
@@ -33,14 +34,14 @@ export const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: "#EEF2FF",
+    backgroundColor: COLORS.avatarBg,
     justifyContent: "center",
     alignItems: "center",
   },
   avatarText: {
     fontSize: 24,
     fontWeight: "700",
-    color: "#4F46E5",
+    color: COLORS.primary,
   },
   profileInfo: {
     flex: 1,
@@ -49,21 +50,21 @@ export const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: "700",
-    color: "#111827",
+    color: COLORS.title,
     marginBottom: 4,
   },
   email: {
     fontSize: 14,
-    color: "#6B7280",
+    color: COLORS.subText,
   },
   editButton: {
-    backgroundColor: "#EEF2FF",
+    backgroundColor: COLORS.avatarBg,
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
   },
   editButtonText: {
-    color: "#4F46E5",
+    color: COLORS.primary,
     fontSize: 14,
     fontWeight: "600",
   },
@@ -74,14 +75,14 @@ export const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: "700",
-    color: "#374151",
+    color: COLORS.text,
     marginBottom: 12,
     marginLeft: 4,
   },
   card: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.white,
     borderRadius: 20,
-    shadowColor: "#000",
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.03,
     shadowRadius: 8,
@@ -96,7 +97,7 @@ export const styles = StyleSheet.create({
   },
   borderBottom: {
     borderBottomWidth: 1,
-    borderBottomColor: "#F3F4F6",
+    borderBottomColor: COLORS.iconBg,
   },
   menuItemLeft: {
     flexDirection: "row",
@@ -106,14 +107,14 @@ export const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: "#F3F4F6",
+    backgroundColor: COLORS.iconBg,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 16,
   },
   menuItemText: {
     fontSize: 16,
-    color: "#1F2937",
+    color: COLORS.text,
     fontWeight: "500",
   },
   logoutButton: {
@@ -124,7 +125,7 @@ export const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 24,
     paddingVertical: 16,
-    backgroundColor: "#FEF2F2",
+    backgroundColor: COLORS.errorBg,
     borderRadius: 16,
     borderWidth: 1,
     borderColor: "#FEE2E2",
@@ -133,7 +134,7 @@ export const styles = StyleSheet.create({
     marginRight: 8,
   },
   logoutText: {
-    color: "#EF4444",
+    color: COLORS.error,
     fontSize: 16,
     fontWeight: "700",
   },
@@ -142,7 +143,7 @@ export const styles = StyleSheet.create({
     marginBottom: 40,
   },
   versionText: {
-    color: "#9CA3AF",
+    color: COLORS.subText,
     fontSize: 13,
   }
 });

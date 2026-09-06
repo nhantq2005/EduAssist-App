@@ -1,9 +1,10 @@
+import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F9FAFB",
+    backgroundColor: COLORS.background,
   },
   keyboardView: {
     flex: 1,
@@ -16,7 +17,7 @@ export const styles = StyleSheet.create({
   appName: {
     fontSize: 28,
     fontWeight: "800",
-    color: "#4F46E5",
+    color: COLORS.primary,
     letterSpacing: 0.5,
   },
   welcomeSection: {
@@ -25,18 +26,18 @@ export const styles = StyleSheet.create({
   welcomeTitle: {
     fontSize: 24,
     fontWeight: "700",
-    color: "#111827",
+    color: COLORS.title,
     marginBottom: 8,
   },
   welcomeSubtitle: {
     fontSize: 15,
-    color: "#6B7280",
+    color: COLORS.subText,
   },
   inputSection: {
     gap: 16,
   },
   input: {
-    backgroundColor: "#FAFAFA",
+    backgroundColor: COLORS.inputBg,
     fontSize: 15,
   },
   forgotPassword: {
@@ -45,23 +46,23 @@ export const styles = StyleSheet.create({
     marginBottom: 24,
   },
   forgotPasswordText: {
-    color: "#4F46E5",
+    color: COLORS.primary,
     fontSize: 14,
     fontWeight: "600",
   },
   loginButton: {
-    backgroundColor: "#4F46E5",
+    backgroundColor: COLORS.primary,
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: "center",
-    shadowColor: "#4F46E5",
+    shadowColor: COLORS.primary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 4,
   },
   loginButtonText: {
-    color: "#FFFFFF",
+    color: COLORS.white,
     fontSize: 16,
     fontWeight: "700",
   },
@@ -73,18 +74,18 @@ export const styles = StyleSheet.create({
   divider: {
     flex: 1,
     height: 1,
-    backgroundColor: "#E5E7EB",
+    backgroundColor: COLORS.border,
   },
   dividerText: {
     marginHorizontal: 12,
-    color: "#6B7280",
+    color: COLORS.subText,
     fontSize: 14,
   },
   googleButton: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.white,
     borderRadius: 12,
     shadowColor: "#acacac",
     shadowOffset: { width: 0, height: 4 },
@@ -99,7 +100,7 @@ export const styles = StyleSheet.create({
     height: 20,
   },
   googleButtonText: {
-    color: "#374151",
+    color: COLORS.text,
     fontSize: 15,
     fontWeight: "600",
   },
@@ -109,11 +110,11 @@ export const styles = StyleSheet.create({
     marginTop: 32,
   },
   footerText: {
-    color: "#6B7280",
+    color: COLORS.subText,
     fontSize: 15,
   },
   registerText: {
-    color: "#4F46E5",
+    color: COLORS.primary,
     fontSize: 15,
     fontWeight: "700",
   },

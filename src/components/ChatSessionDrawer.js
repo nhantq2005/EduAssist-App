@@ -1,9 +1,19 @@
 import React from 'react';
-import { View, TouchableOpacity, Modal, Animated } from 'react-native';
+import { COLORS } from "../styles/theme";
+import { View, TouchableOpacity, Modal, Animated, ScrollView } from 'react-native';
 import { Drawer, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { X } from 'lucide-react-native';
 import { styles } from '../styles/ChatStyle';
+
+const customTheme = {
+    colors: {
+        secondaryContainer: COLORS.avatarBg,
+        onSecondaryContainer: COLORS.primary,
+        onSurfaceVariant: COLORS.subText,
+        onSurface: COLORS.title,
+    }
+};
 
 const ChatSessionDrawer = ({ isOpen, onClose, chatSessions, activeMenuItem, setActiveMenuItem, onCreate, onClick, drawerAnim }) => {
     return (
@@ -15,34 +25,49 @@ const ChatSessionDrawer = ({ isOpen, onClose, chatSessions, activeMenuItem, setA
                     onPress={onClose}
                 />
                 <Animated.View style={[styles.drawerContent, { transform: [{ translateX: drawerAnim }] }]}>
-                    <SafeAreaView edges={['top']} style={styles.drawerInner}>
+                    <SafeAreaView edges={['top', 'bottom']} style={styles.drawerInner}>
                         <View style={styles.drawerHeader}>
-                            <Text style={styles.drawerTitle}>Tùy chọn</Text>
+                            <Text style={styles.drawerTitle}>Đoạn chat</Text>
                             <TouchableOpacity onPress={onClose}>
-                                <X color="#64748b" size={24} />
+                                <X color={COLORS.subText} size={24} />
                             </TouchableOpacity>
                         </View>
-                        <Drawer.Section>
-                            <Drawer.Item
-                                icon="plus"
-                                label="Cuộc hội thoại mới"
-                                active={activeMenuItem === 'new_chat'}
-                                onPress={() => { 
-                                    onCreate()
-                                }}
-                            />
-                            {chatSessions.map(session => (
+                        <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, paddingTop: 8 }}>
+                            <Drawer.Section showDivider={false}>
                                 <Drawer.Item
-                                    key={session.id}
-                                    icon="history"
-                                    label={session.title}
-                                    active={activeMenuItem === session.id}
-                                    onPress={() => {
-                                        onClick(session.id)
+                                    icon="plus"
+                                    theme={customTheme}
+                                    style={{ 
+                                        backgroundColor: activeMenuItem === 'new_chat' ? COLORS.avatarBg : COLORS.iconBg, 
+                                        borderRadius: 12, 
+                                        marginBottom: 12, 
+                                        marginHorizontal: 12 
+                                    }}
+                                    label="Cuộc hội thoại mới"
+                                    active={activeMenuItem === 'new_chat'}
+                                    onPress={() => { 
+                                        onCreate()
                                     }}
                                 />
-                            ))}
-                        </Drawer.Section>
+                                {chatSessions.map(session => (
+                                    <Drawer.Item
+                                        key={session.id}
+                                        icon="history"
+                                        theme={customTheme}
+                                        label={session.title}
+                                        active={activeMenuItem === session.id}
+                                        onPress={() => {
+                                            onClick(session.id)
+                                        }}
+                                        style={{ 
+                                            marginHorizontal: 12, 
+                                            borderRadius: 12, 
+                                            marginBottom: 4 
+                                        }}
+                                    />
+                                ))}
+                            </Drawer.Section>
+                        </ScrollView>
                     </SafeAreaView>
                 </Animated.View>
             </View>

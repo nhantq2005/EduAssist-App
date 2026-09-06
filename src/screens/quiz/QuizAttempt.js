@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { COLORS } from "../../styles/theme";
 import { View, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity, RefreshControl, StatusBar } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as SecureStore from 'expo-secure-store';
@@ -42,7 +43,7 @@ const QuizAttempt = () => {
         return (
             <View style={styles.emptyContainer}>
                 <View style={styles.emptyIconContainer}>
-                    <Inbox size={48} color="#94A3B8" />
+                    <Inbox size={48} color={COLORS.subText} />
                 </View>
                 <Text style={styles.emptyTitle}>Chưa có dữ liệu</Text>
                 <Text style={styles.emptyText}>Bạn chưa làm bài kiểm tra nào.</Text>
@@ -52,14 +53,14 @@ const QuizAttempt = () => {
 
     return (
         <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-            <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
+            <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />
             <View style={styles.header}>
                 <TouchableOpacity 
                     style={styles.backButton} 
                     onPress={() => nav.goBack()}
                     activeOpacity={0.7}
                 >
-                    <ArrowLeft size={24} color="#334155" />
+                    <ArrowLeft size={24} color={COLORS.text} />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>Lịch sử làm bài</Text>
                 <View style={{ width: 40 }} />
@@ -67,7 +68,7 @@ const QuizAttempt = () => {
 
             {loading && !refreshing ? (
                 <View style={styles.loadingContainer}>
-                    <ActivityIndicator size="large" color="#4F46E5" />
+                    <ActivityIndicator size="large" color={COLORS.primary} />
                 </View>
             ) : (
                 <FlatList
@@ -86,8 +87,8 @@ const QuizAttempt = () => {
                         <RefreshControl
                             refreshing={refreshing}
                             onRefresh={onRefresh}
-                            colors={['#4F46E5']}
-                            tintColor="#4F46E5"
+                            colors={[COLORS.primary]}
+                            tintColor={COLORS.primary}
                         />
                     }
                 />
@@ -107,9 +108,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 16,
         paddingVertical: 12,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: COLORS.white,
         borderBottomWidth: 1,
-        borderBottomColor: '#F1F5F9',
+        borderBottomColor: COLORS.iconBg,
     },
     backButton: {
         width: 40,
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontSize: 18,
         fontWeight: '700',
-        color: '#1E293B',
+        color: COLORS.title,
     },
     listContainer: {
         padding: 16,
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 50,
-        backgroundColor: '#F1F5F9',
+        backgroundColor: COLORS.iconBg,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
@@ -149,12 +150,12 @@ const styles = StyleSheet.create({
     emptyTitle: {
         fontSize: 18,
         fontWeight: '600',
-        color: '#1E293B',
+        color: COLORS.title,
         marginBottom: 8,
     },
     emptyText: {
         fontSize: 14,
-        color: '#64748B',
+        color: COLORS.subText,
         textAlign: 'center',
     }
 });

@@ -1,3 +1,4 @@
+import { COLORS } from "../../styles/theme";
 import { CircleUserRound, SquareAsterisk, Mail } from "lucide-react-native";
 import { useContext, useState } from "react";
 import { Text, TouchableOpacity, View, KeyboardAvoidingView, Platform, Image } from "react-native";
@@ -94,12 +95,12 @@ const Login = () => {
                 placeholder={item.placeholder}
                 secureTextEntry={item.secure}
                 mode="outlined"
-                outlineColor="#E5E7EB"
-                activeOutlineColor="#4F46E5"
+                outlineColor={COLORS.border}
+                activeOutlineColor={COLORS.primary}
                 style={styles.input}
                 theme={{ roundness: 12 }}
                 onChangeText={(text) => { setInfo({ ...info, [item.field]: text }) }}
-                left={<TextInput.Icon icon={() => <item.icon size={20} color="#6B7280" />} />}
+                left={<TextInput.Icon icon={() => <item.icon size={20} color={COLORS.subText} />} />}
               />
             ))}
           </View>

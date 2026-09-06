@@ -1,4 +1,5 @@
 import React from 'react';
+import { COLORS } from "../../styles/theme";
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -14,7 +15,7 @@ const QuizResult = () => {
             <SafeAreaView style={styles.container}>
                 <View style={styles.header}>
                     <TouchableOpacity style={styles.backButton} onPress={() => nav.goBack()}>
-                        <ArrowLeft color="#334155" size={24} />
+                        <ArrowLeft color={COLORS.text} size={24} />
                     </TouchableOpacity>
                     <Text style={styles.headerTitle}>Lỗi kết quả</Text>
                 </View>
@@ -35,7 +36,7 @@ const QuizResult = () => {
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity style={styles.backButton} onPress={() => nav.goBack()}>
-                    <ArrowLeft color="#334155" size={24} />
+                    <ArrowLeft color={COLORS.text} size={24} />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>Kết Quả Bài Thi</Text>
                 <View style={{ width: 24 }} /> 
@@ -50,7 +51,7 @@ const QuizResult = () => {
 
                 <View style={styles.statsContainer}>
                     <View style={styles.statCard}>
-                        <CheckCircle color="#10B981" size={24} />
+                        <CheckCircle color={COLORS.success} size={24} />
                         <Text style={styles.statValue}>{resultData.correct_count} / {resultData.total_questions}</Text>
                         <Text style={styles.statLabel}>Câu đúng</Text>
                     </View>
@@ -66,7 +67,7 @@ const QuizResult = () => {
                     <Text style={styles.detailsTitle}>Chi tiết nộp bài</Text>
                     
                     <View style={styles.detailRow}>
-                        <Clock color="#64748B" size={20} />
+                        <Clock color={COLORS.subText} size={20} />
                         <View style={styles.detailTextContainer}>
                             <Text style={styles.detailLabel}>Thời gian nộp:</Text>
                             <Text style={styles.detailValue}>{formatTime(resultData.time_submitted)}</Text>
@@ -74,10 +75,10 @@ const QuizResult = () => {
                     </View>
                     
                     <View style={styles.detailRow}>
-                        <CheckCircle color="#64748B" size={20} />
+                        <CheckCircle color={COLORS.subText} size={20} />
                         <View style={styles.detailTextContainer}>
                             <Text style={styles.detailLabel}>Trạng thái:</Text>
-                            <Text style={[styles.detailValue, { color: resultData.is_completed ? '#10B981' : '#EF4444' }]}>
+                            <Text style={[styles.detailValue, { color: resultData.is_completed ? COLORS.success : COLORS.error }]}>
                                 {resultData.is_completed ? 'Đã hoàn thành' : 'Chưa hoàn thành'}
                             </Text>
                         </View>
@@ -98,7 +99,7 @@ const QuizResult = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F9FAFB',
+        backgroundColor: COLORS.background,
     },
     header: {
         flexDirection: 'row',
@@ -106,9 +107,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 20,
         paddingVertical: 16,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: COLORS.white,
         borderBottomWidth: 1,
-        borderBottomColor: '#E2E8F0',
+        borderBottomColor: COLORS.border,
     },
     backButton: {
         padding: 4,
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontSize: 18,
         fontWeight: '600',
-        color: '#1E293B',
+        color: COLORS.title,
     },
     centerContainer: {
         flex: 1,
@@ -126,17 +127,17 @@ const styles = StyleSheet.create({
     },
     errorText: {
         fontSize: 16,
-        color: '#EF4444',
+        color: COLORS.error,
     },
     content: {
         padding: 20,
     },
     scoreCard: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: COLORS.white,
         borderRadius: 16,
         padding: 24,
         alignItems: 'center',
-        shadowColor: '#000',
+        shadowColor: COLORS.shadow,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.05,
         shadowRadius: 15,
@@ -149,12 +150,12 @@ const styles = StyleSheet.create({
     scoreText: {
         fontSize: 48,
         fontWeight: 'bold',
-        color: '#1E293B',
+        color: COLORS.title,
         marginBottom: 4,
     },
     scoreLabel: {
         fontSize: 16,
-        color: '#64748B',
+        color: COLORS.subText,
     },
     statsContainer: {
         flexDirection: 'row',
@@ -162,12 +163,12 @@ const styles = StyleSheet.create({
         marginBottom: 24,
     },
     statCard: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: COLORS.white,
         borderRadius: 16,
         padding: 20,
         alignItems: 'center',
         width: '48%',
-        shadowColor: '#000',
+        shadowColor: COLORS.shadow,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.05,
         shadowRadius: 15,
@@ -176,20 +177,20 @@ const styles = StyleSheet.create({
     statValue: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#1E293B',
+        color: COLORS.title,
         marginTop: 12,
         marginBottom: 4,
     },
     statLabel: {
         fontSize: 14,
-        color: '#64748B',
+        color: COLORS.subText,
     },
     detailsContainer: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: COLORS.white,
         borderRadius: 16,
         padding: 20,
         marginBottom: 32,
-        shadowColor: '#000',
+        shadowColor: COLORS.shadow,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.05,
         shadowRadius: 15,
@@ -198,7 +199,7 @@ const styles = StyleSheet.create({
     detailsTitle: {
         fontSize: 16,
         fontWeight: '600',
-        color: '#1E293B',
+        color: COLORS.title,
         marginBottom: 16,
     },
     detailRow: {
@@ -212,22 +213,22 @@ const styles = StyleSheet.create({
     },
     detailLabel: {
         fontSize: 14,
-        color: '#64748B',
+        color: COLORS.subText,
         marginBottom: 2,
     },
     detailValue: {
         fontSize: 15,
         fontWeight: '500',
-        color: '#1E293B',
+        color: COLORS.title,
     },
     doneButton: {
-        backgroundColor: '#4F46E5',
+        backgroundColor: COLORS.primary,
         borderRadius: 12,
         padding: 16,
         alignItems: 'center',
     },
     doneButtonText: {
-        color: '#FFFFFF',
+        color: COLORS.white,
         fontSize: 16,
         fontWeight: '600',
     }

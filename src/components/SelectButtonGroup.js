@@ -1,3 +1,4 @@
+import { COLORS } from "../styles/theme";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native-paper";
 
@@ -29,8 +30,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#e2e8f0',
-        backgroundColor: '#ffffff',
+        borderColor: COLORS.border,
+        backgroundColor: COLORS.white,
         alignItems: 'center',
     },
         groupButtonTextSelected: {
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
         groupButtonText: {
         fontSize: 14,
         fontWeight: '500',
-        color: '#64748b',
+        color: COLORS.subText,
     },
         groupButtonSelected: {
         backgroundColor: '#eff6ff',

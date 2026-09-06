@@ -1,9 +1,10 @@
+import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F9FAFB',
+        backgroundColor: COLORS.background,
     },
     scrollContent: {
         padding: 24,
@@ -29,30 +30,30 @@ export const styles = StyleSheet.create({
         zIndex: 1,
         paddingHorizontal: 16,
         paddingVertical: 8,
-        backgroundColor: '#4F46E5',
+        backgroundColor: COLORS.primary,
         borderRadius: 12,
-        shadowColor: '#4F46E5',
+        shadowColor: COLORS.primary,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
         elevation: 2,
     },
     headerSaveText: {
-        color: '#FFFFFF',
+        color: COLORS.white,
         fontWeight: '700',
         fontSize: 14,
     },
     appName: {
         fontSize: 24,
         fontWeight: "800",
-        color: "#4F46E5",
+        color: COLORS.primary,
         letterSpacing: 0.5,
     },
     formContainer: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: COLORS.white,
         borderRadius: 24,
         padding: 20,
-        shadowColor: '#000',
+        shadowColor: COLORS.shadow,
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.05,
         shadowRadius: 12,
@@ -64,18 +65,18 @@ export const styles = StyleSheet.create({
     welcomeTitle: {
         fontSize: 20,
         fontWeight: '700',
-        color: '#111827',
+        color: COLORS.title,
         marginBottom: 8,
     },
     welcomeSubtitle: {
         fontSize: 14,
-        color: '#6B7280',
+        color: COLORS.subText,
     },
     inputSection: {
         gap: 16,
     },
     input: {
-        backgroundColor: '#FAFAFA',
+        backgroundColor: COLORS.inputBg,
         fontSize: 15,
     },
     choiceRow: {
@@ -85,15 +86,15 @@ export const styles = StyleSheet.create({
     choiceInput: {
         flex: 1,
         marginLeft: 8,
-        backgroundColor: '#FAFAFA',
+        backgroundColor: COLORS.inputBg,
         fontSize: 15,
     },
     saveButton: {
-        backgroundColor: '#4F46E5',
+        backgroundColor: COLORS.primary,
         borderRadius: 12,
         paddingVertical: 16,
         alignItems: 'center',
-        shadowColor: '#4F46E5',
+        shadowColor: COLORS.primary,
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.2,
         shadowRadius: 8,
@@ -102,7 +103,7 @@ export const styles = StyleSheet.create({
         marginBottom: 16,
     },
     saveButtonText: {
-        color: '#FFFFFF',
+        color: COLORS.white,
         fontSize: 16,
         fontWeight: '700',
     }

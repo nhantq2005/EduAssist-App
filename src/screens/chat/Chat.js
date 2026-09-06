@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { COLORS } from "../../styles/theme";
 import { View, FlatList, TextInput, KeyboardAvoidingView, Platform, TouchableOpacity, StatusBar, Modal, Animated, Dimensions } from 'react-native';
 import { Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -199,7 +200,7 @@ const Chat = () => {
 
     return (
         <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-            <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
+            <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />
 
             <ChatSessionDrawer
                 isOpen={isDrawerOpen}
@@ -227,7 +228,7 @@ const Chat = () => {
                         <Menu color="#475569" size={26} />
                     </TouchableOpacity>
                     <View style={styles.headerIconWrapper}>
-                        <Bot color="#4F46E5" size={22} />
+                        <Bot color={COLORS.primary} size={22} />
                     </View>
                     <View>
                         <Text style={styles.headerTitle}>EduAssist</Text>
@@ -252,7 +253,7 @@ const Chat = () => {
                         <TextInput
                             style={styles.input}
                             placeholder="Hỏi AI bất cứ điều gì..."
-                            placeholderTextColor="#94a3b8"
+                            placeholderTextColor={COLORS.subText}
                             value={inputText}
                             onChangeText={setInputText}
                             multiline
@@ -267,7 +268,7 @@ const Chat = () => {
                             onPress={sendQuestion}
                             disabled={!inputText.trim() || loading}
                         >
-                            <Send color={inputText.trim() ? "#ffffff" : "#94a3b8"} size={18} />
+                            <Send color={inputText.trim() ? COLORS.white : COLORS.subText} size={18} />
                         </TouchableOpacity>
                     </View>
                 </View>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { COLORS } from "../../styles/theme";
 import { Text, TouchableOpacity, View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput, Menu, Provider } from "react-native-paper";
@@ -138,12 +139,12 @@ const EditQuiz = () => {
                                 placeholder={item.placeholder}
                                 value={getDropdownLabel(item, quiz[item.field])}
                                 mode="outlined"
-                                outlineColor="#E5E7EB"
-                                activeOutlineColor="#4F46E5"
+                                outlineColor={COLORS.border}
+                                activeOutlineColor={COLORS.primary}
                                 style={styles.input}
                                 theme={{ roundness: 12 }}
-                                left={<TextInput.Icon icon={() => <item.icon size={20} color={visibleDropdown === index ? "#4F46E5" : "#6B7280"} />} />}
-                                right={<TextInput.Icon icon={() => <ChevronDown size={20} color={visibleDropdown === index ? "#4F46E5" : "#6B7280"} />} />}
+                                left={<TextInput.Icon icon={() => <item.icon size={20} color={visibleDropdown === index ? COLORS.primary : COLORS.subText} />} />}
+                                right={<TextInput.Icon icon={() => <ChevronDown size={20} color={visibleDropdown === index ? COLORS.primary : COLORS.subText} />} />}
                                 editable={false}
                               />
                             </View>
@@ -181,15 +182,15 @@ const EditQuiz = () => {
                       value={quiz[item.field] ? String(quiz[item.field]) : ""}
                       keyboardType={item.keyboardType || "default"}
                       mode="outlined"
-                      outlineColor="#E5E7EB"
-                      activeOutlineColor="#4F46E5"
+                      outlineColor={COLORS.border}
+                      activeOutlineColor={COLORS.primary}
                       style={styles.input}
                       theme={{ roundness: 12 }}
                       onChangeText={(text) => {
                         const newQuiz = { ...quiz, [item.field]: text };
                         setQuiz(newQuiz);
                       }}
-                      left={<TextInput.Icon icon={() => <item.icon size={20} color="#6B7280" />} />}
+                      left={<TextInput.Icon icon={() => <item.icon size={20} color={COLORS.subText} />} />}
                     />
                   );
                 })}
@@ -210,7 +211,7 @@ const EditQuiz = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F9FAFB",
+    backgroundColor: COLORS.background,
   },
   keyboardView: {
     flex: 1,
@@ -227,14 +228,14 @@ const styles = StyleSheet.create({
   appName: {
     fontSize: 28,
     fontWeight: "800",
-    color: "#4F46E5",
+    color: COLORS.primary,
     letterSpacing: 0.5,
   },
   formContainer: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.white,
     borderRadius: 24,
     padding: 20,
-    shadowColor: "#000",
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 12,
@@ -246,26 +247,26 @@ const styles = StyleSheet.create({
   welcomeTitle: {
     fontSize: 24,
     fontWeight: "700",
-    color: "#111827",
+    color: COLORS.title,
     marginBottom: 8,
   },
   welcomeSubtitle: {
     fontSize: 15,
-    color: "#6B7280",
+    color: COLORS.subText,
   },
   inputSection: {
     gap: 16,
   },
   input: {
-    backgroundColor: "#FAFAFA",
+    backgroundColor: COLORS.inputBg,
     fontSize: 15,
   },
   saveButton: {
-    backgroundColor: "#4F46E5",
+    backgroundColor: COLORS.primary,
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: "center",
-    shadowColor: "#4F46E5",
+    shadowColor: COLORS.primary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -273,7 +274,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
   saveButtonText: {
-    color: "#FFFFFF",
+    color: COLORS.white,
     fontSize: 16,
     fontWeight: "700",
   },
@@ -281,7 +282,7 @@ const styles = StyleSheet.create({
     marginTop: 56, // Push menu below the input
   },
   menuContent: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.white,
     borderRadius: 16,
     paddingVertical: 8,
     width: "100%",
@@ -293,18 +294,18 @@ const styles = StyleSheet.create({
     marginVertical: 2,
   },
   menuItemActive: {
-    backgroundColor: "#EEF2FF", // Light indigo background for selected
+    backgroundColor: COLORS.avatarBg, // Light indigo background for selected
   },
   menuItemInner: {
     paddingVertical: 10,
   },
   menuItemTitle: {
     fontSize: 15,
-    color: "#374151",
+    color: COLORS.text,
     fontWeight: "500",
   },
   menuItemTitleActive: {
-    color: "#4F46E5",
+    color: COLORS.primary,
     fontWeight: "700",
   },
 });

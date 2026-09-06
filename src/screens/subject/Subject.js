@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList, ActivityIndicator, StatusBar, TouchableOpacity, Alert } from "react-native";
+import { COLORS } from "../../styles/theme";
+import { View, Text, FlatList, ActivityIndicator, StatusBar, TouchableOpacity, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import Apis, { authApis, endpoints } from "../../utils/Apis";
 import DocumentItem from "../../components/DocumentItem";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { FilePlusCorner } from "lucide-react-native";
+import { ArrowLeft, FilePlusCorner, FileText } from "lucide-react-native";
 import { styles } from "../../styles/SubjectStyle";
 import { MyUserContext } from "../../utils/MyContexts";
 import * as SecureStore from 'expo-secure-store';
@@ -70,10 +71,10 @@ const Subject = () => {
         <SafeAreaView style={styles.container} edges={['top']}>
             {loading && (
                 <View style={styles.loadingOverlay}>
-                    <ActivityIndicator size="large" color="#4F46E5" />
+                    <ActivityIndicator size="large" color={COLORS.primary} />
                 </View>
             )}
-            <StatusBar barStyle="dark-content" backgroundColor="#F9FAFB" />
+            <StatusBar barStyle="dark-content" backgroundColor={COLORS.background} />
             <FlatList
                 data={subject?.documents || []}
                 keyExtractor={(item) => item.id.toString()}
@@ -84,7 +85,7 @@ const Subject = () => {
                         <View style={styles.headerContainer}>
                             <View style={styles.topBar}>
                                 <TouchableOpacity onPress={() => nav?.goBack()} style={styles.backBtn}>
-                                    <Ionicons name="arrow-back" size={24} color="#1f2937" />
+                                    <ArrowLeft size={24} color={COLORS.text} />
                                 </TouchableOpacity>
                                 <View style={styles.codeBadge}>
                                     <Text style={styles.codeText}>{subject.code}</Text>
@@ -95,7 +96,7 @@ const Subject = () => {
 
                             <View style={styles.lecturerRow}>
                                 <View style={styles.avatar}>
-                                    <Ionicons name="person" size={16} color="#4F46E5" />
+                                    <Ionicons name="person" size={16} color={COLORS.primary} />
                                 </View>
                                 <Text style={styles.lecturerName}>GV: {subject.lecturer?.name}</Text>
                             </View>
@@ -123,7 +124,7 @@ const Subject = () => {
                 )}
                 ListEmptyComponent={
                     <View style={styles.emptyContainer}>
-                        <Ionicons name="document-text-outline" size={64} color="#cbd5e1" />
+                        <FileText size={64} color="#cbd5e1" />
                         <Text style={styles.emptyText}>Chưa có tài liệu nào.</Text>
                     </View>
                 }
@@ -131,7 +132,7 @@ const Subject = () => {
 
             {subject && user.role == 'LECTURER' && (
                 <TouchableOpacity style={styles.fab} activeOpacity={0.8} onPress={() => nav.navigate('EditDocument', { subjectId: subject.id })}>
-                    <FilePlusCorner size={28} color="#ffffff" />
+                    <FilePlusCorner size={28} color={COLORS.white} />
                 </TouchableOpacity>
             )}
         </SafeAreaView>

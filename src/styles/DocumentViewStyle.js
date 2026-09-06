@@ -1,9 +1,10 @@
+import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ffffff',
+        backgroundColor: COLORS.white,
     },
     header: {
         flexDirection: 'row',
@@ -11,8 +12,8 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 12,
         borderBottomWidth: 1,
-        borderBottomColor: '#f1f5f9',
-        backgroundColor: '#ffffff',
+        borderBottomColor: COLORS.iconBg,
+        backgroundColor: COLORS.white,
     },
     backButton: {
         padding: 8,
@@ -21,7 +22,7 @@ export const styles = StyleSheet.create({
     headerTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#0f172a',
+        color: COLORS.title,
         flex: 1,
     },
     webViewContainer: {
@@ -43,7 +44,7 @@ export const styles = StyleSheet.create({
     },
     loadingText: {
         marginTop: 12,
-        color: '#64748b',
+        color: COLORS.subText,
         fontWeight: '500',
     },
     createFlashcardButton: {
@@ -53,7 +54,7 @@ export const styles = StyleSheet.create({
         borderRadius: 8,
     },
     createFlashcardText: {
-        color: '#ffffff',
+        color: COLORS.white,
         fontSize: 14,
         fontWeight: 'bold',
     }
