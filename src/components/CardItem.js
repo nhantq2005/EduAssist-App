@@ -1,16 +1,9 @@
 import React, { useRef, useState } from "react";
 import { COLORS } from "../styles/theme";
-import {
-  Animated,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 
 const CardItem = ({ question, answer }) => {
   const [flipped, setFlipped] = useState(false);
-
   const rotation = useRef(new Animated.Value(0)).current;
 
   const flipCard = () => {
@@ -38,8 +31,6 @@ const CardItem = ({ question, answer }) => {
   return (
     <Pressable onPress={flipCard} style={{ width: '100%' }}>
       <View style={styles.cardContainer}>
-
-        {/* Mặt trước */}
         <Animated.View
           style={[
             styles.card,
@@ -54,7 +45,6 @@ const CardItem = ({ question, answer }) => {
           </Text>
         </Animated.View>
 
-        {/* Mặt sau */}
         <Animated.View
           style={[
             styles.card,

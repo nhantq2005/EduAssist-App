@@ -1,14 +1,15 @@
 import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
+    ...GlobalStyles,
     container: {
         flex: 1,
         backgroundColor: COLORS.white,
     },
     header: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        ...GlobalStyles.rowCenter,
         paddingHorizontal: 16,
         paddingVertical: 12,
         borderBottomWidth: 1,

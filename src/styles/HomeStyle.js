@@ -1,11 +1,9 @@
 import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
+  ...GlobalStyles,
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -25,18 +23,14 @@ export const styles = StyleSheet.create({
     marginBottom: 4,
   },
   title: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: COLORS.title,
+    ...GlobalStyles.headerTitle,
     letterSpacing: -0.5,
   },
   avatarContainer: {
+    ...GlobalStyles.avatarContainer,
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: COLORS.avatarBg,
-    justifyContent: 'center',
-    alignItems: 'center',
     borderWidth: 2,
     borderColor: COLORS.white,
     shadowColor: COLORS.primary,
@@ -46,9 +40,9 @@ export const styles = StyleSheet.create({
     elevation: 4,
   },
   searchContainer: {
+    ...GlobalStyles.card,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.white,
     marginHorizontal: 20,
     marginBottom: 20,
     paddingHorizontal: 16,
@@ -57,10 +51,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.border,
     shadowColor: COLORS.title,
-    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.04,
-    shadowRadius: 8,
-    elevation: 2,
   },
   searchIcon: {
     marginRight: 10,
@@ -79,9 +70,8 @@ export const styles = StyleSheet.create({
     paddingBottom: 80,
   },
   loadingContainer: {
+    ...GlobalStyles.centerContent,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   emptyContainer: {
     alignItems: 'center',

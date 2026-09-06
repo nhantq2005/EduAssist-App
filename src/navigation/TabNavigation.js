@@ -7,6 +7,8 @@ import Chat from '../screens/chat/Chat';
 import Quiz from '../screens/quiz/Quiz';
 import Account from '../screens/auth/Account';
 import ListFlashcard from '../screens/flashcard/ListFlashcard';
+import { useContext } from 'react';
+import { MyUserContext } from '../utils/MyContexts';
 
 const Tab = createBottomTabNavigator();
 const TabIcon = ({ IconComponent, focused, color, size }) => {
@@ -23,6 +25,7 @@ const TabIcon = ({ IconComponent, focused, color, size }) => {
 };
 
 const TabNavigation = () => {
+    const [user,]=useContext(MyUserContext)
     return (
         <Tab.Navigator
             screenOptions={{
@@ -59,7 +62,17 @@ const TabNavigation = () => {
                     tabBarIcon: (props) => <TabIcon IconComponent={HomeIcon} {...props} />,
                 }}
             />
-
+            {user.role==='LECTURER' && (
+                <Tab.Screen
+                    name="Questions"
+                    component={Questions}
+                    options={{
+                        title: 'Câu hỏi',
+                        tabBarIcon: (props) => <TabIcon IconComponent={SquareMenu} {...props} />,
+                    }}
+                />
+            )}
+            
             <Tab.Screen
                 name="Chat"
                 component={Chat}

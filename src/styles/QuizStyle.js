@@ -1,12 +1,11 @@
 import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: COLORS.background,
-    },
+    ...GlobalStyles,
     listContent: {
+        ...GlobalStyles.scrollContent,
         paddingHorizontal: 20,
         paddingBottom: 100,
     },
@@ -15,9 +14,7 @@ export const styles = StyleSheet.create({
         paddingBottom: 24,
     },
     topBar: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        ...GlobalStyles.rowBetween,
         marginBottom: 20,
         minHeight: 48,
     },
@@ -62,9 +59,9 @@ export const styles = StyleSheet.create({
         letterSpacing: -0.5,
     },
     searchContainer: {
+        ...GlobalStyles.card,
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: COLORS.white,
         marginTop: 12,
         paddingHorizontal: 16,
         height: 48,
@@ -72,10 +69,7 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: COLORS.border,
         shadowColor: COLORS.title,
-        shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.04,
-        shadowRadius: 8,
-        elevation: 2,
     },
     searchIcon: {
         marginRight: 10,
@@ -90,8 +84,7 @@ export const styles = StyleSheet.create({
         padding: 4,
     },
     subtitle: {
-        fontSize: 16,
-        color: COLORS.subText,
+        ...GlobalStyles.subtitle,
         lineHeight: 24,
         marginBottom: 12,
     },
@@ -101,12 +94,10 @@ export const styles = StyleSheet.create({
         paddingTop: 60,
     },
     emptyIconBox: {
+        ...GlobalStyles.iconContainer,
         width: 100,
         height: 100,
         borderRadius: 50,
-        backgroundColor: COLORS.iconBg,
-        justifyContent: 'center',
-        alignItems: 'center',
         marginBottom: 20,
     },
     emptyText: {
@@ -116,8 +107,7 @@ export const styles = StyleSheet.create({
         marginBottom: 8,
     },
     emptySubText: {
-        fontSize: 14,
-        color: COLORS.subText,
+        ...GlobalStyles.subtitle,
         textAlign: 'center',
         paddingHorizontal: 32,
         lineHeight: 22,

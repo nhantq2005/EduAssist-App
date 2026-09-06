@@ -73,7 +73,6 @@ const EditQuiz = () => {
     if (validate()) {
       try {
         setLoading(true);
-        // Ensure integers are parsed correctly
         const payload = {
           ...quiz,
           time_limit: parseInt(quiz.time_limit, 10),
@@ -95,7 +94,6 @@ const EditQuiz = () => {
     }
   };
 
-  // Helper function to find label for a dropdown value
   const getDropdownLabel = (item, value) => {
     if (!value) return "";
     const selectedOption = item.options.find(opt => opt.value === value);
@@ -279,7 +277,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   menuContainer: {
-    marginTop: 56, // Push menu below the input
+    marginTop: 56,
   },
   menuContent: {
     backgroundColor: COLORS.white,
@@ -294,7 +292,7 @@ const styles = StyleSheet.create({
     marginVertical: 2,
   },
   menuItemActive: {
-    backgroundColor: COLORS.avatarBg, // Light indigo background for selected
+    backgroundColor: COLORS.avatarBg,
   },
   menuItemInner: {
     paddingVertical: 10,

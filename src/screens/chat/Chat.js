@@ -113,8 +113,7 @@ const Chat = () => {
         const userText = inputText;
         const userMsgId = Date.now().toString();
         const botMsgId = (Date.now() + 1).toString();
-
-        // Giữ nguyên đoạn setMessages                                                                                                                                                                        
+                                                                                                                                                                      
         setMessages(prev => [...prev, {
             id: userMsgId,
             text: userText,
@@ -138,9 +137,7 @@ const Chat = () => {
         xhr.setRequestHeader('Content-Type', 'application/json');
         if (token) {
             xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-        }
-
-        // Giữ nguyên đoạn onreadystatechange                                                                                                                                                                            
+        }                                                                                                                                                                          
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 3) {
                 let responseText = xhr.responseText;
@@ -162,8 +159,7 @@ const Chat = () => {
                 setLoading(false);
             }
         };
-
-        // Gửi request với currentSessionId                                                                                                                                                        
+                                                                                                                                                      
         xhr.send(JSON.stringify({
             question: userText,
             chat_session_id: currentSessionId

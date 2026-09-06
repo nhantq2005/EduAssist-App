@@ -21,13 +21,24 @@ const Home = () => {
   const loadSubjects = async () => {
     try {
       setLoading(true);
-      let url = endpoints['getSubjects']+`?limit=100&offset=${offset}`;
-      if (name) {
-        url += `&name=${encodeURIComponent(name)}`;
+      if (user.role === 'LECTURER') {
+        let url = endpoints['getSubjects'] + `?limit=100&offset=${offset}`;
+        if (name) {
+          url += `&name=${encodeURIComponent(name)}`;
+        }
+        const res = await Apis.get(url);
+        setSubjects(res.data);
+        console.log('Danh sách môn học:', res.data);
+      } else {
+
+        let url = endpoints['getSubjects'] + `?limit=100&offset=${offset}`;
+        if (name) {
+          url += `&name=${encodeURIComponent(name)}`;
+        }
+        const res = await Apis.get(url);
+        setSubjects(res.data);
+        console.log('Danh sách môn học:', res.data);
       }
-      const res = await Apis.get(url);
-      setSubjects(res.data);
-      console.log('Danh sách môn học:', res.data);
     } catch (error) {
       console.error('Lỗi khi tải danh sách môn học:', error);
     } finally {
@@ -40,17 +51,17 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-     const timer = setTimeout(() => {
-            loadSubjects();
-        }, 500);
+    const timer = setTimeout(() => {
+      loadSubjects();
+    }, 500);
 
-        return () => clearTimeout(timer);
+    return () => clearTimeout(timer);
   }, [name]);
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <StatusBar barStyle="dark-content" backgroundColor={COLORS.background} />
-      
+
       <View style={styles.headerContainer}>
         <View style={styles.headerTextContainer}>
           <Text style={styles.greeting}>Xin chào, {user?.name || 'Sinh viên'}</Text>

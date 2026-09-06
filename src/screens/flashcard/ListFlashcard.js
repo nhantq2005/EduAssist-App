@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { FlatList, Text, View, StyleSheet } from "react-native";
+import { FlatList, Text, View } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FlashcardItem from "../../components/FlashcardItem";
 import { authApis, endpoints } from "../../utils/Apis";
 import * as SecureStore from 'expo-secure-store';
 import { useNavigation } from "@react-navigation/native";
+import { styles } from "../../styles/ListFlashcardStyle";
 
 const ListFlashcard = () => {
     const [flashcards, setFlashcards] = useState([]);
@@ -59,41 +60,5 @@ const ListFlashcard = () => {
         </SafeAreaView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1, 
-        backgroundColor: '#f5f7fa',
-    },
-    header: {
-        paddingHorizontal: 20,
-        paddingTop: 10,
-        paddingBottom: 15,
-    },
-    headerTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#1a1a1a',
-    },
-    loadingContainer: {
-        flex: 1, 
-        justifyContent: 'center', 
-        alignItems: 'center',
-    },
-    listContainer: {
-        paddingBottom: 20,
-        paddingTop: 8,
-    },
-    emptyContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: 50,
-    },
-    emptyText: {
-        fontSize: 16,
-        color: '#888',
-    }
-});
 
 export default ListFlashcard;

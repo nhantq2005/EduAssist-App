@@ -1,16 +1,11 @@
 import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: COLORS.background,
-    },
-    keyboardView: {
-        flex: 1,
-    },
+    ...GlobalStyles,
     scrollContent: {
-        flexGrow: 1,
+        ...GlobalStyles.scrollContent,
         justifyContent: 'center',
         padding: 24,
     },
@@ -18,10 +13,8 @@ export const styles = StyleSheet.create({
         marginBottom: 32,
     },
     appName: {
-        fontSize: 28,
-        fontWeight: "800",
+        ...GlobalStyles.headerTitle,
         color: COLORS.primary,
-        letterSpacing: 0.5,
     },
     welcomeSection: {
         marginBottom: 24,
@@ -57,54 +50,16 @@ export const styles = StyleSheet.create({
         fontWeight: '500',
     },
     welcomeTitle: {
-        fontSize: 24,
-        fontWeight: '700',
-        color: COLORS.title,
+        ...GlobalStyles.title,
         marginBottom: 8,
     },
-    welcomeSubtitle: {
-        fontSize: 15,
-        color: COLORS.subText,
-    },
-    inputSection: {
-        gap: 16,
-        marginBottom: 24,
-    },
-    input: {
-        backgroundColor: COLORS.inputBg,
-        fontSize: 15,
-    },
+    welcomeSubtitle: GlobalStyles.subtitle,
     button: {
-        backgroundColor: COLORS.primary,
-        paddingVertical: 16,
-        borderRadius: 12,
-        alignItems: 'center',
-        shadowColor: COLORS.primary,
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 8,
-        elevation: 4,
+        ...GlobalStyles.primaryButton,
         marginBottom: 8,
     },
-    buttonText: {
-        color: COLORS.white,
-        fontSize: 16,
-        fontWeight: '700',
-    },
-    footer: {
-        flexDirection: "row",
-        justifyContent: "center",
-        marginTop: 24,
-    },
-    footerText: {
-        color: COLORS.subText,
-        fontSize: 15,
-    },
-    loginText: {
-        color: COLORS.primary,
-        fontSize: 15,
-        fontWeight: "700",
-    },
+    buttonText: GlobalStyles.primaryButtonText,
+    loginText: GlobalStyles.linkText,
     dropdown: {
         backgroundColor: COLORS.inputBg,
         borderColor: COLORS.border,

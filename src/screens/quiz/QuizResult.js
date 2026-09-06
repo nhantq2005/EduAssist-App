@@ -1,9 +1,10 @@
 import React from 'react';
 import { COLORS } from "../../styles/theme";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { CheckCircle, Clock, Hash, Trophy, ArrowLeft } from 'lucide-react-native';
+import { styles } from "../../styles/QuizResultStyle";
 
 const QuizResult = () => {
     const nav = useNavigation();
@@ -87,7 +88,7 @@ const QuizResult = () => {
 
                 <TouchableOpacity 
                     style={styles.doneButton}
-                    onPress={() => nav.navigate('TabNavigation') /* Assuming there is a Home route, or goBack */}
+                    onPress={() => nav.navigate('TabNavigation')}
                 >
                     <Text style={styles.doneButtonText}>Về trang chủ</Text>
                 </TouchableOpacity>
@@ -95,143 +96,5 @@ const QuizResult = () => {
         </SafeAreaView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: COLORS.background,
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 20,
-        paddingVertical: 16,
-        backgroundColor: COLORS.white,
-        borderBottomWidth: 1,
-        borderBottomColor: COLORS.border,
-    },
-    backButton: {
-        padding: 4,
-    },
-    headerTitle: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: COLORS.title,
-    },
-    centerContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-    },
-    errorText: {
-        fontSize: 16,
-        color: COLORS.error,
-    },
-    content: {
-        padding: 20,
-    },
-    scoreCard: {
-        backgroundColor: COLORS.white,
-        borderRadius: 16,
-        padding: 24,
-        alignItems: 'center',
-        shadowColor: COLORS.shadow,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 15,
-        elevation: 2,
-        marginBottom: 24,
-    },
-    scoreIcon: {
-        marginBottom: 12,
-    },
-    scoreText: {
-        fontSize: 48,
-        fontWeight: 'bold',
-        color: COLORS.title,
-        marginBottom: 4,
-    },
-    scoreLabel: {
-        fontSize: 16,
-        color: COLORS.subText,
-    },
-    statsContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 24,
-    },
-    statCard: {
-        backgroundColor: COLORS.white,
-        borderRadius: 16,
-        padding: 20,
-        alignItems: 'center',
-        width: '48%',
-        shadowColor: COLORS.shadow,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 15,
-        elevation: 2,
-    },
-    statValue: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: COLORS.title,
-        marginTop: 12,
-        marginBottom: 4,
-    },
-    statLabel: {
-        fontSize: 14,
-        color: COLORS.subText,
-    },
-    detailsContainer: {
-        backgroundColor: COLORS.white,
-        borderRadius: 16,
-        padding: 20,
-        marginBottom: 32,
-        shadowColor: COLORS.shadow,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 15,
-        elevation: 2,
-    },
-    detailsTitle: {
-        fontSize: 16,
-        fontWeight: '600',
-        color: COLORS.title,
-        marginBottom: 16,
-    },
-    detailRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 16,
-    },
-    detailTextContainer: {
-        marginLeft: 12,
-        flex: 1,
-    },
-    detailLabel: {
-        fontSize: 14,
-        color: COLORS.subText,
-        marginBottom: 2,
-    },
-    detailValue: {
-        fontSize: 15,
-        fontWeight: '500',
-        color: COLORS.title,
-    },
-    doneButton: {
-        backgroundColor: COLORS.primary,
-        borderRadius: 12,
-        padding: 16,
-        alignItems: 'center',
-    },
-    doneButtonText: {
-        color: COLORS.white,
-        fontSize: 16,
-        fontWeight: '600',
-    }
-});
 
 export default QuizResult;

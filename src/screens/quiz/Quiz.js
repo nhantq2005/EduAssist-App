@@ -135,7 +135,7 @@ const Quiz = () => {
         <SafeAreaView style={styles.container} edges={['top']}>
             <QuizCreateModal visible={isModalVisible && typeQuiz === "TEACHER_CREATED"} onClose={() => setIsModalVisible(false)} nav={nav} />
             <QuizGenerateModal visible={isModalVisible && typeQuiz === "AI_GENERATED"} onClose={() => setIsModalVisible(false)} nav={nav} />
-            {/* DSACH BAI TRAC NGHIEM */}
+
             <FlatList
                 data={quizList}
                 keyExtractor={(item, index) => `${item.id}-${index}`}
@@ -156,7 +156,7 @@ const Quiz = () => {
                     <View style={styles.headerContainer}>
                         <View style={styles.topBar}>
                             <TouchableOpacity onPress={() => { setIsModalVisible(true); setTypeQuiz("TEACHER_CREATED"); }} style={styles.backBtn}>
-                                {/* <Ionicons name="arrow-back" size={24} color={COLORS.text} /> */}
+                    
                                 <Text style={styles.backBtnText}>Tạo trắc nghiệm</Text>
                             </TouchableOpacity>
                             <View style={styles.headerRight}>

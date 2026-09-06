@@ -14,6 +14,7 @@ export const endpoints = {
     saveSubject: '/subjects',
     getSubjects: '/subjects',
     getSubjectById: (id) => `/subjects/${id}`,
+    getSubjectByLecturerId: (lecturerId) => `/users/${lecturerId}/subjects`,
     // QUIZ
     saveQuiz: '/quizzes',
     generateQuiz: '/quizzes/generate',

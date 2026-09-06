@@ -1,12 +1,10 @@
 import { COLORS } from "./theme";
 import { Dimensions, StyleSheet, Platform } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 const { width } = Dimensions.get('window');
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: COLORS.background,
-    },
+    ...GlobalStyles,
     drawerOverlay: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.5)',
@@ -33,9 +31,7 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
     drawerHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        ...GlobalStyles.rowBetween,
         padding: 16,
         borderBottomWidth: 1,
         borderBottomColor: COLORS.iconBg,
@@ -46,38 +42,30 @@ export const styles = StyleSheet.create({
         color: COLORS.title,
     },
     header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        ...GlobalStyles.rowBetween,
         paddingHorizontal: 16,
         paddingVertical: 12,
         borderBottomWidth: 1,
         borderBottomColor: COLORS.iconBg,
     },
     headerTitleContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        ...GlobalStyles.rowCenter,
     },
     menuButton: {
         marginRight: 16,
         padding: 4,
     },
     headerIconWrapper: {
+        ...GlobalStyles.avatarContainer,
         width: 40,
         height: 40,
         borderRadius: 20,
-        backgroundColor: COLORS.avatarBg,
-        justifyContent: 'center',
-        alignItems: 'center',
         marginRight: 12,
     },
     headerTitle: {
         fontSize: 18,
         fontWeight: '800',
         color: COLORS.title,
-    },
-    keyboardView: {
-        flex: 1,
     },
     messageList: {
         padding: 20,
@@ -99,12 +87,10 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
     botAvatar: {
+        ...GlobalStyles.avatarContainer,
         width: 36,
         height: 36,
         borderRadius: 18,
-        backgroundColor: COLORS.avatarBg,
-        justifyContent: 'center',
-        alignItems: 'center',
         marginRight: 12,
         borderWidth: 2,
         borderColor: COLORS.white,

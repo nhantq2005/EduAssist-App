@@ -1,15 +1,11 @@
 import { COLORS } from "./theme";
 import { StyleSheet, Platform } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: COLORS.background,
-    },
+    ...GlobalStyles,
     header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        ...GlobalStyles.rowBetween,
         paddingHorizontal: 20,
         paddingVertical: 16,
         backgroundColor: COLORS.background,
@@ -18,9 +14,8 @@ export const styles = StyleSheet.create({
         padding: 4,
     },
     headerTitle: {
+        ...GlobalStyles.title,
         fontSize: 18,
-        fontWeight: '700',
-        color: COLORS.title,
     },
     progressContainer: {
         paddingHorizontal: 20,
@@ -53,18 +48,14 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
     scrollContent: {
+        ...GlobalStyles.scrollContent,
         paddingHorizontal: 20,
         paddingBottom: 40,
     },
     questionContainer: {
-        backgroundColor: COLORS.white,
+        ...GlobalStyles.card,
         padding: 20,
         borderRadius: 16,
-        shadowColor: COLORS.shadow,
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.05,
-        shadowRadius: 12,
-        elevation: 3,
         marginBottom: 24,
         borderWidth: 1,
         borderColor: COLORS.iconBg,
@@ -76,12 +67,10 @@ export const styles = StyleSheet.create({
         fontWeight: '600',
     },
     optionsContainer: {
-        gap: 12, // React Native supports gap in flex containers
+        gap: 12,
     },
     optionCard: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        ...GlobalStyles.rowBetween,
         backgroundColor: COLORS.white,
         padding: 16,
         borderRadius: 16,
@@ -94,18 +83,15 @@ export const styles = StyleSheet.create({
         elevation: 2,
     },
     optionContentLeft: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        ...GlobalStyles.rowCenter,
         flex: 1,
         paddingRight: 10,
     },
     optionLetterContainer: {
+        ...GlobalStyles.iconContainer,
         width: 32,
         height: 32,
         borderRadius: 16,
-        backgroundColor: COLORS.iconBg,
-        justifyContent: 'center',
-        alignItems: 'center',
         marginRight: 12,
     },
     optionLetterContainerCorrect: {
@@ -168,8 +154,7 @@ export const styles = StyleSheet.create({
         borderColor: '#bfdbfe',
     },
     explanationHeader: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        ...GlobalStyles.rowCenter,
         marginBottom: 12,
     },
     explanationTitle: {
@@ -192,22 +177,13 @@ export const styles = StyleSheet.create({
         borderTopColor: COLORS.border,
     },
     nextButton: {
-        backgroundColor: COLORS.primary,
+        ...GlobalStyles.primaryButton,
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 16,
-        borderRadius: 16,
-        shadowColor: COLORS.primary,
-        shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 4,
     },
     nextButtonText: {
-        color: COLORS.white,
-        fontSize: 16,
-        fontWeight: '700',
+        ...GlobalStyles.primaryButtonText,
         marginRight: 8,
     },
 });

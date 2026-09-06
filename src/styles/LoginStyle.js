@@ -1,13 +1,11 @@
 import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
+  ...GlobalStyles,
   keyboardView: {
-    flex: 1,
+    ...GlobalStyles.keyboardView,
     justifyContent: "center",
     padding: 24,
   },
@@ -15,57 +13,28 @@ export const styles = StyleSheet.create({
     marginBottom: 40,
   },
   appName: {
-    fontSize: 28,
-    fontWeight: "800",
+    ...GlobalStyles.headerTitle,
     color: COLORS.primary,
-    letterSpacing: 0.5,
   },
   welcomeSection: {
     marginBottom: 32,
   },
   welcomeTitle: {
-    fontSize: 24,
-    fontWeight: "700",
-    color: COLORS.title,
+    ...GlobalStyles.title,
     marginBottom: 8,
   },
-  welcomeSubtitle: {
-    fontSize: 15,
-    color: COLORS.subText,
-  },
-  inputSection: {
-    gap: 16,
-  },
-  input: {
-    backgroundColor: COLORS.inputBg,
-    fontSize: 15,
-  },
+  welcomeSubtitle: GlobalStyles.subtitle,
   forgotPassword: {
     alignSelf: "flex-end",
     marginTop: 12,
     marginBottom: 24,
   },
   forgotPasswordText: {
-    color: COLORS.primary,
+    ...GlobalStyles.linkText,
     fontSize: 14,
-    fontWeight: "600",
   },
-  loginButton: {
-    backgroundColor: COLORS.primary,
-    borderRadius: 12,
-    paddingVertical: 16,
-    alignItems: "center",
-    shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  loginButtonText: {
-    color: COLORS.white,
-    fontSize: 16,
-    fontWeight: "700",
-  },
+  loginButton: GlobalStyles.primaryButton,
+  loginButtonText: GlobalStyles.primaryButtonText,
   dividerContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -104,18 +73,5 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "600",
   },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 32,
-  },
-  footerText: {
-    color: COLORS.subText,
-    fontSize: 15,
-  },
-  registerText: {
-    color: COLORS.primary,
-    fontSize: 15,
-    fontWeight: "700",
-  },
+  registerText: GlobalStyles.linkText,
 });

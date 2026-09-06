@@ -42,7 +42,6 @@ const Account = () => {
           <Text style={styles.headerTitle}>Tài khoản</Text>
         </View>
 
-        {/* THONG TIN USER */}
         <View style={styles.profileCard}>
           <View style={styles.avatarContainer}>
             <Text style={styles.avatarText}>A</Text>
@@ -53,7 +52,6 @@ const Account = () => {
           </View>
         </View>
 
-        {/* CAC MENU CHON */}
         {menuItems.map((section, sectionIndex) => (
           <View key={sectionIndex} style={styles.section}>
             <Text style={styles.sectionTitle}>{section.title}</Text>
@@ -82,7 +80,6 @@ const Account = () => {
           </View>
         ))}
 
-        {/* NUT LOGOUT */}
         <TouchableOpacity style={styles.logoutButton} onPress={logout}>
           <LogOut size={20} color={COLORS.error} style={styles.logoutIcon} />
           <Text style={styles.logoutText}>Đăng xuất</Text>

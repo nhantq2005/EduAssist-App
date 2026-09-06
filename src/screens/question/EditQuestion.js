@@ -95,7 +95,7 @@ const EditQuestion = () => {
             const questionsArray = JSON.parse(questionsString);
             const token = await SecureStore.getItemAsync('access_token');
             const res = await authApis(token).post(endpoints['saveQuestion'], questionsArray);
-            if (res.status === 201 || res.status === 200) {
+            if (res.status === 201) {
                 Alert.alert("Thành công", "Câu hỏi đã được lưu vào cơ sở dữ liệu!");
                 console.log("Đã lưu vào cơ sở dữ liệu thành công.");
                 await AsyncStorage.removeItem(`QUIZ_${quizId}`);

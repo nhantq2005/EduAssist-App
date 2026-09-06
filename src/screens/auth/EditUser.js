@@ -49,8 +49,6 @@ const EditUser = () => {
                 text1: 'Thành công',
                 text2: 'Đã cập nhật thông tin thành công!'
             });
-            // Update context if needed
-            // dispatch({ type: 'update', payload: userInfo });
             navigation.goBack();
         }, 1000);
     };

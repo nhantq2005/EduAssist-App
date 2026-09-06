@@ -1,18 +1,11 @@
 import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: COLORS.background,
-    },
-    loadingContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: COLORS.background,
-    },
+    ...GlobalStyles,
     listContent: {
+        ...GlobalStyles.scrollContent,
         paddingHorizontal: 20,
         paddingBottom: 80,
     },
@@ -21,9 +14,7 @@ export const styles = StyleSheet.create({
         paddingBottom: 5,
     },
     topBar: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        ...GlobalStyles.rowBetween,
         marginBottom: 20,
     },
     backBtn: {
@@ -51,24 +42,19 @@ export const styles = StyleSheet.create({
         fontSize: 14,
     },
     title: {
-        fontSize: 28,
-        fontWeight: '800',
-        color: COLORS.title,
+        ...GlobalStyles.headerTitle,
         marginBottom: 12,
         letterSpacing: -0.5,
     },
     lecturerRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        ...GlobalStyles.rowCenter,
         marginBottom: 16,
     },
     avatar: {
+        ...GlobalStyles.avatarContainer,
         width: 28,
         height: 28,
         borderRadius: 14,
-        backgroundColor: COLORS.avatarBg,
-        justifyContent: 'center',
-        alignItems: 'center',
         marginRight: 10,
     },
     lecturerName: {
@@ -77,20 +63,16 @@ export const styles = StyleSheet.create({
         fontWeight: '600',
     },
     description: {
-        fontSize: 15,
-        color: COLORS.subText,
+        ...GlobalStyles.subtitle,
         lineHeight: 24,
         marginBottom: 32,
     },
     sectionHeader: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        ...GlobalStyles.rowCenter,
         marginBottom: 16,
     },
     sectionTitle: {
-        fontSize: 20,
-        fontWeight: '700',
-        color: COLORS.title,
+        ...GlobalStyles.title,
         marginRight: 12,
     },
     documentCount: {

@@ -37,15 +37,15 @@ const ChatSessionDrawer = ({ isOpen, onClose, chatSessions, activeMenuItem, setA
                                 <Drawer.Item
                                     icon="plus"
                                     theme={customTheme}
-                                    style={{ 
-                                        backgroundColor: activeMenuItem === 'new_chat' ? COLORS.avatarBg : COLORS.iconBg, 
-                                        borderRadius: 12, 
-                                        marginBottom: 12, 
-                                        marginHorizontal: 12 
+                                    style={{
+                                        backgroundColor: activeMenuItem === 'new_chat' ? COLORS.avatarBg : COLORS.iconBg,
+                                        borderRadius: 12,
+                                        marginBottom: 12,
+                                        marginHorizontal: 12
                                     }}
                                     label="Cuộc hội thoại mới"
                                     active={activeMenuItem === 'new_chat'}
-                                    onPress={() => { 
+                                    onPress={() => {
                                         onCreate()
                                     }}
                                 />
@@ -59,10 +59,10 @@ const ChatSessionDrawer = ({ isOpen, onClose, chatSessions, activeMenuItem, setA
                                         onPress={() => {
                                             onClick(session.id)
                                         }}
-                                        style={{ 
-                                            marginHorizontal: 12, 
-                                            borderRadius: 12, 
-                                            marginBottom: 4 
+                                        style={{
+                                            marginHorizontal: 12,
+                                            borderRadius: 12,
+                                            marginBottom: 4
                                         }}
                                     />
                                 ))}

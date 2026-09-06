@@ -1,14 +1,12 @@
 import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: COLORS.background,
-    },
+    ...GlobalStyles,
     scrollContent: {
+        ...GlobalStyles.scrollContent,
         padding: 24,
-        flexGrow: 1,
         justifyContent: "center",
     },
     header: {
@@ -44,17 +42,14 @@ export const styles = StyleSheet.create({
         fontSize: 14,
     },
     appName: {
+        ...GlobalStyles.headerTitle,
         fontSize: 24,
-        fontWeight: "800",
         color: COLORS.primary,
-        letterSpacing: 0.5,
     },
     formContainer: {
-        backgroundColor: COLORS.white,
-        borderRadius: 24,
+        ...GlobalStyles.card,
         padding: 20,
-        shadowColor: COLORS.shadow,
-        shadowOffset: { width: 0, height: 4 },
+        borderRadius: 24,
         shadowOpacity: 0.05,
         shadowRadius: 12,
         elevation: 3,
@@ -63,48 +58,32 @@ export const styles = StyleSheet.create({
         marginVertical: 24,
     },
     welcomeTitle: {
+        ...GlobalStyles.title,
         fontSize: 20,
-        fontWeight: '700',
-        color: COLORS.title,
         marginBottom: 8,
     },
     welcomeSubtitle: {
+        ...GlobalStyles.subtitle,
         fontSize: 14,
-        color: COLORS.subText,
     },
     inputSection: {
         gap: 16,
     },
     input: {
-        backgroundColor: COLORS.inputBg,
-        fontSize: 15,
+        ...GlobalStyles.input,
     },
     choiceRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        ...GlobalStyles.rowCenter,
     },
     choiceInput: {
+        ...GlobalStyles.input,
         flex: 1,
         marginLeft: 8,
-        backgroundColor: COLORS.inputBg,
-        fontSize: 15,
     },
     saveButton: {
-        backgroundColor: COLORS.primary,
-        borderRadius: 12,
-        paddingVertical: 16,
-        alignItems: 'center',
-        shadowColor: COLORS.primary,
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 8,
-        elevation: 4,
+        ...GlobalStyles.primaryButton,
         marginTop: 32,
         marginBottom: 16,
     },
-    saveButtonText: {
-        color: COLORS.white,
-        fontSize: 16,
-        fontWeight: '700',
-    }
+    saveButtonText: GlobalStyles.primaryButtonText
 });

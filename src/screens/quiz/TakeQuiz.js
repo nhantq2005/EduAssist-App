@@ -110,7 +110,6 @@ const TakeQuiz = () => {
                 </View>
             ) : (
                 <>
-                    {/* HEADER */}
                     <View style={styles.header}>
                         <TouchableOpacity style={styles.backButton} onPress={() => nav.goBack()}>
                             <ArrowLeft color={COLORS.text} size={24} />
@@ -119,7 +118,6 @@ const TakeQuiz = () => {
                         <View style={{ width: 24 }} />
                     </View>
 
-                    {/* THANH TIEN DO */}
                     <View style={styles.progressContainer}>
                         <View style={styles.progressTextContainer}>
                             <Text style={styles.progressText}>Câu hỏi {currentQuestionIndex + 1} <Text style={styles.progressTotal}>/ {questions.length}</Text></Text>
@@ -134,12 +132,11 @@ const TakeQuiz = () => {
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={styles.scrollContent}
                     >
-                        {/* CAU HOI */}
+
                         <View style={styles.questionContainer}>
                             <Text style={styles.questionText}>{currentQuestion.question}</Text>
                         </View>
 
-                        {/* OPTS */}
                         <View style={styles.optionsContainer}>
                             {currentQuestion.options.map((option, index) => {
                                 let optionStyle = styles.optionCard;
@@ -148,26 +145,22 @@ const TakeQuiz = () => {
 
                                 if (isAnswered) {
                                     if (option.is_correct) {
-                                        // The correct option
                                         optionStyle = [styles.optionCard, styles.optionCorrect];
                                         textStyle = [styles.optionText, styles.optionTextCorrect];
                                         IconComponent = <CheckCircle2 color={COLORS.success} size={20} />;
                                     } else if (index === selectedOption) {
-                                        // The incorrectly selected option
                                         optionStyle = [styles.optionCard, styles.optionWrong];
                                         textStyle = [styles.optionText, styles.optionTextWrong];
                                         IconComponent = <XCircle color={COLORS.error} size={20} />;
                                     } else {
-                                        // Other options
                                         optionStyle = [styles.optionCard, styles.optionDisabled];
                                         textStyle = [styles.optionText, styles.optionTextDisabled];
                                     }
                                 } else if (selectedOption === index) {
-                                    // Being pressed/selected (technically handled above by isAnswered check)
                                     optionStyle = [styles.optionCard, styles.optionSelected];
                                 }
 
-                                const letter = String.fromCharCode(65 + index); // A, B, C, D
+                                const letter = String.fromCharCode(65 + index);
 
                                 return (
                                     <TouchableOpacity
@@ -197,7 +190,6 @@ const TakeQuiz = () => {
                             })}
                         </View>
 
-                        {/* Explanation Card */}
                         {showExplanation && (
                             <View style={styles.explanationContainer}>
                                 <View style={styles.explanationHeader}>

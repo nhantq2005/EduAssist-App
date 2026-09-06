@@ -1,42 +1,31 @@
 import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
+  ...GlobalStyles,
   header: {
     paddingHorizontal: 24,
     paddingTop: 16,
     paddingBottom: 24,
   },
-  headerTitle: {
-    fontSize: 28,
-    fontWeight: "800",
-    color: COLORS.title,
-  },
   profileCard: {
+    ...GlobalStyles.card,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: COLORS.white,
     marginHorizontal: 24,
     padding: 20,
     borderRadius: 24,
-    shadowColor: COLORS.shadow,
-    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 12,
     elevation: 3,
     marginBottom: 32,
   },
   avatarContainer: {
+    ...GlobalStyles.avatarContainer,
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: COLORS.avatarBg,
-    justifyContent: "center",
-    alignItems: "center",
   },
   avatarText: {
     fontSize: 24,
@@ -53,10 +42,7 @@ export const styles = StyleSheet.create({
     color: COLORS.title,
     marginBottom: 4,
   },
-  email: {
-    fontSize: 14,
-    color: COLORS.subText,
-  },
+  email: GlobalStyles.subtitle,
   editButton: {
     backgroundColor: COLORS.avatarBg,
     paddingHorizontal: 16,
@@ -79,15 +65,6 @@ export const styles = StyleSheet.create({
     marginBottom: 12,
     marginLeft: 4,
   },
-  card: {
-    backgroundColor: COLORS.white,
-    borderRadius: 20,
-    shadowColor: COLORS.shadow,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.03,
-    shadowRadius: 8,
-    elevation: 2,
-  },
   menuItem: {
     flexDirection: "row",
     alignItems: "center",
@@ -104,12 +81,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   iconContainer: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: COLORS.iconBg,
-    justifyContent: "center",
-    alignItems: "center",
+    ...GlobalStyles.iconContainer,
     marginRight: 16,
   },
   menuItemText: {

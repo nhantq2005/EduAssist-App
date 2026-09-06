@@ -1,11 +1,9 @@
 import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: COLORS.background,
-    },
+    ...GlobalStyles,
     header: {
         flexDirection: "row",
         alignItems: "center",
@@ -24,6 +22,7 @@ export const styles = StyleSheet.create({
         color: COLORS.text,
     },
     scrollContent: {
+        ...GlobalStyles.scrollContent,
         padding: 24,
     },
     avatarSection: {
@@ -31,12 +30,10 @@ export const styles = StyleSheet.create({
         marginBottom: 32,
     },
     avatarContainer: {
+        ...GlobalStyles.avatarContainer,
         width: 100,
         height: 100,
         borderRadius: 50,
-        backgroundColor: COLORS.avatarBg,
-        justifyContent: "center",
-        alignItems: "center",
         position: "relative",
     },
     avatarText: {
@@ -74,22 +71,15 @@ export const styles = StyleSheet.create({
         marginTop: "auto",
     },
     saveButton: {
-        backgroundColor: COLORS.primary,
+        ...GlobalStyles.primaryButton,
         flexDirection: "row",
         paddingVertical: 14,
-        borderRadius: 12,
         justifyContent: "center",
         alignItems: "center",
-        shadowColor: COLORS.primary,
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 8,
-        elevation: 4,
     },
     saveButtonText: {
-        color: COLORS.white,
-        fontSize: 16,
-        fontWeight: "600",
+        ...GlobalStyles.primaryButtonText,
         marginLeft: 8,
+        fontWeight: "600",
     },
 });
