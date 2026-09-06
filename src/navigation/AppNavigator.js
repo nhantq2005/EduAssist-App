@@ -17,6 +17,8 @@ import DocumentView from '../screens/document/DocumentView';
 import EditQuestion from '../screens/question/EditQuestion';
 import QuizAttempt from '../screens/quiz/QuizAttempt';
 import EditUser from '../screens/auth/EditUser';
+import ListFlashcard from '../screens/flashcard/ListFlashcard';
+import Flashcard from '../screens/flashcard/Flashcard';
 
 
 const Stack = createNativeStackNavigator();
@@ -41,6 +43,8 @@ const AppNavigator = () => {
         <Stack.Screen name="EditQuestion" component={EditQuestion} />
         <Stack.Screen name="QuizAttempt" component={QuizAttempt} />
         <Stack.Screen name="EditUser" component={EditUser} />
+        <Stack.Screen name="ListFlashcard" component={ListFlashcard} />
+        <Stack.Screen name="Flashcard" component={Flashcard} />
       </Stack.Navigator>
     </NavigationContainer>
   );

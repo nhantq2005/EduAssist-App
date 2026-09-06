@@ -1,10 +1,9 @@
+import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F9FAFB',
-  },
+  ...GlobalStyles,
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -12,46 +11,67 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 16,
     paddingBottom: 24,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: COLORS.background,
   },
   headerTextContainer: {
     flex: 1,
   },
   greeting: {
     fontSize: 16,
-    color: '#64748b',
+    color: COLORS.subText,
     fontWeight: '500',
     marginBottom: 4,
   },
   title: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: '#0f172a',
+    ...GlobalStyles.headerTitle,
     letterSpacing: -0.5,
   },
   avatarContainer: {
+    ...GlobalStyles.avatarContainer,
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#e0e7ff',
-    justifyContent: 'center',
-    alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#ffffff',
-    shadowColor: '#4F46E5',
+    borderColor: COLORS.white,
+    shadowColor: COLORS.primary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 4,
+  },
+  searchContainer: {
+    ...GlobalStyles.card,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 20,
+    marginBottom: 20,
+    paddingHorizontal: 16,
+    height: 48,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    shadowColor: COLORS.title,
+    shadowOpacity: 0.04,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 15,
+    color: COLORS.title,
+    paddingVertical: 0,
+  },
+  clearButton: {
+    padding: 4,
   },
   listContent: {
     paddingHorizontal: 20,
     paddingBottom: 80,
   },
   loadingContainer: {
+    ...GlobalStyles.centerContent,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   emptyContainer: {
     alignItems: 'center',
@@ -61,14 +81,14 @@ export const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 18,
-    color: '#334155',
+    color: COLORS.text,
     fontWeight: '600',
     marginTop: 16,
     marginBottom: 8,
   },
   emptySubText: {
     fontSize: 14,
-    color: '#64748b',
+    color: COLORS.subText,
     textAlign: 'center',
     lineHeight: 20,
   },

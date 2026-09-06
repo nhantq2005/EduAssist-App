@@ -3,6 +3,7 @@ import AppNavigator from './src/navigation/AppNavigator';
 import { MyUserProvider } from './src/utils/providers/MyUserProvider';
 import Toast from 'react-native-toast-message';
 import { WS_URL } from './src/utils/Apis';
+import Flashcard from './src/screens/flashcard/Flashcard';
 
 const App = () => {
 
@@ -46,6 +47,7 @@ const App = () => {
     <MyUserProvider>
       <AppNavigator />
       <Toast /> 
+      {/* <Flashcard /> */}
     </MyUserProvider>
   );
 };

@@ -1,13 +1,12 @@
+import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F9FAFB',
-    },
+    ...GlobalStyles,
     scrollContent: {
+        ...GlobalStyles.scrollContent,
         padding: 24,
-        flexGrow: 1,
         justifyContent: "center",
     },
     header: {
@@ -29,31 +28,28 @@ export const styles = StyleSheet.create({
         zIndex: 1,
         paddingHorizontal: 16,
         paddingVertical: 8,
-        backgroundColor: '#4F46E5',
+        backgroundColor: COLORS.primary,
         borderRadius: 12,
-        shadowColor: '#4F46E5',
+        shadowColor: COLORS.primary,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
         elevation: 2,
     },
     headerSaveText: {
-        color: '#FFFFFF',
+        color: COLORS.white,
         fontWeight: '700',
         fontSize: 14,
     },
     appName: {
+        ...GlobalStyles.headerTitle,
         fontSize: 24,
-        fontWeight: "800",
-        color: "#4F46E5",
-        letterSpacing: 0.5,
+        color: COLORS.primary,
     },
     formContainer: {
-        backgroundColor: '#FFFFFF',
-        borderRadius: 24,
+        ...GlobalStyles.card,
         padding: 20,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
+        borderRadius: 24,
         shadowOpacity: 0.05,
         shadowRadius: 12,
         elevation: 3,
@@ -62,48 +58,32 @@ export const styles = StyleSheet.create({
         marginVertical: 24,
     },
     welcomeTitle: {
+        ...GlobalStyles.title,
         fontSize: 20,
-        fontWeight: '700',
-        color: '#111827',
         marginBottom: 8,
     },
     welcomeSubtitle: {
+        ...GlobalStyles.subtitle,
         fontSize: 14,
-        color: '#6B7280',
     },
     inputSection: {
         gap: 16,
     },
     input: {
-        backgroundColor: '#FAFAFA',
-        fontSize: 15,
+        ...GlobalStyles.input,
     },
     choiceRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        ...GlobalStyles.rowCenter,
     },
     choiceInput: {
+        ...GlobalStyles.input,
         flex: 1,
         marginLeft: 8,
-        backgroundColor: '#FAFAFA',
-        fontSize: 15,
     },
     saveButton: {
-        backgroundColor: '#4F46E5',
-        borderRadius: 12,
-        paddingVertical: 16,
-        alignItems: 'center',
-        shadowColor: '#4F46E5',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 8,
-        elevation: 4,
+        ...GlobalStyles.primaryButton,
         marginTop: 32,
         marginBottom: 16,
     },
-    saveButtonText: {
-        color: '#FFFFFF',
-        fontSize: 16,
-        fontWeight: '700',
-    }
+    saveButtonText: GlobalStyles.primaryButtonText
 });

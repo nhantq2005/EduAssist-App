@@ -1,3 +1,4 @@
+import { COLORS } from "../../styles/theme";
 import { CircleArrowLeft, FolderPen, Terminal, TextInitial } from "lucide-react-native";
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
@@ -71,7 +72,7 @@ const EditSubject = () => {
             {/* NUT QUAY LAI */}
             <View>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton} activeOpacity={0.7}>
-                    <CircleArrowLeft size={24} color="#4F46E5" style={styles.backIcon} />
+                    <CircleArrowLeft size={24} color={COLORS.primary} style={styles.backIcon} />
                     <Text style={styles.backButtonText}>Quay lại</Text>
                 </TouchableOpacity>
             </View>
@@ -92,9 +93,9 @@ const EditSubject = () => {
                         style={[styles.input, info.multiline && styles.textArea]}
                         multiline={info.multiline}
                         numberOfLines={info.multiline ? 4 : 1}
-                        left={<TextInput.Icon icon={() => <info.icon size={22} color="#4F46E5" />} />}
-                        outlineColor="#e2e8f0"
-                        activeOutlineColor="#4F46E5"
+                        left={<TextInput.Icon icon={() => <info.icon size={22} color={COLORS.primary} />} />}
+                        outlineColor={COLORS.border}
+                        activeOutlineColor={COLORS.primary}
                     />
                 ))}
             </View>

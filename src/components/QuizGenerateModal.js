@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { COLORS } from "../styles/theme";
 import { Modal, View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform,
     TouchableWithoutFeedback, Keyboard, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -86,7 +87,7 @@ const QuizGenerateModal = ({ visible, onClose, nav }) => {
                             <View style={styles.header}>
                                 <Text style={styles.modalTitle}>Tạo trắc nghiệm bằng AI</Text>
                                 <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                                    <Ionicons name="close" size={24} color="#64748b" />
+                                    <Ionicons name="close" size={24} color={COLORS.subText} />
                                 </TouchableOpacity>
                             </View>
 
@@ -97,7 +98,7 @@ const QuizGenerateModal = ({ visible, onClose, nav }) => {
                                     <TextInput
                                         style={styles.input}
                                         placeholder="Nhập chủ đề (VD: Vòng đời phần mềm...)"
-                                        placeholderTextColor="#94a3b8"
+                                        placeholderTextColor={COLORS.subText}
                                         value={quiz.topic}
                                         onChangeText={(text) => setQuiz({ ...quiz, topic: text })}
                                     />
@@ -119,7 +120,7 @@ const QuizGenerateModal = ({ visible, onClose, nav }) => {
                                     <TextInput
                                         style={styles.input}
                                         placeholder="Nhập số lượng (VD: 10)"
-                                        placeholderTextColor="#94a3b8"
+                                        placeholderTextColor={COLORS.subText}
                                         keyboardType="numeric"
                                         value={String(quiz.num_questions)}
                                         onChangeText={(text) => setQuiz({ ...quiz, num_questions: text })}
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     modalContent: {
-        backgroundColor: '#ffffff',
+        backgroundColor: COLORS.white,
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,
         maxHeight: '90%',
@@ -180,12 +181,12 @@ const styles = StyleSheet.create({
         padding: 24,
         paddingBottom: 16,
         borderBottomWidth: 1,
-        borderBottomColor: '#f1f5f9',
+        borderBottomColor: COLORS.iconBg,
     },
     modalTitle: {
         fontSize: 20,
         fontWeight: '700',
-        color: '#0f172a',
+        color: COLORS.title,
     },
     closeButton: {
         padding: 4,
@@ -201,21 +202,21 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 15,
         fontWeight: '600',
-        color: '#334155',
+        color: COLORS.text,
         marginBottom: 8,
     },
     required: {
-        color: '#ef4444',
+        color: COLORS.error,
     },
     input: {
         backgroundColor: '#f8fafc',
         borderWidth: 1,
-        borderColor: '#e2e8f0',
+        borderColor: COLORS.border,
         borderRadius: 12,
         paddingHorizontal: 16,
         paddingVertical: 14,
         fontSize: 15,
-        color: '#0f172a',
+        color: COLORS.title,
     },
     switchGroup: {
         flexDirection: 'row',
@@ -229,7 +230,7 @@ const styles = StyleSheet.create({
     },
     helperText: {
         fontSize: 13,
-        color: '#64748b',
+        color: COLORS.subText,
         marginTop: 2,
     },
     footer: {
@@ -238,13 +239,13 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         gap: 16,
         borderTopWidth: 1,
-        borderTopColor: '#f1f5f9',
+        borderTopColor: COLORS.iconBg,
     },
     cancelBtn: {
         flex: 1,
         paddingVertical: 14,
         borderRadius: 12,
-        backgroundColor: '#f1f5f9',
+        backgroundColor: COLORS.iconBg,
         alignItems: 'center',
     },
     cancelBtnText: {
@@ -256,14 +257,14 @@ const styles = StyleSheet.create({
         flex: 2,
         paddingVertical: 14,
         borderRadius: 12,
-        backgroundColor: '#4f46e5',
+        backgroundColor: COLORS.primary,
         alignItems: 'center',
     },
     createBtnDisabled: {
         backgroundColor: '#a5b4fc',
     },
     createBtnText: {
-        color: '#ffffff',
+        color: COLORS.white,
         fontSize: 16,
         fontWeight: '600',
     },

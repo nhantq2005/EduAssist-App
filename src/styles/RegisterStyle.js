@@ -1,15 +1,11 @@
+import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F9FAFB',
-    },
-    keyboardView: {
-        flex: 1,
-    },
+    ...GlobalStyles,
     scrollContent: {
-        flexGrow: 1,
+        ...GlobalStyles.scrollContent,
         justifyContent: 'center',
         padding: 24,
     },
@@ -17,73 +13,63 @@ export const styles = StyleSheet.create({
         marginBottom: 32,
     },
     appName: {
-        fontSize: 28,
-        fontWeight: "800",
-        color: "#4F46E5",
-        letterSpacing: 0.5,
+        ...GlobalStyles.headerTitle,
+        color: COLORS.primary,
     },
     welcomeSection: {
         marginBottom: 24,
     },
-    welcomeTitle: {
-        fontSize: 24,
-        fontWeight: '700',
-        color: '#111827',
-        marginBottom: 8,
-    },
-    welcomeSubtitle: {
-        fontSize: 15,
-        color: '#6B7280',
-    },
-    inputSection: {
-        gap: 16,
+    avatarSection: {
+        alignItems: 'center',
         marginBottom: 24,
     },
-    input: {
-        backgroundColor: '#FAFAFA',
-        fontSize: 15,
-    },
-    button: {
-        backgroundColor: '#4F46E5',
-        paddingVertical: 16,
-        borderRadius: 12,
+    avatarContainer: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: COLORS.iconBg,
+        justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: '#4F46E5',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 8,
-        elevation: 4,
+        borderWidth: 2,
+        borderColor: COLORS.border,
+        borderStyle: 'dashed',
+        overflow: 'hidden',
+    },
+    avatarImage: {
+        width: '100%',
+        height: '100%',
+    },
+    avatarPlaceholder: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    avatarText: {
+        fontSize: 12,
+        color: COLORS.subText,
+        marginTop: 4,
+        fontWeight: '500',
+    },
+    welcomeTitle: {
+        ...GlobalStyles.title,
         marginBottom: 8,
     },
-    buttonText: {
-        color: '#FFFFFF',
-        fontSize: 16,
-        fontWeight: '700',
+    welcomeSubtitle: GlobalStyles.subtitle,
+    button: {
+        ...GlobalStyles.primaryButton,
+        marginBottom: 8,
     },
-    footer: {
-        flexDirection: "row",
-        justifyContent: "center",
-        marginTop: 24,
-    },
-    footerText: {
-        color: "#6B7280",
-        fontSize: 15,
-    },
-    loginText: {
-        color: "#4F46E5",
-        fontSize: 15,
-        fontWeight: "700",
-    },
+    buttonText: GlobalStyles.primaryButtonText,
+    loginText: GlobalStyles.linkText,
     dropdown: {
-        backgroundColor: '#FAFAFA',
-        borderColor: '#E5E7EB',
+        backgroundColor: COLORS.inputBg,
+        borderColor: COLORS.border,
         borderWidth: 1,
         borderRadius: 12,
         height: 52,
     },
     dropdownContainer: {
-        backgroundColor: '#FFFFFF',
-        borderColor: '#E5E7EB',
+        backgroundColor: COLORS.white,
+        borderColor: COLORS.border,
         borderRadius: 12,
     }
 });

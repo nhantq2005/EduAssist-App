@@ -1,10 +1,9 @@
+import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#F9FAFB",
-    },
+    ...GlobalStyles,
     backButton: {
         padding: 16,
         paddingHorizontal: 24,
@@ -16,7 +15,7 @@ export const styles = StyleSheet.create({
         marginRight: 8,
     },
     backButtonText: {
-        color: "#4F46E5",
+        color: COLORS.primary,
         fontSize: 16,
         fontWeight: "600",
     },
@@ -26,45 +25,30 @@ export const styles = StyleSheet.create({
         paddingTop: 32,
     },
     headerTitle: {
-        fontSize: 28,
-        fontWeight: "bold",
-        color: "#1e293b",
+        ...GlobalStyles.headerTitle,
         marginBottom: 8,
     },
     subTitle: {
-        fontSize: 15,
-        color: "#64748b",
+        ...GlobalStyles.subtitle,
         marginBottom: 32,
         lineHeight: 22,
     },
     input: {
+        ...GlobalStyles.input,
         marginBottom: 20,
-        backgroundColor: "#ffffff",
+        backgroundColor: COLORS.white,
     },
     textArea: {
         minHeight: 100,
     },
     saveButton: {
-        backgroundColor: "#4F46E5",
-        borderRadius: 12,
-        paddingVertical: 16,
-        alignItems: "center",
+        ...GlobalStyles.primaryButton,
         justifyContent: "center",
         marginTop: 12,
-        shadowColor: "#4F46E5",
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        shadowOpacity: 0.3,
-        shadowRadius: 4.65,
-        elevation: 8,
         marginHorizontal: 24,
     },
     saveButtonText: {
-        color: "#ffffff",
-        fontSize: 16,
-        fontWeight: "bold",
+        ...GlobalStyles.primaryButtonText,
         letterSpacing: 0.5,
     }
 });

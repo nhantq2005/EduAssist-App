@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { COLORS } from "../../styles/theme";
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { User, Settings, Bell, CircleHelp, LogOut, ChevronRight, FolderClock } from "lucide-react-native";
@@ -14,10 +15,10 @@ const Account = () => {
     {
       title: "Cài đặt tài khoản",
       items: [
-        { icon: User, label: "Thông tin cá nhân", route: "Profile" },
+        { icon: User, label: "Chỉnh sửa thông tin", route: "EditUser" },
         { icon: FolderClock, label: "Lịch sử trắc nghiệm", route: "QuizAttempt" },
         { icon: Settings, label: "Đổi mật khẩu", route: "ChangePassword" },
-        { icon: Bell, label: "Thông báo", route: "Notifications" },
+        // { icon: Bell, label: "Thông báo", route: "Notifications" },
 
       ],
     },
@@ -28,6 +29,10 @@ const Account = () => {
       ],
     },
   ];
+
+  useEffect(() => {
+    console.log('User data in Account screen:', user);
+  }, [user]);
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
@@ -41,21 +46,16 @@ const Account = () => {
           <Text style={styles.headerTitle}>Tài khoản</Text>
         </View>
 
-        {/* THONG TIN USER */}
         <View style={styles.profileCard}>
           <View style={styles.avatarContainer}>
             <Text style={styles.avatarText}>A</Text>
           </View>
           <View style={styles.profileInfo}>
-            <Text style={styles.name}>Nguyễn Văn A</Text>
-            <Text style={styles.email}>nguyenvana@gmail.com</Text>
+            <Text style={styles.name}>{user?.name}</Text>
+            <Text style={styles.email}>{user?.email}</Text>
           </View>
-          <TouchableOpacity style={styles.editButton}>
-            <Text style={styles.editButtonText}>Sửa</Text>
-          </TouchableOpacity>
         </View>
 
-        {/* CAC MENU CHON */}
         {menuItems.map((section, sectionIndex) => (
           <View key={sectionIndex} style={styles.section}>
             <Text style={styles.sectionTitle}>{section.title}</Text>
@@ -73,20 +73,19 @@ const Account = () => {
                 >
                   <View style={styles.menuItemLeft}>
                     <View style={styles.iconContainer}>
-                      <item.icon size={20} color="#4F46E5" />
+                      <item.icon size={20} color={COLORS.primary} />
                     </View>
                     <Text style={styles.menuItemText}>{item.label}</Text>
                   </View>
-                  <ChevronRight size={20} color="#9CA3AF" />
+                  <ChevronRight size={20} color={COLORS.subText} />
                 </TouchableOpacity>
               ))}
             </View>
           </View>
         ))}
 
-        {/* NUT LOGOUT */}
         <TouchableOpacity style={styles.logoutButton} onPress={logout}>
-          <LogOut size={20} color="#EF4444" style={styles.logoutIcon} />
+          <LogOut size={20} color={COLORS.error} style={styles.logoutIcon} />
           <Text style={styles.logoutText}>Đăng xuất</Text>
         </TouchableOpacity>
 

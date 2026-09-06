@@ -1,12 +1,11 @@
+import { COLORS } from "./theme";
 import { StyleSheet } from "react-native";
+import { GlobalStyles } from "./GlobalStyles";
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#F9FAFB",
-  },
+  ...GlobalStyles,
   keyboardView: {
-    flex: 1,
+    ...GlobalStyles.keyboardView,
     justifyContent: "center",
     padding: 24,
   },
@@ -14,57 +13,28 @@ export const styles = StyleSheet.create({
     marginBottom: 40,
   },
   appName: {
-    fontSize: 28,
-    fontWeight: "800",
-    color: "#4F46E5",
-    letterSpacing: 0.5,
+    ...GlobalStyles.headerTitle,
+    color: COLORS.primary,
   },
   welcomeSection: {
     marginBottom: 32,
   },
   welcomeTitle: {
-    fontSize: 24,
-    fontWeight: "700",
-    color: "#111827",
+    ...GlobalStyles.title,
     marginBottom: 8,
   },
-  welcomeSubtitle: {
-    fontSize: 15,
-    color: "#6B7280",
-  },
-  inputSection: {
-    gap: 16,
-  },
-  input: {
-    backgroundColor: "#FAFAFA",
-    fontSize: 15,
-  },
+  welcomeSubtitle: GlobalStyles.subtitle,
   forgotPassword: {
     alignSelf: "flex-end",
     marginTop: 12,
     marginBottom: 24,
   },
   forgotPasswordText: {
-    color: "#4F46E5",
+    ...GlobalStyles.linkText,
     fontSize: 14,
-    fontWeight: "600",
   },
-  loginButton: {
-    backgroundColor: "#4F46E5",
-    borderRadius: 12,
-    paddingVertical: 16,
-    alignItems: "center",
-    shadowColor: "#4F46E5",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  loginButtonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "700",
-  },
+  loginButton: GlobalStyles.primaryButton,
+  loginButtonText: GlobalStyles.primaryButtonText,
   dividerContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -73,18 +43,18 @@ export const styles = StyleSheet.create({
   divider: {
     flex: 1,
     height: 1,
-    backgroundColor: "#E5E7EB",
+    backgroundColor: COLORS.border,
   },
   dividerText: {
     marginHorizontal: 12,
-    color: "#6B7280",
+    color: COLORS.subText,
     fontSize: 14,
   },
   googleButton: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.white,
     borderRadius: 12,
     shadowColor: "#acacac",
     shadowOffset: { width: 0, height: 4 },
@@ -99,22 +69,9 @@ export const styles = StyleSheet.create({
     height: 20,
   },
   googleButtonText: {
-    color: "#374151",
+    color: COLORS.text,
     fontSize: 15,
     fontWeight: "600",
   },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 32,
-  },
-  footerText: {
-    color: "#6B7280",
-    fontSize: 15,
-  },
-  registerText: {
-    color: "#4F46E5",
-    fontSize: 15,
-    fontWeight: "700",
-  },
+  registerText: GlobalStyles.linkText,
 });

@@ -1,4 +1,5 @@
 import React from 'react';
+import { COLORS } from "../styles/theme";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Award, CheckCircle2, Calendar } from 'lucide-react-native';
 
@@ -26,21 +27,21 @@ const QuizAttemptItem = ({ quizAttempt, onPress }) => {
                     {quizAttempt.quiz?.title || 'Bài kiểm tra'}
                 </Text>
                 <View style={styles.scoreBadge}>
-                    <Award size={14} color="#4F46E5" />
+                    <Award size={14} color={COLORS.primary} />
                     <Text style={styles.scoreText}>{quizAttempt.total_score}đ</Text>
                 </View>
             </View>
 
             <View style={styles.statsContainer}>
                 <View style={styles.statItem}>
-                    <CheckCircle2 size={16} color="#10B981" />
+                    <CheckCircle2 size={16} color={COLORS.success} />
                     <Text style={styles.statText}>
                         {quizAttempt.correct_count}/{quizAttempt.total_questions} đúng
                     </Text>
                 </View>
 
                 <View style={styles.statItem}>
-                    <Calendar size={16} color="#64748B" />
+                    <Calendar size={16} color={COLORS.subText} />
                     <Text style={styles.statText}>{formattedDate}</Text>
                 </View>
             </View>
@@ -50,17 +51,17 @@ const QuizAttemptItem = ({ quizAttempt, onPress }) => {
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: COLORS.white,
         borderRadius: 16,
         padding: 16,
         marginBottom: 12,
-        shadowColor: '#000',
+        shadowColor: COLORS.shadow,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.05,
         shadowRadius: 8,
         elevation: 2,
         borderWidth: 1,
-        borderColor: '#F1F5F9',
+        borderColor: COLORS.iconBg,
     },
     header: {
         flexDirection: 'row',
@@ -72,13 +73,13 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 16,
         fontWeight: '600',
-        color: '#1E293B',
+        color: COLORS.title,
         marginRight: 12,
     },
     scoreBadge: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#EEF2FF',
+        backgroundColor: COLORS.avatarBg,
         paddingHorizontal: 8,
         paddingVertical: 4,
         borderRadius: 12,
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     scoreText: {
         fontSize: 14,
         fontWeight: '700',
-        color: '#4F46E5',
+        color: COLORS.primary,
     },
     statsContainer: {
         flexDirection: 'row',
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     },
     statText: {
         fontSize: 13,
-        color: '#64748B',
+        color: COLORS.subText,
         fontWeight: '500',
     }
 });

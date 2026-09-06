@@ -1,9 +1,9 @@
 import React from 'react';
+import { COLORS } from "../styles/theme";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 const SubjectItem = ({ subject, iconName, color, onPress }) => {
-  // const color = '#4F46E5'; // You can customize the color based on your needs
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.8} onPress={onPress}>
       <View style={styles.headerRow}>
@@ -41,11 +41,11 @@ export default SubjectItem;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ffffff',
+    backgroundColor: COLORS.white,
     padding: 18,
     borderRadius: 20,
     marginVertical: 10,
-    shadowColor: '#4F46E5',
+    shadowColor: COLORS.primary,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.1,
     shadowRadius: 16,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#111827',
+    color: COLORS.title,
     marginBottom: 6,
   },
   codeBadge: {

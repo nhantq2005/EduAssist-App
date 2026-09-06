@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { COLORS } from "../styles/theme";
+import React, { useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Text, Card, Surface } from 'react-native-paper';
 import * as SecureStore from 'expo-secure-store';
-import { ArrowLeft, CheckCircle2, CircleX, SquarePen } from 'lucide-react-native';
+import { CheckCircle2, CircleX, SquarePen } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { authApis, endpoints } from '../utils/Apis';
 
-
-
-const QuestionItem = ({ item, index, onDeleteSuccess }) => {
+const QuestionItem = ({ item, index, onDeleteSuccess, isAttemptView }) => {
     const nav = useNavigation();
     const [loading, setLoading] = useState(false);
 
@@ -18,10 +17,7 @@ const QuestionItem = ({ item, index, onDeleteSuccess }) => {
                 "Xác nhận xóa",
                 "Bạn có chắc chắn muốn xóa câu hỏi này không?",
                 [
-                    {
-                        text: "Hủy",
-                        style: "cancel"
-                    },
+                    { text: "Hủy", style: "cancel" },
                     {
                         text: "Xóa",
                         style: "destructive",
@@ -66,27 +62,41 @@ const QuestionItem = ({ item, index, onDeleteSuccess }) => {
                 </View>
 
                 <View style={styles.optionsContainer}>
-                    {item.options.map(option => (
-                        <Surface
-                            key={option.id}
-                            style={[
-                                styles.optionSurface,
-                                option.is_correct ? styles.correctOption : styles.incorrectOption
-                            ]}
-                        >
-                            <Text
-                                style={[
-                                    styles.optionText,
-                                    option.is_correct && styles.correctOptionText
-                                ]}
+                    {item.options.map(option => {                                                                                                                   
+                        let surfaceStyle = styles.incorrectOption;
+                        let textStyle = styles.optionText;
+                        let IconComponent = null;
+
+                        if (isAttemptView) {                                                                                                                        
+                            if (option.is_correct) {
+                                surfaceStyle = styles.correctOption;
+                                textStyle = [styles.optionText, styles.correctOptionText];
+                                IconComponent = <CheckCircle2 size={20} color="#16a34a" />;
+                            } else if (option.id === item.userSelectedOptionId) {                                                                                                      
+                                surfaceStyle = styles.wrongOption;
+                                textStyle = [styles.optionText, styles.wrongOptionText];
+                                IconComponent = <CircleX size={20} color="#dc2626" />;
+                            }
+                        } else {                                                                                                      
+                            if (option.is_correct) {
+                                surfaceStyle = styles.correctOption;
+                                textStyle = [styles.optionText, styles.correctOptionText];
+                                IconComponent = <CheckCircle2 size={20} color="#16a34a" />;
+                            }
+                        }
+
+                        return (
+                            <Surface
+                                key={option.id}
+                                style={[styles.optionSurface, surfaceStyle]}
                             >
-                                {option.content}
-                            </Text>
-                            {option.is_correct ? (
-                                <CheckCircle2 size={20} color="#16a34a" />
-                            ) : null}
-                        </Surface>
-                    ))}
+                                <Text style={textStyle}>
+                                    {option.content}
+                                </Text>
+                                {IconComponent}
+                            </Surface>
+                        );
+                    })}
                 </View>
 
                 {item.explanation && (
@@ -95,16 +105,18 @@ const QuestionItem = ({ item, index, onDeleteSuccess }) => {
                         <Text variant="bodySmall" style={styles.explanationText}>{item.explanation}</Text>
                     </View>
                 )}
-                <View style={styles.actionContainer}>
-                    <TouchableOpacity style={styles.actionButtonEdit} onPress={() => nav.navigate('EditQuestion', { questionId: item.id })}>
-                        <SquarePen size={18} color="#2563eb" />
-                        <Text style={styles.actionTextEdit}>Chỉnh sửa</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.actionButtonDelete} onPress={deleteQuestion} disabled={loading}>
-                        <CircleX size={18} color="#ef4444" />
-                        <Text style={styles.actionTextDelete}>Xóa</Text>
-                    </TouchableOpacity>
-                </View>
+                {!isAttemptView && (
+                    <View style={styles.actionContainer}>
+                        <TouchableOpacity style={styles.actionButtonEdit} onPress={() => nav.navigate('EditQuestion', { questionId: item.id })}>
+                            <SquarePen size={18} color="#2563eb" />
+                            <Text style={styles.actionTextEdit}>Chỉnh sửa</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.actionButtonDelete} onPress={deleteQuestion} disabled={loading}>
+                            <CircleX size={18} color={COLORS.error} />
+                            <Text style={styles.actionTextDelete}>Xóa</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
             </Card.Content>
         </Card>
     );
@@ -114,7 +126,7 @@ export default QuestionItem;
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#ffffff',
+        backgroundColor: COLORS.white,
         borderRadius: 16,
         marginBottom: 16,
     },
@@ -127,7 +139,7 @@ const styles = StyleSheet.create({
     questionText: {
         flex: 1,
         fontWeight: '700',
-        color: '#0f172a',
+        color: COLORS.title,
         marginRight: 12,
         lineHeight: 24,
     },
@@ -154,20 +166,30 @@ const styles = StyleSheet.create({
         elevation: 0,
     },
     correctOption: {
-        backgroundColor: '#f0fdf4',
+        backgroundColor: COLORS.successBg,
         borderColor: '#bbf7d0',
     },
     incorrectOption: {
         backgroundColor: '#f8fafc',
-        borderColor: '#e2e8f0',
+        borderColor: COLORS.border,
+    },
+    // Thêm style cho đáp án user chọn sai                                                                                                                                  
+    wrongOption: {
+        backgroundColor: COLORS.errorBg,
+        borderColor: '#fecaca',
     },
     optionText: {
         flex: 1,
-        color: '#334155',
+        color: COLORS.text,
         fontSize: 15,
     },
     correctOptionText: {
         color: '#166534',
+        fontWeight: '600',
+    },
+    // Thêm style text cho đáp án sai                                                                                                                                       
+    wrongOptionText: {
+        color: '#991b1b',
         fontWeight: '600',
     },
     explanationContainer: {
@@ -194,7 +216,7 @@ const styles = StyleSheet.create({
         marginTop: 16,
         paddingTop: 16,
         borderTopWidth: 1,
-        borderTopColor: '#f1f5f9',
+        borderTopColor: COLORS.iconBg,
     },
     actionButtonEdit: {
         flexDirection: 'row',
@@ -210,7 +232,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 8,
         paddingHorizontal: 12,
-        backgroundColor: '#fef2f2',
+        backgroundColor: COLORS.errorBg,
         borderRadius: 8,
         gap: 6,
     },
@@ -220,7 +242,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     actionTextDelete: {
-        color: '#ef4444',
+        color: COLORS.error,
         fontWeight: '600',
         fontSize: 14,
     }

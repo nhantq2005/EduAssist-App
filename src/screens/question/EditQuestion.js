@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { COLORS } from "../../styles/theme";
 import { View, ScrollView, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { Text, TextInput, RadioButton, Provider } from 'react-native-paper';
@@ -94,7 +95,7 @@ const EditQuestion = () => {
             const questionsArray = JSON.parse(questionsString);
             const token = await SecureStore.getItemAsync('access_token');
             const res = await authApis(token).post(endpoints['saveQuestion'], questionsArray);
-            if (res.status === 201 || res.status === 200) {
+            if (res.status === 201) {
                 Alert.alert("Thành công", "Câu hỏi đã được lưu vào cơ sở dữ liệu!");
                 console.log("Đã lưu vào cơ sở dữ liệu thành công.");
                 await AsyncStorage.removeItem(`QUIZ_${quizId}`);
@@ -152,7 +153,7 @@ const EditQuestion = () => {
                         <View style={styles.header}>
                             {nav && (
                                 <TouchableOpacity onPress={() => nav.goBack()} style={styles.backButton}>
-                                    <ChevronLeft size={24} color="#111827" />
+                                    <ChevronLeft size={24} color={COLORS.title} />
                                 </TouchableOpacity>
                             )}
                             <Text style={styles.appName}>
@@ -175,8 +176,8 @@ const EditQuestion = () => {
                                 multiline
                                 numberOfLines={3}
                                 mode="outlined"
-                                outlineColor="#E5E7EB"
-                                activeOutlineColor="#4F46E5"
+                                outlineColor={COLORS.border}
+                                activeOutlineColor={COLORS.primary}
                                 theme={{ roundness: 12 }}
                                 style={styles.input}
                             />
@@ -188,8 +189,8 @@ const EditQuestion = () => {
                                 multiline
                                 numberOfLines={3}
                                 mode="outlined"
-                                outlineColor="#E5E7EB"
-                                activeOutlineColor="#4F46E5"
+                                outlineColor={COLORS.border}
+                                activeOutlineColor={COLORS.primary}
                                 theme={{ roundness: 12 }}
                                 style={styles.input}
                             />
@@ -212,7 +213,7 @@ const EditQuestion = () => {
                                 {question.options.map((choice, index) => (
                                     <View key={choice.id} style={styles.choiceRow}>
                                         <View style={{
-                                            backgroundColor: currentCorrectAnswerId === choice.id ? '#19d16c' : '#E5E7EB',
+                                            backgroundColor: currentCorrectAnswerId === choice.id ? '#19d16c' : COLORS.border,
                                             borderRadius: '50%',
                                             padding: 1,
                                         }}>
@@ -223,8 +224,8 @@ const EditQuestion = () => {
                                             value={choice.content}
                                             onChangeText={(text) => setQuestionChoiceText(choice.id, text)}
                                             mode="outlined"
-                                            outlineColor="#E5E7EB"
-                                            activeOutlineColor="#4F46E5"
+                                            outlineColor={COLORS.border}
+                                            activeOutlineColor={COLORS.primary}
                                             theme={{ roundness: 12 }}
                                             style={styles.choiceInput}
                                         />

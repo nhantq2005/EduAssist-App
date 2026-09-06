@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { COLORS } from "../styles/theme";
 import { View, Platform } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { styles } from "../styles/RegisterStyle";
@@ -10,7 +11,7 @@ const FormDropdown = ({ placeholder, initialItems, value, onChangeValue, zIndex,
         <View style={{ zIndex, ...(Platform.OS === 'ios' ? { zIndex } : {}) }}>
             {Icon && (
                 <View style={{ position: 'absolute', left: 14, top: 16, zIndex: 1, elevation: 1 }}>
-                    <Icon size={20} color="#6B7280" />
+                    <Icon size={20} color={COLORS.subText} />
                 </View>
             )}
             <DropDownPicker
@@ -28,8 +29,8 @@ const FormDropdown = ({ placeholder, initialItems, value, onChangeValue, zIndex,
                     styles.dropdown,
                     Icon && { paddingLeft: 46 }
                 ]}
-                textStyle={{ fontSize: 15, color: '#111827' }}
-                placeholderStyle={{ color: '#6B7280', fontSize: 15 }}
+                textStyle={{ fontSize: 15, color: COLORS.title }}
+                placeholderStyle={{ color: COLORS.subText, fontSize: 15 }}
                 dropDownContainerStyle={styles.dropdownContainer}
                 listMode="SCROLLVIEW"
                 zIndex={zIndex}

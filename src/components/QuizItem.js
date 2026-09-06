@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { COLORS } from "../styles/theme";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { MyUserContext } from '../utils/MyContexts';
@@ -7,9 +8,9 @@ const QuizItem = ({ item, onPress, onDelete, onEdit }) => {
   const [user,] = useContext(MyUserContext);
   const isCompleted = item.score !== undefined && item.score !== null;
   const difficultyMapping = {
-    EASY: { color: '#10b981', text: 'Dễ' },
+    EASY: { color: COLORS.success, text: 'Dễ' },
     MEDIUM: { color: '#f59e0b', text: 'Trung bình' },
-    HARD: { color: '#ef4444', text: 'Khó' },
+    HARD: { color: COLORS.error, text: 'Khó' },
   };
 
   const difficultyLevel = item.difficulty_level?.toUpperCase();
@@ -40,13 +41,13 @@ const QuizItem = ({ item, onPress, onDelete, onEdit }) => {
               <Text style={styles.scoreText}>{item.score} đ</Text>
             </View>
           )}
-          {user.id === item.created_by && (
+          {user?.id === item.created_by && (
             <>
                 <TouchableOpacity onPress={onEdit} style={styles.actionButton} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
                   <Ionicons name="pencil-outline" size={20} color="#3b82f6" />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onDelete} style={styles.actionButton} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-                  <Ionicons name="trash-outline" size={20} color="#ef4444" />
+                  <Ionicons name="trash-outline" size={20} color={COLORS.error} />
                 </TouchableOpacity>
             </>
            )} 
@@ -62,7 +63,7 @@ const QuizItem = ({ item, onPress, onDelete, onEdit }) => {
       <View style={styles.footer}>
         <View style={styles.metaInfo}>
           <View style={styles.iconBox}>
-            <Ionicons name="help-circle-outline" size={16} color="#10b981" />
+            <Ionicons name="help-circle-outline" size={16} color={COLORS.success} />
           </View>
           <Text style={styles.metaText}>Trắc nghiệm</Text>
         </View>
@@ -77,13 +78,13 @@ export default QuizItem;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ffffff',
+    backgroundColor: COLORS.white,
     borderRadius: 20,
     padding: 18,
     marginVertical: 8,
     borderWidth: 1,
-    borderColor: '#f1f5f9',
-    shadowColor: '#4F46E5',
+    borderColor: COLORS.iconBg,
+    shadowColor: COLORS.primary,
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.08,
     shadowRadius: 16,
@@ -157,13 +158,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#0f172a',
+    color: COLORS.title,
     marginBottom: 6,
     lineHeight: 24,
   },
   description: {
     fontSize: 14,
-    color: '#64748b',
+    color: COLORS.subText,
     marginBottom: 16,
     lineHeight: 20,
   },
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderTopWidth: 1,
-    borderTopColor: '#f1f5f9',
+    borderTopColor: COLORS.iconBg,
     paddingTop: 16,
     marginTop: 4,
   },
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 8,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: COLORS.background,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 8,

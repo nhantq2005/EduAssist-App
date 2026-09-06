@@ -1,24 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StatusBar } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { COLORS } from "../../styles/theme";
+import { View, Text, FlatList, ActivityIndicator, StatusBar, Image, TextInput, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Apis, { endpoints } from '../../utils/Apis';
 import SubjectItem from '../../components/SubjectItem';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from '../../styles/HomeStyle';
+import { MyUserContext } from '../../utils/MyContexts';
 
 const Home = () => {
+  const [user,] = useContext(MyUserContext);
   const [subjects, setSubjects] = useState([]);
+  const [name, setName] = useState('');
+  const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
   const nav = useNavigation();
-  const COLOR = ['#4F46E5', '#10b981', '#f59e0b', '#ec4899'];
+  const COLOR = [COLORS.primary, COLORS.success, '#f59e0b', '#ec4899'];
 
   const loadSubjects = async () => {
     try {
       setLoading(true);
-      const res = await Apis.get(endpoints['getSubjects']);
-      setSubjects(res.data);
-      console.log('Danh sách môn học:', res.data);
+      if (user?.role === 'LECTURER') {
+        let url = endpoints['getSubjectByLecturerId'](user.id) + `?limit=100&offset=${offset}`;
+        if (name) {
+          url += `&name=${encodeURIComponent(name)}`;
+        }
+        const res = await Apis.get(url);
+        setSubjects(res.data);
+        console.log('Danh sách môn học:', res.data);
+      } else {
+
+        let url = endpoints['getSubjects'] + `?limit=100&offset=${offset}`;
+        if (name) {
+          url += `&name=${encodeURIComponent(name)}`;
+        }
+        const res = await Apis.get(url);
+        setSubjects(res.data);
+        console.log('Danh sách môn học:', res.data);
+      }
     } catch (error) {
       console.error('Lỗi khi tải danh sách môn học:', error);
     } finally {
@@ -30,23 +50,51 @@ const Home = () => {
     loadSubjects();
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      loadSubjects();
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [name]);
+
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F9FAFB" />
-      
+      <StatusBar barStyle="dark-content" backgroundColor={COLORS.background} />
+
       <View style={styles.headerContainer}>
         <View style={styles.headerTextContainer}>
-          <Text style={styles.greeting}>Xin chào,</Text>
+          <Text style={styles.greeting}>Xin chào, {user?.name || 'Sinh viên'}</Text>
           <Text style={styles.title}>Khóa học của bạn</Text>
         </View>
         <View style={styles.avatarContainer}>
-          <Ionicons name="person" size={24} color="#4F46E5" />
+          {user?.avatar_url ? (
+            <Image source={{ uri: user.avatar_url }} style={styles.avatar} />
+          ) : (
+            <Ionicons name="person" size={24} color={COLORS.primary} />
+          )}
         </View>
+      </View>
+
+      <View style={styles.searchContainer}>
+        <Ionicons name="search-outline" size={20} color={COLORS.subText} style={styles.searchIcon} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Tìm kiếm khóa học..."
+          placeholderTextColor={COLORS.subText}
+          value={name}
+          onChangeText={setName}
+        />
+        {name ? (
+          <TouchableOpacity onPress={() => setName('')} style={styles.clearButton}>
+            <Ionicons name="close-circle" size={18} color={COLORS.subText} />
+          </TouchableOpacity>
+        ) : null}
       </View>
 
       {loading ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#4F46E5" />
+          <ActivityIndicator size="large" color={COLORS.primary} />
         </View>
       ) : (
         < FlatList
@@ -77,5 +125,3 @@ const Home = () => {
 };
 
 export default Home;
-
-

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { COLORS } from "../../styles/theme";
 import { View, Text, TouchableOpacity, ScrollView, StatusBar, Alert, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronRight, CheckCircle2, XCircle, Info, ArrowLeft } from 'lucide-react-native';
@@ -97,7 +98,7 @@ const TakeQuiz = () => {
 
     return (
         <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-            <StatusBar barStyle="dark-content" backgroundColor="#F9FAFB" />
+            <StatusBar barStyle="dark-content" backgroundColor={COLORS.background} />
 
             {isLoading ? (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -109,16 +110,14 @@ const TakeQuiz = () => {
                 </View>
             ) : (
                 <>
-                    {/* HEADER */}
                     <View style={styles.header}>
-                        <TouchableOpacity style={styles.backButton} onPress={() => navigation?.goBack?.()}>
-                            <ArrowLeft color="#334155" size={24} />
+                        <TouchableOpacity style={styles.backButton} onPress={() => nav.goBack()}>
+                            <ArrowLeft color={COLORS.text} size={24} />
                         </TouchableOpacity>
                         <Text style={styles.headerTitle}>Bài Kiểm Tra</Text>
                         <View style={{ width: 24 }} />
                     </View>
 
-                    {/* THANH TIEN DO */}
                     <View style={styles.progressContainer}>
                         <View style={styles.progressTextContainer}>
                             <Text style={styles.progressText}>Câu hỏi {currentQuestionIndex + 1} <Text style={styles.progressTotal}>/ {questions.length}</Text></Text>
@@ -133,12 +132,11 @@ const TakeQuiz = () => {
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={styles.scrollContent}
                     >
-                        {/* CAU HOI */}
+
                         <View style={styles.questionContainer}>
                             <Text style={styles.questionText}>{currentQuestion.question}</Text>
                         </View>
 
-                        {/* OPTS */}
                         <View style={styles.optionsContainer}>
                             {currentQuestion.options.map((option, index) => {
                                 let optionStyle = styles.optionCard;
@@ -147,26 +145,22 @@ const TakeQuiz = () => {
 
                                 if (isAnswered) {
                                     if (option.is_correct) {
-                                        // The correct option
                                         optionStyle = [styles.optionCard, styles.optionCorrect];
                                         textStyle = [styles.optionText, styles.optionTextCorrect];
-                                        IconComponent = <CheckCircle2 color="#10b981" size={20} />;
+                                        IconComponent = <CheckCircle2 color={COLORS.success} size={20} />;
                                     } else if (index === selectedOption) {
-                                        // The incorrectly selected option
                                         optionStyle = [styles.optionCard, styles.optionWrong];
                                         textStyle = [styles.optionText, styles.optionTextWrong];
-                                        IconComponent = <XCircle color="#ef4444" size={20} />;
+                                        IconComponent = <XCircle color={COLORS.error} size={20} />;
                                     } else {
-                                        // Other options
                                         optionStyle = [styles.optionCard, styles.optionDisabled];
                                         textStyle = [styles.optionText, styles.optionTextDisabled];
                                     }
                                 } else if (selectedOption === index) {
-                                    // Being pressed/selected (technically handled above by isAnswered check)
                                     optionStyle = [styles.optionCard, styles.optionSelected];
                                 }
 
-                                const letter = String.fromCharCode(65 + index); // A, B, C, D
+                                const letter = String.fromCharCode(65 + index);
 
                                 return (
                                     <TouchableOpacity
@@ -196,11 +190,10 @@ const TakeQuiz = () => {
                             })}
                         </View>
 
-                        {/* Explanation Card */}
                         {showExplanation && (
                             <View style={styles.explanationContainer}>
                                 <View style={styles.explanationHeader}>
-                                    <Info color="#4F46E5" size={20} />
+                                    <Info color={COLORS.primary} size={20} />
                                     <Text style={styles.explanationTitle}>Giải thích</Text>
                                 </View>
                                 <Text style={styles.explanationText}>
@@ -219,13 +212,13 @@ const TakeQuiz = () => {
                                 disabled={isSubmitting}
                             >
                                 {isSubmitting ? (
-                                    <ActivityIndicator color="#ffffff" size="small" />
+                                    <ActivityIndicator color={COLORS.white} size="small" />
                                 ) : (
                                     <>
                                         <Text style={styles.nextButtonText}>
                                             {currentQuestionIndex < questions.length - 1 ? 'Câu tiếp theo' : 'Hoàn thành'}
                                         </Text>
-                                        <ChevronRight color="#ffffff" size={20} />
+                                        <ChevronRight color={COLORS.white} size={20} />
                                     </>
                                 )}
                             </TouchableOpacity>

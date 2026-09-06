@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { COLORS } from "../../styles/theme";
 import { View, StyleSheet, TouchableOpacity, Alert, Platform, ScrollView, Keyboard } from 'react-native';
 import { Text, TextInput, Button, Surface } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as DocumentPicker from 'expo-document-picker';
 import { FileUp, File as FileIcon, X, ArrowLeft } from 'lucide-react-native';
+import * as SecureStore from 'expo-secure-store';
 
 import { endpoints, authApis } from '../../utils/Apis';
 
@@ -114,7 +116,7 @@ const EditDocument = () => {
             <View>
                 <View style={styles.headerContainer}>
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-                        <ArrowLeft size={24} color="#0f172a" />
+                        <ArrowLeft size={24} color={COLORS.title} />
                     </TouchableOpacity>
                     <Text variant="headlineSmall" style={styles.headerTitle}>Thêm Tài Liệu Mới</Text>
                 </View>
@@ -144,12 +146,12 @@ const EditDocument = () => {
                             </View>
                         </View>
                         <TouchableOpacity onPress={removeFile} style={styles.removeBtn}>
-                            <X size={20} color="#ef4444" />
+                            <X size={20} color={COLORS.error} />
                         </TouchableOpacity>
                     </Surface>
                 ) : (
                     <TouchableOpacity style={styles.uploadArea} onPress={pickDocument}>
-                        <FileUp size={32} color="#94a3b8" />
+                        <FileUp size={32} color={COLORS.subText} />
                         <Text style={styles.uploadText}>Nhấn để chọn file tài liệu</Text>
                         <Text style={styles.uploadSubText}>(PDF, DOC, DOCX, PPT, PPTX)</Text>
                     </TouchableOpacity>
@@ -191,15 +193,15 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontWeight: 'bold',
-        color: '#0f172a',
+        color: COLORS.title,
     },
     input: {
         marginBottom: 16,
-        backgroundColor: '#ffffff'
+        backgroundColor: COLORS.white
     },
     sectionTitle: {
         fontWeight: '600',
-        color: '#334155',
+        color: COLORS.text,
         marginTop: 8,
         marginBottom: 12,
         fontSize: 16,
@@ -212,7 +214,7 @@ const styles = StyleSheet.create({
         padding: 32,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#f1f5f9',
+        backgroundColor: COLORS.iconBg,
         marginBottom: 24,
     },
     uploadText: {
@@ -222,7 +224,7 @@ const styles = StyleSheet.create({
     },
     uploadSubText: {
         marginTop: 4,
-        color: '#94a3b8',
+        color: COLORS.subText,
         fontSize: 12,
     },
     fileCard: {
@@ -230,11 +232,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: 16,
-        backgroundColor: '#ffffff',
+        backgroundColor: COLORS.white,
         borderRadius: 12,
         marginBottom: 24,
         borderWidth: 1,
-        borderColor: '#e2e8f0',
+        borderColor: COLORS.border,
     },
     fileInfo: {
         flexDirection: 'row',
@@ -247,11 +249,11 @@ const styles = StyleSheet.create({
     },
     fileName: {
         fontWeight: '600',
-        color: '#1e293b',
+        color: COLORS.title,
         fontSize: 14,
     },
     fileSize: {
-        color: '#64748b',
+        color: COLORS.subText,
         fontSize: 12,
         marginTop: 2,
     },

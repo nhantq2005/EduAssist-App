@@ -1,17 +1,20 @@
-import { Mail, RectangleEllipsis, Users, UserRound, ArrowLeft } from "lucide-react-native";
+import { COLORS } from "../../styles/theme";
+import { Mail, RectangleEllipsis, Users, UserRound, ArrowLeft, Camera } from "lucide-react-native";
 import { useState } from "react";
-import { TouchableOpacity, View, KeyboardAvoidingView, Platform, ScrollView, Dimensions } from "react-native";
+import { TouchableOpacity, View, KeyboardAvoidingView, Platform, ScrollView, Dimensions, Alert, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Text, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import Apis, { endpoints } from "../../utils/Apis";
 import { styles } from "../../styles/RegisterStyle";
 import FormDropdown from "../../components/FormDropdown";
+import * as ImagePicker from 'expo-image-picker';
 
 
 const Register = () => {
     const navigation = useNavigation();
     const [loading, setLoading] = useState(false);
+    const gender = { "nam": "MALE", "nữ": "FEMALE" };
     const infos = [
         {
             field: "name",
@@ -34,7 +37,7 @@ const Register = () => {
             type: "dropdown",
             options: [
                 { label: "Sinh viên", value: "STUDENT" },
-                { label: "Giảng viên", value: "TEACHER" }
+                { label: "Giảng viên", value: "LECTURER" }
             ]
         },
         {
@@ -65,6 +68,24 @@ const Register = () => {
 
     const [user, setUser] = useState({});
 
+
+    const picker = async () => {
+        const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (granted) {
+            const res = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ['images'],
+                allowsEditing: true,
+                aspect: [1, 1],
+                quality: 1,
+            });
+            if (!res.canceled) {
+                setUser({ ...user, "avatar": res.assets[0] });
+            }
+        } else {
+            Alert.alert("Quyền truy cập bị từ chối!", "Vui lòng cấp quyền truy cập thư viện ảnh để tiếp tục.");
+        }
+    }
+
     const validate = () => {
         for (let info of infos) {
             if (!user[info.field]?.trim() || user[info.field] === "") {
@@ -85,30 +106,39 @@ const Register = () => {
         if (validate()) {
             try {
                 setLoading(true);
-                const payload = { ...user };
-                delete payload.confirmPassword;
+                let form = new FormData();
 
-                payload.role = payload.role || "STUDENT";
-
-                const genderStr = payload.gender?.toLowerCase() || "";
-                if (genderStr === "nam" || genderStr === "male") {
-                    payload.gender = "MALE";
-                } else if (genderStr === "nữ" || genderStr === "female") {
-                    payload.gender = "FEMALE";
-                } else {
-                    payload.gender = "MALE";
+                if (user.avatar) {
+                    form.append("avatar", {
+                        uri: user.avatar.uri,
+                        name: user.avatar.fileName || `avatar_${Date.now()}.jpg`,
+                        type: user.avatar.mimeType || "image/jpeg"
+                    });
                 }
 
-                const res = await Apis.post(endpoints["register"], payload);
+                for (let info of infos) {
+                    if (info.field !== "confirmPassword") {
+                        form.append(info.field, user[info.field]);
+                    }
+                }
+
+                const res = await fetch(Apis.defaults.baseURL + endpoints["register"], {
+                    method: 'POST',
+                    body: form,
+                });
 
                 if (res.status === 201) {
                     alert('Đăng ký thành công!');
                     navigation.navigate("Login");
+                } else {
+                    const errorData = await res.json();
+                    setLoading(false);
+                    alert("Đăng ký thất bại: " + JSON.stringify(errorData));
                 }
 
             } catch (error) {
                 setLoading(false);
-                alert("Đăng ký thất bại. Vui lòng thử lại.");
+                alert("Lỗi kết nối: " + error.message);
             }
         }
     };
@@ -135,6 +165,19 @@ const Register = () => {
                             </Text>
                         </View>
 
+                        <View style={styles.avatarSection}>
+                            <TouchableOpacity onPress={picker} style={styles.avatarContainer}>
+                                {user.avatar ? (
+                                    <Image source={{ uri: user.avatar.uri }} style={styles.avatarImage} />
+                                ) : (
+                                    <View style={styles.avatarPlaceholder}>
+                                        <Camera size={32} color={COLORS.subText} />
+                                        <Text style={styles.avatarText}>Chọn ảnh</Text>
+                                    </View>
+                                )}
+                            </TouchableOpacity>
+                        </View>
+
                         <View style={styles.inputSection}>
                             {infos.map((info, index) => (
                                 info.type === "dropdown" ? (
@@ -154,14 +197,14 @@ const Register = () => {
                                         secureTextEntry={info.secure}
                                         value={user[info.field] || ""}
                                         mode="outlined"
-                                        outlineColor="#E5E7EB"
-                                        activeOutlineColor="#4F46E5"
+                                        outlineColor={COLORS.border}
+                                        activeOutlineColor={COLORS.primary}
                                         style={styles.input}
                                         theme={{ roundness: 12 }}
                                         onChangeText={(text) => {
                                             setUser({ ...user, [info.field]: text });
                                         }}
-                                        left={<TextInput.Icon icon={() => <info.icon size={20} color="#6B7280" />} />}
+                                        left={<TextInput.Icon icon={() => <info.icon size={20} color={COLORS.subText} />} />}
                                     />
                                 )
                             ))}
@@ -190,4 +233,3 @@ const Register = () => {
 };
 
 export default Register;
-

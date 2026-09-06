@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { COLORS } from "../styles/theme";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Trash } from 'lucide-react-native';
@@ -6,7 +7,7 @@ import { MyUserContext } from '../utils/MyContexts';
 
 const DocumentItem = ({ title, size, date, fileType = 'pdf', onPress, onDelete }) => {
   const [user,] = useContext(MyUserContext);
-  const iconColor = {'pdf': '#ef4444', 'doc': '#3b82f6', 'docx': '#3b82f6', 'ppt': '#f59e0b', 'pptx': '#f59e0b'}[fileType.toLowerCase()] || '#8b5cf6';
+  const iconColor = {'pdf': COLORS.error, 'doc': '#3b82f6', 'docx': '#3b82f6', 'ppt': '#f59e0b', 'pptx': '#f59e0b'}[fileType.toLowerCase()] || '#8b5cf6';
   const iconName = {'pdf': 'document-text', 'doc': 'document', 'docx': 'document', 'ppt': 'easel', 'pptx': 'easel'}[fileType.toLowerCase()] || 'document-attach';
 
   return (
@@ -22,9 +23,9 @@ const DocumentItem = ({ title, size, date, fileType = 'pdf', onPress, onDelete }
           <Text style={styles.metaText}>{date}</Text>
         </View>
       </View>
-      {user.role === 'LECTURER' && (
+      {user?.role === 'LECTURER' && (
         <TouchableOpacity style={styles.actionBtn} onPress={onDelete}>
-          <Trash size={20} color="#ef4444" />
+          <Trash size={20} color={COLORS.error} />
         </TouchableOpacity>
       )}
     </TouchableOpacity>
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: COLORS.white,
     padding: 16,
     borderRadius: 16,
     marginVertical: 6,
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1f2937',
+    color: COLORS.text,
     marginBottom: 4,
   },
   metaRow: {

@@ -1,3 +1,4 @@
+import { COLORS } from "../../styles/theme";
 import { CircleUserRound, SquareAsterisk, Mail } from "lucide-react-native";
 import { useContext, useState } from "react";
 import { Text, TouchableOpacity, View, KeyboardAvoidingView, Platform, Image } from "react-native";
@@ -50,9 +51,11 @@ const Login = () => {
           password: info.password
         });
         if (res.status === 200) {
-          const token = res.data.access_token;
-          await SecureStore.setItemAsync('access_token', token);
-          const userRes = await authApis(token).get(endpoints['getCurrentUser']);
+          const accessToken = res.data.access_token;
+          const refreshToken = res.data.refresh_token;
+          await SecureStore.setItemAsync('access_token', accessToken);
+          await SecureStore.setItemAsync('refresh_token', refreshToken);
+          const userRes = await authApis(accessToken).get(endpoints['getCurrentUser']);
           dispatch({ type: 'login', payload: userRes.data });
           nav.reset({
             index: 0,
@@ -92,12 +95,12 @@ const Login = () => {
                 placeholder={item.placeholder}
                 secureTextEntry={item.secure}
                 mode="outlined"
-                outlineColor="#E5E7EB"
-                activeOutlineColor="#4F46E5"
+                outlineColor={COLORS.border}
+                activeOutlineColor={COLORS.primary}
                 style={styles.input}
                 theme={{ roundness: 12 }}
                 onChangeText={(text) => { setInfo({ ...info, [item.field]: text }) }}
-                left={<TextInput.Icon icon={() => <item.icon size={20} color="#6B7280" />} />}
+                left={<TextInput.Icon icon={() => <item.icon size={20} color={COLORS.subText} />} />}
               />
             ))}
           </View>
