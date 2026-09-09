@@ -172,8 +172,7 @@ const styles = StyleSheet.create({
     incorrectOption: {
         backgroundColor: '#f8fafc',
         borderColor: COLORS.border,
-    },
-    // Thêm style cho đáp án user chọn sai                                                                                                                                  
+    },                                                                                                                              
     wrongOption: {
         backgroundColor: COLORS.errorBg,
         borderColor: '#fecaca',
@@ -186,8 +185,7 @@ const styles = StyleSheet.create({
     correctOptionText: {
         color: '#166534',
         fontWeight: '600',
-    },
-    // Thêm style text cho đáp án sai                                                                                                                                       
+    },                                                                                                                                    
     wrongOptionText: {
         color: '#991b1b',
         fontWeight: '600',

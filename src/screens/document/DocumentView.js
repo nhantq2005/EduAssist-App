@@ -29,7 +29,8 @@ const DocumentView = () => {
                 document_id: documentId,
                 title: `Flashcards của ${documentTitle} - ${new Date().toLocaleDateString()}`
             });
-            if (res.status === 201) {
+            if (res.status === 202) {
+                alert("Đang tạo bộ flashcards. Vui lòng chờ trong giây lát...");
                 nav.goBack();
             }
 
