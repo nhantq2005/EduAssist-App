@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../../styles/theme";
-import { View, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity, RefreshControl, StatusBar } from "react-native";
+import { View, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity, RefreshControl, StatusBar, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as SecureStore from 'expo-secure-store';
 import { authApis, endpoints } from "../../utils/Apis";
@@ -8,13 +8,15 @@ import { Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeft, Inbox } from "lucide-react-native";
 import QuizAttemptItem from "../../components/QuizAttemptItem";
+import { BarChart } from "react-native-chart-kit";
 
 const QuizAttempt = () => {
     const [quizAttempts, setQuizAttempts] = useState([]);
+    const [scores, setScores] = useState([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const nav = useNavigation();
-    
+
     const loadQuizAttempts = async () => {
         try {
             const token = await SecureStore.getItemAsync('access_token');
@@ -28,6 +30,41 @@ const QuizAttempt = () => {
         }
     };
 
+    const loadScoresDistribution = async () => {
+        try {
+            const token = await SecureStore.getItemAsync('access_token');
+            const res = await authApis(token).get(endpoints['getScoreDistribution']);
+            setScores(res.data);
+            console.log('Scores:', res.data);
+        } catch (error) {
+            console.error('Error loading quiz stats:', error);
+        }
+    };
+
+    const chartConfig = {
+        backgroundColor: COLORS.white,
+        backgroundGradientFrom: COLORS.white,
+        backgroundGradientTo: COLORS.white,
+        decimalPlaces: 0,
+        color: () => COLORS.primary,
+        labelColor: () => COLORS.text ,
+        barPercentage: 0.5,
+        style: {
+            borderRadius: 16
+        }
+    };
+
+    const hasScores = Array.isArray(scores) && scores.length > 0;
+    
+    const chartData = {
+        labels: hasScores ? scores.map(item => item.label || '') : [''],
+        datasets: [
+            {
+                data: hasScores ? scores.map(item => item.value || 0) : [0]
+            }
+        ]
+    };
+
     const onRefresh = () => {
         setRefreshing(true);
         loadQuizAttempts();
@@ -35,11 +72,12 @@ const QuizAttempt = () => {
 
     useEffect(() => {
         loadQuizAttempts();
+        loadScoresDistribution();
     }, []);
 
     const renderEmptyComponent = () => {
         if (loading) return null;
-        
+
         return (
             <View style={styles.emptyContainer}>
                 <View style={styles.emptyIconContainer}>
@@ -55,8 +93,8 @@ const QuizAttempt = () => {
         <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
             <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />
             <View style={styles.header}>
-                <TouchableOpacity 
-                    style={styles.backButton} 
+                <TouchableOpacity
+                    style={styles.backButton}
                     onPress={() => nav.goBack()}
                     activeOpacity={0.7}
                 >
@@ -71,27 +109,41 @@ const QuizAttempt = () => {
                     <ActivityIndicator size="large" color={COLORS.primary} />
                 </View>
             ) : (
-                <FlatList
-                    data={quizAttempts}
-                    renderItem={({ item }) => (
-                        <QuizAttemptItem 
-                            quizAttempt={item} 
-                            onPress={() => nav.navigate("Question", { attemptId: item.id })} 
+                <>
+                    <View style={{ alignItems: 'center', marginVertical: 10 }}>
+                        <BarChart
+                            data={chartData}
+                            width={Dimensions.get("window").width - 32}
+                            height={240}
+                            chartConfig={chartConfig}
+                            fromZero={true}
+                            showValuesOnTopOfBars={true}
+                            style={{ borderRadius: 16 }}
                         />
-                    )}
-                    keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
-                    contentContainerStyle={styles.listContainer}
-                    showsVerticalScrollIndicator={false}
-                    ListEmptyComponent={renderEmptyComponent}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={refreshing}
-                            onRefresh={onRefresh}
-                            colors={[COLORS.primary]}
-                            tintColor={COLORS.primary}
-                        />
-                    }
-                />
+                    </View>
+
+                    <FlatList
+                        data={quizAttempts}
+                        renderItem={({ item }) => (
+                            <QuizAttemptItem
+                                quizAttempt={item}
+                                onPress={() => nav.navigate("Question", { attemptId: item.id })}
+                            />
+                        )}
+                        keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
+                        contentContainerStyle={styles.listContainer}
+                        showsVerticalScrollIndicator={false}
+                        ListEmptyComponent={renderEmptyComponent}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                                colors={[COLORS.primary]}
+                                tintColor={COLORS.primary}
+                            />
+                        }
+                    />
+                </>
             )}
         </SafeAreaView>
     );
