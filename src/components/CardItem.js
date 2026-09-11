@@ -59,7 +59,6 @@ const CardItem = ({ question, answer }) => {
             {answer || "Chưa có đáp án"}
           </Text>
         </Animated.View>
-
       </View>
     </Pressable>
   );

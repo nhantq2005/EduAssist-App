@@ -2,12 +2,13 @@ import React, { useState, useContext, useEffect } from "react";
 import { COLORS } from "../styles/theme";
 import { Modal, View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform,
     TouchableWithoutFeedback, Keyboard, ScrollView } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { X } from "lucide-react-native";
 import { MyUserContext } from "../utils/MyContexts";
 import * as SecureStore from 'expo-secure-store';
 import Apis, { authApis, endpoints } from "../utils/Apis";
 import SelectButtonGroup from "./SelectButtonGroup";
 import FormDropdown from "./FormDropdown";
+import { useNavigation } from "@react-navigation/native";
 
 const DIFFICULTY_LEVELS = [
     { label: 'Dễ', value: 'EASY' },
@@ -15,7 +16,8 @@ const DIFFICULTY_LEVELS = [
     { label: 'Khó', value: 'HARD' }
 ];
 
-const QuizCreateModal = ({ visible, onClose, nav }) => {
+const QuizCreateModal = ({ visible, onClose }) => {
+    const nav = useNavigation();
     const [user,] = useContext(MyUserContext);
     const isLecturer = user?.role === "LECTURER";
     const initialQuizState = {
@@ -94,16 +96,14 @@ const QuizCreateModal = ({ visible, onClose, nav }) => {
                         style={styles.keyboardView}
                     >
                         <View style={styles.modalContent}>
-                            {/* Header */}
                             <View style={styles.header}>
                                 <Text style={styles.modalTitle}>Tạo trắc nghiệm mới</Text>
                                 <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                                    <Ionicons name="close" size={24} color={COLORS.subText} />
+                                    <X size={24} color={COLORS.subText} />
                                 </TouchableOpacity>
                             </View>
 
                             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-                                {/* Form Fields */}
                                 <View style={styles.formGroup}>
                                     <Text style={styles.label}>Tiêu đề <Text style={styles.required}>*</Text></Text>
                                     <TextInput
@@ -147,8 +147,6 @@ const QuizCreateModal = ({ visible, onClose, nav }) => {
                                     />
                                 </View>
                             </ScrollView>
-
-                            {/* Footer / Actions */}
                             <View style={styles.footer}>
                                 <TouchableOpacity style={styles.cancelBtn} onPress={onClose}>
                                     <Text style={styles.cancelBtnText}>Hủy</Text>

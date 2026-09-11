@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { COLORS } from "../styles/theme";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Sparkles, Pencil, Trash2, HelpCircle, ChevronRight } from 'lucide-react-native';
 import { MyUserContext } from '../utils/MyContexts';
 
 const QuizItem = ({ item, onPress, onDelete, onEdit }) => {
@@ -29,7 +29,7 @@ const QuizItem = ({ item, onPress, onDelete, onEdit }) => {
 
           {item.source_type === 'AI_GENERATED' && (
             <View style={styles.aiBadge}>
-              <Ionicons name="sparkles" size={12} color="#8b5cf6" style={styles.aiIcon} />
+              <Sparkles size={12} color="#8b5cf6" style={styles.aiIcon} />
               <Text style={styles.aiText}>AI Sinh</Text>
             </View>
           )}
@@ -44,10 +44,10 @@ const QuizItem = ({ item, onPress, onDelete, onEdit }) => {
           {user?.id === item.created_by && (
             <>
                 <TouchableOpacity onPress={onEdit} style={styles.actionButton} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-                  <Ionicons name="pencil-outline" size={20} color="#3b82f6" />
+                  <Pencil size={20} color="#3b82f6" />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onDelete} style={styles.actionButton} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-                  <Ionicons name="trash-outline" size={20} color={COLORS.error} />
+                  <Trash2 size={20} color={COLORS.error} />
                 </TouchableOpacity>
             </>
            )} 
@@ -63,12 +63,12 @@ const QuizItem = ({ item, onPress, onDelete, onEdit }) => {
       <View style={styles.footer}>
         <View style={styles.metaInfo}>
           <View style={styles.iconBox}>
-            <Ionicons name="help-circle-outline" size={16} color={COLORS.success} />
+            <HelpCircle size={16} color={COLORS.success} />
           </View>
           <Text style={styles.metaText}>Trắc nghiệm</Text>
         </View>
 
-        <Ionicons name="chevron-forward" size={20} color="#cbd5e1" style={{ marginLeft: 'auto' }} />
+        <ChevronRight size={20} color="#cbd5e1" style={{ marginLeft: 'auto' }} />
       </View>
     </TouchableOpacity>
   );

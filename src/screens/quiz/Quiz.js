@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { COLORS } from "../../styles/theme";
 import { View, Text, FlatList, TouchableOpacity, Alert, TextInput, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
+import { Filter, Search, XCircle, FileEdit } from "lucide-react-native";
 import Apis, { authApis, endpoints } from "../../utils/Apis";
 import QuizItem from "../../components/QuizItem";
 import { styles } from "../../styles/QuizStyle";
@@ -133,8 +133,8 @@ const Quiz = () => {
 
     return (
         <SafeAreaView style={styles.container} edges={['top']}>
-            <QuizCreateModal visible={isModalVisible && typeQuiz === "TEACHER_CREATED"} onClose={() => setIsModalVisible(false)} nav={nav} />
-            <QuizGenerateModal visible={isModalVisible && typeQuiz === "AI_GENERATED"} onClose={() => setIsModalVisible(false)} nav={nav} />
+            <QuizCreateModal visible={isModalVisible && typeQuiz === "TEACHER_CREATED"} onClose={() => setIsModalVisible(false)} />
+            <QuizGenerateModal visible={isModalVisible && typeQuiz === "AI_GENERATED"} onClose={() => setIsModalVisible(false)} />
 
             <FlatList
                 data={quizList}
@@ -161,7 +161,7 @@ const Quiz = () => {
                             </TouchableOpacity>
                             <View style={styles.headerRight}>
                                 <TouchableOpacity style={styles.actionBtn}>
-                                    <Ionicons name="filter" size={22} color="#475569" />
+                                    <Filter size={22} color="#475569" />
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -169,7 +169,7 @@ const Quiz = () => {
                         <Text style={styles.title}>Trắc nghiệm</Text>
 
                         <View style={styles.searchContainer}>
-                            <Ionicons name="search-outline" size={20} color={COLORS.subText} style={styles.searchIcon} />
+                            <Search size={20} color={COLORS.subText} style={styles.searchIcon} />
                             <TextInput
                                 style={styles.searchInput}
                                 placeholder="Tìm kiếm bài trắc nghiệm..."
@@ -179,7 +179,7 @@ const Quiz = () => {
                             />
                             {title ? (
                                 <TouchableOpacity onPress={() => setTitle('')} style={styles.clearButton}>
-                                    <Ionicons name="close-circle" size={18} color={COLORS.subText} />
+                                    <XCircle size={18} color={COLORS.subText} />
                                 </TouchableOpacity>
                             ) : null}
                         </View>
@@ -199,7 +199,7 @@ const Quiz = () => {
                     !loading && (
                         <View style={styles.emptyContainer}>
                             <View style={styles.emptyIconBox}>
-                                <Ionicons name="create-outline" size={48} color={COLORS.subText} />
+                                <FileEdit size={48} color={COLORS.subText} />
                             </View>
                             <Text style={styles.emptyText}>Chưa có bài trắc nghiệm nào.</Text>
                             <Text style={styles.emptySubText}>Các bài quiz bạn tạo hoặc được giao sẽ hiển thị ở đây.</Text>

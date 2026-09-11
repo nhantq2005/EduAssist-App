@@ -41,7 +41,6 @@ const EditUser = () => {
         }
 
         setLoading(true);
-        // Simulate API call
         setTimeout(() => {
             setLoading(false);
             Toast.show({

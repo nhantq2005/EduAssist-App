@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { COLORS } from "../../styles/theme";
 import { View, Text, FlatList, ActivityIndicator, StatusBar, TouchableOpacity, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
+import { User } from "lucide-react-native";
 import Apis, { authApis, endpoints } from "../../utils/Apis";
 import DocumentItem from "../../components/DocumentItem";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -96,7 +96,7 @@ const Subject = () => {
 
                             <View style={styles.lecturerRow}>
                                 <View style={styles.avatar}>
-                                    <Ionicons name="person" size={16} color={COLORS.primary} />
+                                    <User size={16} color={COLORS.primary} />
                                 </View>
                                 <Text style={styles.lecturerName}>GV: {subject.lecturer?.name}</Text>
                             </View>

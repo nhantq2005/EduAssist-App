@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../screens/auth/Login';
@@ -19,20 +19,25 @@ import QuizAttempt from '../screens/quiz/QuizAttempt';
 import EditUser from '../screens/auth/EditUser';
 import ListFlashcard from '../screens/flashcard/ListFlashcard';
 import Flashcard from '../screens/flashcard/Flashcard';
+import { MyUserContext } from '../utils/MyContexts';
 
 
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
+  const [user,]= useContext(MyUserContext);
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="TabNavigation" component={TabNavigation} />
+        {user ? (
+          <Stack.Screen name="TabNavigation" component={TabNavigation} />
+        ) : (
+          <Stack.Screen name="Login" component={Login} />
+        )}
         <Stack.Screen name="TakeQuiz" component={TakeQuiz} />
         <Stack.Screen name="QuizResult" component={QuizResult} />
         <Stack.Screen name="EditQuiz" component={EditQuiz} />
         <Stack.Screen name="EditSubject" component={EditSubject} />
-        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Subject" component={Subject} />

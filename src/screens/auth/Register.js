@@ -214,7 +214,6 @@ const Register = () => {
                             <Text style={styles.buttonText}>Đăng ký ngay</Text>
                         </TouchableOpacity>
 
-
                     </View>
                     <View style={styles.footer}>
                         <Text style={styles.footerText}>

@@ -29,17 +29,18 @@ const DocumentView = () => {
                 document_id: documentId,
                 title: `Flashcards của ${documentTitle} - ${new Date().toLocaleDateString()}`
             });
-            if (res.status === 201) {
+            if (res.status === 202) {
+                alert("Đang tạo bộ flashcards. Vui lòng chờ trong giây lát...");
                 nav.goBack();
             }
 
         } catch (error) {
-            console.error('Error generating flashcard set:', error);
+            console.error('Lỗi khi tạo bộ flashcards:', error);
         }
     };
 
     useEffect(() => {
-        console.log('DocumentView params:', route.params.documentId);
+        console.log('DocumentView:', route.params.documentId);
     }, [route.params]);
 
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { COLORS } from "../styles/theme";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Book, CircleUser, ChevronRight } from 'lucide-react-native';
 
 const SubjectItem = ({ subject, iconName, color, onPress }) => {
   return (
@@ -16,7 +16,7 @@ const SubjectItem = ({ subject, iconName, color, onPress }) => {
           )}
         </View>
         <View style={[styles.iconContainer, { backgroundColor: `${color}15` }]}>
-          <Ionicons name={iconName || 'book'} size={24} color={color} />
+          <Book size={24} color={color} />
         </View>
       </View>
       
@@ -27,11 +27,11 @@ const SubjectItem = ({ subject, iconName, color, onPress }) => {
       <View style={styles.footerRow}>
         {subject.lecturer ? (
           <View style={styles.lecturerContainer}>
-            <Ionicons name="person-circle-outline" size={16} color="#6b7280" />
+            <CircleUser size={16} color="#6b7280" />
             <Text style={styles.lecturerName}>{subject.lecturer.name}</Text>
           </View>
         ) : <View />}
-        <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
+        <ChevronRight size={20} color="#9ca3af" />
       </View>
     </TouchableOpacity>
   );

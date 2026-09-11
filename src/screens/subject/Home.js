@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { COLORS } from "../../styles/theme";
 import { View, Text, FlatList, ActivityIndicator, StatusBar, Image, TextInput, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
+import { User, Search, XCircle, FolderOpen } from 'lucide-react-native';
 import Apis, { endpoints } from '../../utils/Apis';
 import SubjectItem from '../../components/SubjectItem';
 import { useNavigation } from '@react-navigation/native';
@@ -16,7 +16,7 @@ const Home = () => {
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
   const nav = useNavigation();
-  const COLOR = [COLORS.primary, COLORS.success, '#f59e0b', '#ec4899'];
+  const COLOR = ['#2563EB', '#10B981', '#f59e0b', '#ec4899'];
 
   const loadSubjects = async () => {
     try {
@@ -71,13 +71,13 @@ const Home = () => {
           {user?.avatar_url ? (
             <Image source={{ uri: user.avatar_url }} style={styles.avatar} />
           ) : (
-            <Ionicons name="person" size={24} color={COLORS.primary} />
+            <User size={24} color={COLORS.primary} />
           )}
         </View>
       </View>
 
       <View style={styles.searchContainer}>
-        <Ionicons name="search-outline" size={20} color={COLORS.subText} style={styles.searchIcon} />
+        <Search size={20} color={COLORS.subText} style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
           placeholder="Tìm kiếm khóa học..."
@@ -87,7 +87,7 @@ const Home = () => {
         />
         {name ? (
           <TouchableOpacity onPress={() => setName('')} style={styles.clearButton}>
-            <Ionicons name="close-circle" size={18} color={COLORS.subText} />
+            <XCircle size={18} color={COLORS.subText} />
           </TouchableOpacity>
         ) : null}
       </View>
@@ -112,7 +112,7 @@ const Home = () => {
           )}
           ListEmptyComponent={
             <View style={styles.emptyContainer}>
-              <Ionicons name="folder-open-outline" size={64} color="#cbd5e1" />
+              <FolderOpen size={64} color="#cbd5e1" />
               <Text style={styles.emptyText}>Chưa có khóa học nào.</Text>
               <Text style={styles.emptySubText}>Các khóa học bạn tham gia sẽ xuất hiện ở đây.</Text>
             </View>

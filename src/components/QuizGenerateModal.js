@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { COLORS } from "../styles/theme";
 import { Modal, View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform,
-    TouchableWithoutFeedback, Keyboard, ScrollView } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+    TouchableWithoutFeedback, Keyboard, ScrollView, 
+    Alert} from "react-native";
+import { X } from "lucide-react-native";
 import { MyUserContext } from "../utils/MyContexts";
 import * as SecureStore from 'expo-secure-store';
 import Apis, { authApis, endpoints } from "../utils/Apis";
@@ -15,7 +16,7 @@ const DIFFICULTY_LEVELS = [
     { label: 'Khó', value: 'HARD' }
 ];
 
-const QuizGenerateModal = ({ visible, onClose, nav }) => {
+const QuizGenerateModal = ({ visible, onClose }) => {
     const [user,] = useContext(MyUserContext);
     const isLecturer = user?.role === "LECTURER";
     const [loading, setLoading] = useState(false);
@@ -46,8 +47,9 @@ const QuizGenerateModal = ({ visible, onClose, nav }) => {
             setLoading(true);
             const token = await SecureStore.getItemAsync('access_token');
             const res = await authApis(token).post(endpoints['generateQuiz'], quiz);
-            if (res.status === 201) {
-                alert("Tạo bài trắc nghiệm thành công!");
+            if (res.status === 202) {
+                Alert.alert("Thông báo","Đang tạo bài trắc nghiệm. Vui lòng chờ trong giây lát...");
+                onClose();
             }
         } catch (error) {
             console.error("Lỗi khi tạo bài trắc nghiệm:", error);
@@ -83,16 +85,14 @@ const QuizGenerateModal = ({ visible, onClose, nav }) => {
                         style={styles.keyboardView}
                     >
                         <View style={styles.modalContent}>
-                            {/* Header */}
                             <View style={styles.header}>
                                 <Text style={styles.modalTitle}>Tạo trắc nghiệm bằng AI</Text>
                                 <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                                    <Ionicons name="close" size={24} color={COLORS.subText} />
+                                    <X size={24} color={COLORS.subText} />
                                 </TouchableOpacity>
                             </View>
 
                             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-                                {/* Form Fields */}
                                 <View style={styles.formGroup}>
                                     <Text style={styles.label}>Chủ đề <Text style={styles.required}>*</Text></Text>
                                     <TextInput
@@ -136,8 +136,6 @@ const QuizGenerateModal = ({ visible, onClose, nav }) => {
                                     />
                                 </View>
                             </ScrollView>
-
-                            {/* Footer / Actions */}
                             <View style={styles.footer}>
                                 <TouchableOpacity style={styles.cancelBtn} onPress={onClose}>
                                     <Text style={styles.cancelBtnText}>Hủy</Text>

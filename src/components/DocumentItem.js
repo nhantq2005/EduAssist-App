@@ -1,19 +1,19 @@
 import React, { useContext } from 'react';
 import { COLORS } from "../styles/theme";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { FileText, File, MonitorPlay } from 'lucide-react-native';
 import { Trash } from 'lucide-react-native';
 import { MyUserContext } from '../utils/MyContexts';
 
 const DocumentItem = ({ title, size, date, fileType = 'pdf', onPress, onDelete }) => {
   const [user,] = useContext(MyUserContext);
   const iconColor = {'pdf': COLORS.error, 'doc': '#3b82f6', 'docx': '#3b82f6', 'ppt': '#f59e0b', 'pptx': '#f59e0b'}[fileType.toLowerCase()] || '#8b5cf6';
-  const iconName = {'pdf': 'document-text', 'doc': 'document', 'docx': 'document', 'ppt': 'easel', 'pptx': 'easel'}[fileType.toLowerCase()] || 'document-attach';
+  const IconComponent = {'pdf': FileText, 'doc': File, 'docx': File, 'ppt': MonitorPlay, 'pptx': MonitorPlay}[fileType.toLowerCase()] || File;
 
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.7} onPress={onPress}>
       <View style={[styles.iconWrapper, { backgroundColor: `${iconColor}15` }]}>
-        <Ionicons name={iconName} size={28} color={iconColor} />
+        <IconComponent size={28} color={iconColor} />
       </View>
       <View style={styles.content}>
         <Text style={styles.title} numberOfLines={1}>{title}</Text>

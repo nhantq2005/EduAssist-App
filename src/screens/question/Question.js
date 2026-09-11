@@ -26,8 +26,7 @@ const Question = () => {
             setLoading(true);
             const token = await SecureStore.getItemAsync('access_token');
 
-            if (attemptId) {
-                // --- CHẾ ĐỘ XEM KẾT QUẢ BÀI LÀM ---                                                                                                                       
+            if (attemptId) {                                                                                                                      
                 setIsAttemptView(true);
                 const res = await authApis(token).get(endpoints['getQuizAttemptById'](attemptId));
 

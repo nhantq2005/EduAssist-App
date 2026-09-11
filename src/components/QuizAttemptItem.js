@@ -17,7 +17,7 @@ const QuizAttemptItem = ({ quizAttempt, onPress }) => {
             });
         }
     } catch (e) {
-        console.error('Error formatting date:', e);
+        console.error('Loi dinh dang ngay:', e);
     }
 
     return (
