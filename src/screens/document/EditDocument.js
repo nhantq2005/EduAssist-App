@@ -7,7 +7,6 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import * as DocumentPicker from 'expo-document-picker';
 import { FileUp, File as FileIcon, X, ArrowLeft } from 'lucide-react-native';
 import * as SecureStore from 'expo-secure-store';
-
 import { endpoints, authApis } from '../../utils/Apis';
 
 const EditDocument = () => {
@@ -42,6 +41,10 @@ const EditDocument = () => {
 
             if (!result.canceled && result.assets && result.assets.length > 0) {
                 const pickedFile = result.assets[0];
+                if (pickedFile.size > 50 * 1024 * 1024) {
+                    Alert.alert("Lỗi", "Kích thước file vượt quá 50MB. Vui lòng chọn file nhỏ hơn.");
+                    return;
+                }
                 setDocument(prev => ({ ...prev, file: pickedFile }));
             }
         } catch (err) {

@@ -35,12 +35,12 @@ const DocumentView = () => {
             }
 
         } catch (error) {
-            console.error('Error generating flashcard set:', error);
+            console.error('Lỗi khi tạo bộ flashcards:', error);
         }
     };
 
     useEffect(() => {
-        console.log('DocumentView params:', route.params.documentId);
+        console.log('DocumentView:', route.params.documentId);
     }, [route.params]);
 
     return (

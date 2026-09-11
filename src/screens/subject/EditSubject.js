@@ -49,7 +49,6 @@ const EditSubject = () => {
         if (validate()) {
             try {
                 setLoading(true);
-
                 setSubject({ ...subject, lecturer_id: 3 })
 
                 const res = await Apis.post(endpoints["saveSubject"], subject);

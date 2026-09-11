@@ -57,10 +57,6 @@ const Login = () => {
           await SecureStore.setItemAsync('refresh_token', refreshToken);
           const userRes = await authApis(accessToken).get(endpoints['getCurrentUser']);
           dispatch({ type: 'login', payload: userRes.data });
-          nav.reset({
-            index: 0,
-            routes: [{ name: "TabNavigation" }],
-          });
         }
       } catch (error) {
         alert('Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');

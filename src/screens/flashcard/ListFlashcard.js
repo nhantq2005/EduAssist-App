@@ -19,7 +19,7 @@ const ListFlashcard = () => {
             const token = await SecureStore.getItemAsync('access_token');
             const res = await authApis(token).get(endpoints['getFlashcardSets']);
             setFlashcards(res.data);
-            console.log("Flashcards loaded:", res.data);
+            console.log("Flashcards duoc tai:", res.data);
         } catch (error) {
             console.error("Lỗi khi tải dữ liệu flashcard:", error);
         } finally {
@@ -82,6 +82,8 @@ const ListFlashcard = () => {
                     renderItem={({ item }) => ( 
                         <FlashcardItem flashcard={item} onPress={() => {nav.navigate('Flashcard', { flashcardSetId: item.id });}} onDelete={() => deleteFlashcard(item.id)} />
                     )}
+                    onRefresh={loadFlashcards}
+                    refreshing={loading}
                     ListEmptyComponent={
                         <View style={styles.emptyContainer}>
                             <Text style={styles.emptyText}>Bạn chưa có bộ flashcard nào.</Text>

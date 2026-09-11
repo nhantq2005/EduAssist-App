@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { COLORS } from "../styles/theme";
 import { Modal, View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform,
-    TouchableWithoutFeedback, Keyboard, ScrollView } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+    TouchableWithoutFeedback, Keyboard, ScrollView, 
+    Alert} from "react-native";
+import { X } from "lucide-react-native";
 import { MyUserContext } from "../utils/MyContexts";
 import * as SecureStore from 'expo-secure-store';
 import Apis, { authApis, endpoints } from "../utils/Apis";
@@ -47,7 +48,7 @@ const QuizGenerateModal = ({ visible, onClose }) => {
             const token = await SecureStore.getItemAsync('access_token');
             const res = await authApis(token).post(endpoints['generateQuiz'], quiz);
             if (res.status === 202) {
-                alert("Đang tạo bài trắc nghiệm. Vui lòng chờ trong giây lát...");
+                Alert.alert("Thông báo","Đang tạo bài trắc nghiệm. Vui lòng chờ trong giây lát...");
                 onClose();
             }
         } catch (error) {
@@ -87,7 +88,7 @@ const QuizGenerateModal = ({ visible, onClose }) => {
                             <View style={styles.header}>
                                 <Text style={styles.modalTitle}>Tạo trắc nghiệm bằng AI</Text>
                                 <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                                    <Ionicons name="close" size={24} color={COLORS.subText} />
+                                    <X size={24} color={COLORS.subText} />
                                 </TouchableOpacity>
                             </View>
 

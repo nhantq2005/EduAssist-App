@@ -35,8 +35,7 @@ const Account = () => {
   }, [user]);
 
   const logout = () => {
-    dispatch({ type: "LOGOUT" });
-    nav.navigate("Login");
+    dispatch({ type: "logout" });
   };
 
   return (
@@ -63,10 +62,7 @@ const Account = () => {
               {section.items.map((item, index) => (
                 <TouchableOpacity
                   key={index}
-                  style={[
-                    styles.menuItem,
-                    index !== section.items.length - 1 && styles.borderBottom,
-                  ]}
+                  style={[styles.menuItem, index !== section.items.length - 1 && styles.borderBottom]}
                   onPress={() => {
                     nav.navigate(item.route);
                   }}

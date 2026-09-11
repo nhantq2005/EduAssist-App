@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { COLORS } from "../styles/theme";
 import { Modal, View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform,
     TouchableWithoutFeedback, Keyboard, ScrollView } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { X } from "lucide-react-native";
 import { MyUserContext } from "../utils/MyContexts";
 import * as SecureStore from 'expo-secure-store';
 import Apis, { authApis, endpoints } from "../utils/Apis";
@@ -99,7 +99,7 @@ const QuizCreateModal = ({ visible, onClose }) => {
                             <View style={styles.header}>
                                 <Text style={styles.modalTitle}>Tạo trắc nghiệm mới</Text>
                                 <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                                    <Ionicons name="close" size={24} color={COLORS.subText} />
+                                    <X size={24} color={COLORS.subText} />
                                 </TouchableOpacity>
                             </View>
 

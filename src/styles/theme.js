@@ -15,11 +15,10 @@ export const COLORS = {
   errorBg: '#FEF2F2',
   
   surface: '#FFFFFF',
-  inputBg: '#FAFAFA',
   
+  inputBg: '#FAFAFA',
   avatarBg: '#DBEAFE', 
   iconBg: '#F1F5F9',
-  
   shadow: '#000000',
 };
 

@@ -57,11 +57,8 @@ const TakeQuiz = () => {
                 const key = `quiz_answers_${quizId}`;
                 const existingAnswersJson = await AsyncStorage.getItem(key);
                 const answers = existingAnswersJson ? JSON.parse(existingAnswersJson) : [];
-
                 const payload = { answers, time_start: timeStart };
-
                 const res = await authApis(token).post(endpoints['quizAttempt'](quizId), payload);
-
                 if (res.status === 201 || res.status === 200) {
                     await AsyncStorage.removeItem(key);
                     nav.replace('QuizResult', { resultData: res.data });

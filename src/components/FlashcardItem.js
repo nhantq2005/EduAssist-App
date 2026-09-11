@@ -8,7 +8,6 @@ import * as SecureStore from 'expo-secure-store';
 
 const FlashcardItem = ({ flashcard, onPress, onDelete }) => {
     const [user,] = useContext(MyUserContext);
-
  
 
     return (
