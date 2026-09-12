@@ -1,8 +1,8 @@
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
 
-const BASE_URL = 'http://192.168.113.108:8000/api';
-export const WS_URL = 'ws://192.168.113.108:8000/ws/notifications';
+const BASE_URL = 'http://localhost:8000/api';
+export const WS_URL = 'ws://localhost:8000/ws/notifications';
 
 export const endpoints = {
     // AUTH
@@ -40,15 +40,19 @@ export const endpoints = {
     getChatSessions: '/chat-sessions',
     createChatSession: '/chat-sessions',
     // QUIZ_ATTEMPT
-    'quizAttempt': (quizId) => `/quizzes/${quizId}/submit`,
-    'getQuizAttempts': `/quiz-attempts/me`,
-    'getQuizAttemptById': (attemptId) => `/quiz-attempts/${attemptId}`,
+    quizAttempt: (quizId) => `/quizzes/${quizId}/submit`,
+    getQuizAttempts: `/quiz-attempts/me`,
+    getQuizAttemptById: (attemptId) => `/quiz-attempts/${attemptId}`,
     // FLASHCARD
     generateFlashcardSet: '/flashcard-sets/generate',
     updateFlashcardSet: (id) => `/flashcard-sets/${id}`,
     deleteFlashcardSet: (id) => `/flashcard-sets/${id}`,
     getFlashcardSets: '/flashcard-sets',
-    getFlashcard: (id) => `/flashcard-sets/${id}/flashcards`
+    getFlashcard: (id) => `/flashcard-sets/${id}/flashcards`,
+    // STATS
+    getScoreDistribution: '/stats/score-distribution',
+    getAverageScore: '/stats/average-score',
+
 };
 
 export const authApis = (token) => {                                                                                                                                                                                              
