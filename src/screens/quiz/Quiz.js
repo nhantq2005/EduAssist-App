@@ -43,14 +43,7 @@ const Quiz = () => {
             }
             const res = await authApis(token).get(url);
             let newData = res.data || [];
-            if (title && Array.isArray(newData)) {
-                const query = title.toLowerCase();
-                newData = newData.filter(item => 
-                    item.title?.toLowerCase().includes(query) || 
-                    item.description?.toLowerCase().includes(query) ||
-                    item.subject_name?.toLowerCase().includes(query)
-                );
-            }
+
             console.log("Danh sách bài trắc nghiệm:", newData);
 
             if (newData.length < LIMIT) {

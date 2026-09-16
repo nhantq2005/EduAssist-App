@@ -9,50 +9,84 @@ import { useNavigation } from '@react-navigation/native';
 import { styles } from '../../styles/HomeStyle';
 import { MyUserContext } from '../../utils/MyContexts';
 
+const LIMIT = 20;
+
 const Home = () => {
   const [user,] = useContext(MyUserContext);
   const [subjects, setSubjects] = useState([]);
   const [name, setName] = useState('');
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
   const nav = useNavigation();
   const COLOR = ['#2563EB', '#10B981', '#f59e0b', '#ec4899'];
 
-  const loadSubjects = async () => {
-    try {
+  const loadSubjects = async (currentOffset = 0, isRefreshing = false) => {
+    if (isRefreshing) {
       setLoading(true);
-      if (user?.role === 'LECTURER') {
-        let url = endpoints['getSubjectByLecturerId'](user.id) + `?limit=100&offset=${offset}`;
-        if (name) {
-          url += `&name=${encodeURIComponent(name)}`;
-        }
-        const res = await Apis.get(url);
-        setSubjects(res.data);
-        console.log('Danh sách môn học:', res.data);
-      } else {
+    } else if (currentOffset > 0) {
+      setLoadingMore(true);
+    } else {
+      setLoading(true);
+    }
 
-        let url = endpoints['getSubjects'] + `?limit=100&offset=${offset}`;
-        if (name) {
-          url += `&name=${encodeURIComponent(name)}`;
-        }
-        const res = await Apis.get(url);
-        setSubjects(res.data);
-        console.log('Danh sách môn học:', res.data);
+    try {
+      let url = '';
+      if (user?.role === 'LECTURER') {
+        url = endpoints['getSubjectByLecturerId'](user.id) + `?limit=${LIMIT}&offset=${currentOffset}`;
+      } else {
+        url = endpoints['getSubjects'] + `?limit=${LIMIT}&offset=${currentOffset}`;
+      }
+      
+      if (name) {
+        url += `&name=${encodeURIComponent(name)}`;
+      }
+      
+      const res = await Apis.get(url);
+      const newData = res.data || [];
+      
+      if (newData.length < LIMIT) {
+        setHasMore(false);
+      } else {
+        setHasMore(true);
+      }
+
+      if (currentOffset === 0) {
+        setSubjects(newData);
+      } else {
+        setSubjects(prev => [...prev, ...newData]);
       }
     } catch (error) {
       console.error('Lỗi khi tải danh sách môn học:', error);
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
   }
 
+  const handleRefresh = () => {
+    setOffset(0);
+    loadSubjects(0, true);
+  };
+
+  const handleLoadMore = () => {
+    if (!loading && !loadingMore && hasMore) {
+      const nextOffset = offset + LIMIT;
+      setOffset(nextOffset);
+      loadSubjects(nextOffset);
+    }
+  };
+
   useEffect(() => {
-    loadSubjects();
+    setOffset(0);
+    loadSubjects(0, true);
   }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      loadSubjects();
+      setOffset(0);
+      loadSubjects(0, true);
     }, 500);
 
     return () => clearTimeout(timer);
@@ -92,16 +126,27 @@ const Home = () => {
         ) : null}
       </View>
 
-      {loading ? (
+      {loading && subjects.length === 0 ? (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color={COLORS.primary} />
         </View>
       ) : (
-        < FlatList
+        <FlatList
           data={subjects}
           keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={styles.listContent}
           showsVerticalScrollIndicator={false}
+          onEndReached={handleLoadMore}
+          onEndReachedThreshold={0.5}
+          refreshing={loading}
+          onRefresh={handleRefresh}
+          ListFooterComponent={
+            loadingMore ? (
+              <View style={{ paddingVertical: 20, alignItems: 'center' }}>
+                <ActivityIndicator size="small" color={COLORS.primary} />
+              </View>
+            ) : null
+          }
           renderItem={({ item, index }) => (
             <SubjectItem
               subject={item}
